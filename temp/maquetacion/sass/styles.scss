@@ -1,1 +1,29 @@
+// *********************
+// * Patron de colores
+// *********************
+
+// $principal: #A2A;
+
+// *********************
+// * Modificando las variables
+// *********************
+
+// $primary: $principal;
+// $enable-rounded: false;
+// $enable-shadows: true;
+// $enable-gradients: true;
+// $btn-padding-y: 250px;
+// $btn-padding-x: 250px;
+
 @import "../lib/bootstrap/scss/bootstrap.scss";
+
+
+
+// *********************
+// * Reglas personalizadas
+// *********************
+
+
+// .btn-primary {
+//     background-color: green;
+// }
