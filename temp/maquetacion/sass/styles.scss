@@ -2,28 +2,46 @@
 // * Patron de colores
 // *********************
 
-// $principal: #A2A;
+$gradient-background: linear-gradient(90deg, #0F0C29 0%, #302B63 50%, #24243E 100%);
+
+$color-1: #0F0C29;
+$color-2: #0f0c2980; //color 1 - opacity
+$color-3: #302B63;
+$color-4: #2B396B;
+$color-5: #900808;
+
 
 // *********************
 // * Modificando las variables
 // *********************
 
-// $primary: $principal;
-// $enable-rounded: false;
-// $enable-shadows: true;
-// $enable-gradients: true;
-// $btn-padding-y: 250px;
-// $btn-padding-x: 250px;
+@import "../lib/bootstrap/scss/functions";
+@import "../lib/bootstrap/scss/variables";
+@import "../lib/bootstrap/scss/mixins";
+@import "../lib/bootstrap/scss/root";
+
+$custom-colors: (
+  "cta": $color-4
+);
+
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+
+
+$dark: $color-1;
+
 
 @import "../lib/bootstrap/scss/bootstrap.scss";
-
-
 
 // *********************
 // * Reglas personalizadas
 // *********************
 
+body {
+    background-image: $gradient-background
+}
 
-// .btn-primary {
-//     background-color: green;
-// }
+
+.icon {
+    cursor: pointer;
+}

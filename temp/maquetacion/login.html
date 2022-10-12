@@ -9,15 +9,50 @@
     <!-- Bootstrap CSS (Temporally location)-->
     <link type="text/css" rel="stylesheet" href="./css/styles.css">
 
+    <link type="text/css" rel="stylesheet" href="./css/customize__login.css">
+
+    <link rel="icon" href="./icons/main__icon.png">
+
     <title>Login</title>
 
 </head>
 <body>
-    
-    <div class="container">
-        <a href="#" class="btn btn-primary">XD</a>
-    </div>
+    <!-- Return nav -->
+    <header class="container-xxl px-4">
+        <nav class="pt-4">
+            <a href="" class="icon">
+                <img src="./icons/return.svg" alt="Icono de retorno">
+            </a>
+        </nav>
+    </header>
 
+    <!-- Form -->
+    <main class="container text-center text-light align-items-center 
+                col-10 col-sm-8 col-md-6 offset-md-5 col-lg-4 offset-lg-7">
+
+        <form action="" class="text-start d-grid gap-3">
+            <!-- Logo -->
+            <figure class="pb-0">
+                <img src="./img/logo.png" alt="Logotipo de la página" class="d-block mx-auto my-0">
+            </figure>
+
+            <h2 class="h1">Login</h2>
+
+            <div class="">
+                <label for="email-input" class="form-label">Correo electrónico</label>
+                <input type="email" class="form-control" id="email-input" >
+            </div>
+
+            <div class="">
+                <label for="password-input" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="password-input">
+            </div>
+
+            <button type="submit" class="btn btn-cta mt-2">Enviar</button>
+        </form>
+    </main>
+
+    <!-- Bootstrap JS -->
     <script src="./lib/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
