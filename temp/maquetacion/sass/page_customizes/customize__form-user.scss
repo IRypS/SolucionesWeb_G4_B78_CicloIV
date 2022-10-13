@@ -6,7 +6,10 @@ body {
     background-position: center;
     background-attachment: scroll;
     min-height: 100vh;
-    margin-bottom: 3rem;
+}
+
+main {
+    margin-top: 2rem;
 }
 
 .c_body-bg-login {
@@ -40,7 +43,7 @@ body {
 .c_icon {
     position: absolute;
     top: calc(25%);
-    left: 1.15rem;
+    left: 1rem;
     font-size: 2rem;
     width: 2rem;
 }
@@ -58,7 +61,7 @@ body {
 @include media-breakpoint-up(lg) {
 
     .c_logo-form {
-        width: 13rem;
+        width: 9rem;
     }
     
 }
