@@ -1,35 +1,39 @@
-// *********************
-// * Patron de colores
-// *********************
-
-$gradient-background: linear-gradient(90deg, #0F0C29 0%, #302B63 50%, #24243E 100%);
-
-$color-1: #0F0C29;
-$color-2: #0f0c2980; //color 1 - opacity
-$color-3: #302B63;
-$color-4: #2B396B;
-$color-5: #900808;
+// Variables
+@import "./variables.scss";
 
 
-// *********************
-// * Modificando las variables
-// *********************
-
+// Modify Boostrap variables
 @import "../lib/bootstrap/scss/functions";
 @import "../lib/bootstrap/scss/variables";
 @import "../lib/bootstrap/scss/mixins";
 @import "../lib/bootstrap/scss/root";
 
+// Create new colors
 $custom-colors: (
-  "cta": $color-4
+  "cta": $color-3
 );
 
 $theme-colors: map-merge($theme-colors, $custom-colors);
 
 
+// Colors
+$primary:   $color-3;
+$dark:      $color-1;
 
-$dark: $color-1;
+// Inputs
+$input-bg:                      $color-1;
+$input-border-color:            $color-1;
+$input-color:                   $white;
+$input-focus-color:             $white;
+$input-focus-bg:                $color-1;
+$input-focus-border-color:      $color-3;
+$input-placeholder-color:       $white;
 
+// Links
+$link-color:                $white;
+$link-decoration:           underline;
+$link-hover-color:          $gray-500;
+$link-hover-decoration:     none;
 
 @import "../lib/bootstrap/scss/bootstrap.scss";
 
@@ -42,6 +46,7 @@ body {
 }
 
 
-.icon {
-    cursor: pointer;
+form {
+  display: grid;
+  gap: 1rem;
 }
