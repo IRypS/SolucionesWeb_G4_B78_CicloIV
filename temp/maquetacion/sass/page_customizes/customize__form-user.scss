@@ -6,11 +6,17 @@ body {
     background-position: center;
     background-attachment: scroll;
     min-height: 100vh;
+    margin-bottom: 3rem;
 }
 
 .c_body-bg-login {
     background-image:   $gradient-background-opacity, 
                         url('/temp/maquetacion/img/bg_login.jpg'); 
+}
+
+.c_body-bg-sign-up {
+    background-image:   $gradient-background-opacity, 
+                        url('/temp/maquetacion/img/bg_sign_up.jpg'); 
 }
 
 .c_form-return-arrow {

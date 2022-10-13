@@ -3,11 +3,17 @@ body {
   background-position: center;
   background-attachment: scroll;
   min-height: 100vh;
+  margin-bottom: 3rem;
 }
 
 .c_body-bg-login {
   background-image: -webkit-gradient(linear, left top, right top, from(rgba(15, 12, 41, 0.5137254902)), color-stop(50%, rgba(48, 43, 99, 0.4862745098)), to(rgba(36, 36, 62, 0.4941176471))), url("/temp/maquetacion/img/bg_login.jpg");
   background-image: linear-gradient(90deg, rgba(15, 12, 41, 0.5137254902) 0%, rgba(48, 43, 99, 0.4862745098) 50%, rgba(36, 36, 62, 0.4941176471) 100%), url("/temp/maquetacion/img/bg_login.jpg");
+}
+
+.c_body-bg-sign-up {
+  background-image: -webkit-gradient(linear, left top, right top, from(rgba(15, 12, 41, 0.5137254902)), color-stop(50%, rgba(48, 43, 99, 0.4862745098)), to(rgba(36, 36, 62, 0.4941176471))), url("/temp/maquetacion/img/bg_sign_up.jpg");
+  background-image: linear-gradient(90deg, rgba(15, 12, 41, 0.5137254902) 0%, rgba(48, 43, 99, 0.4862745098) 50%, rgba(36, 36, 62, 0.4941176471) 100%), url("/temp/maquetacion/img/bg_sign_up.jpg");
 }
 
 .c_form-return-arrow {
