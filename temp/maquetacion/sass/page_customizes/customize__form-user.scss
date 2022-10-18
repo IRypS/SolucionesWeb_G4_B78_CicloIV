@@ -1,6 +1,8 @@
 // Variables
 @import "../variables.scss";
 
+
+//backgrounds
 body {
     background-size: cover;
     background-position: center;
@@ -22,10 +24,13 @@ main {
                         url('/temp/maquetacion/img/bg_sign_up.jpg'); 
 }
 
+// Return icon
 .c_form-return-arrow {
     width: 40px;
 }
   
+
+// Forms
 .c_form-container {
     min-height: 85vh;
 }

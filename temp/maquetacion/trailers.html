@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS (Temporally location)-->
+    <link type="text/css" rel="stylesheet" href="./css/styles.css">
+
+    <!-- Customize css -->
+    <link type="text/css" rel="stylesheet" href="./css/customize__navbar.css">
+    <link type="text/css" rel="stylesheet" href="./css/customize__trailers.css">
+
+    <!-- Header styles -->
+    <link rel="icon" href="./icons/main__icon.png">
+    <title>Home</title>
+
+</head>
+<body>
+
+    <!-- Nav header -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+            <div class="container-fluid">
+
+                <!-- Hamburguer Menu -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarPage" aria-controls="navbarPage" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Logo -->
+                <a class="navbar-brand" href="#">
+                    <img src="./icons/main__icon.png" alt="">
+                </a>
+
+                <!-- Nav Menu Container  -->
+                <div class="collapse navbar-collapse" id="navbarPage">
+                    <!-- Links -->
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                        <!-- User Profile Button -->
+                        <li class="nav-item dropdown me-lg-2">
+
+                            <!-- Button Dropdown -->
+                            <button class="nav-link dropdown-toggle ms-auto py-1 px-2 btn btn-primary c_btn-user-profile" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+                                <img src="https://i.ytimg.com/vi/fykmLCRzlwc/maxresdefault.jpg" alt="Avatar de perfil de usuario" width="100%">
+                                <span class="d-lg-none ms-2 ms-lg-0 tex-wrap">El ida</span>
+                            </button>
+
+                            <!-- Dropdown Menu  -->
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                              <li><a class="dropdown-item" href="#">Perfil de usuario</a></li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Nav Links -->
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/temp/maquetacion/home.html">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Trailers</a>
+                        </li>
+                    </ul>
+
+                    <!-- Search bar -->
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
+                        <button class="btn btn-primary" type="submit">Buscar</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mt-4 mt-lg-5 overflow-hidden">
+        <div class="row gy-3 gx-5">
+            <!-- Filter -->
+            <aside class="col-lg-3 text-light d-grid">
+
+                <!-- Accordion -->
+                <div class="accordion accordion-flush" id="accordionFlushFilter">
+
+                    <!-- Header Filter -->
+                    <div class="bg-primary">
+                        <p class="h4 p-3 text-center" style="height: 100%;">Filter</p>
+                    </div>
+
+                    <!-- Genre Filter -->
+                    <div class="accordion-item">
+                        <!-- Header -->
+                        <h2 class="accordion-header" id="flush-genres">
+                            <button class="accordion-button collapsed" type="button" 
+                                    data-bs-toggle="collapse" data-bs-target="#flush-collapseGenres" 
+                                    aria-expanded="false" aria-controls="flush-collapseGenres">
+                                Por Género
+                            </button>
+                        </h2>
+                        <!-- Collapse -->
+                        <div id="flush-collapseGenres" class="accordion-collapse collapse" 
+                            aria-labelledby="flush-genres" data-bs-parent="#accordionFlushFilter">
+                            <div class="accordion-body">
+                                <!-- Form Checks -->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" 
+                                            value="" id="checkAction">
+                                    <label class="form-check-label" for="checkAction">
+                                        Action
+                                    </label>
+                                </div>
+                                <!-- Form Checks -->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" 
+                                            value="" id="checkAdventure">
+                                    <label class="form-check-label" for="checkAdventure">
+                                        Adventure
+                                    </label>
+                                </div>
+                                <!-- Form Checks -->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" 
+                                            value="" id="checkAnimation">
+                                    <label class="form-check-label" for="checkAnimation">
+                                        Animation
+                                    </label>
+                                </div>
+                                <!-- Form Checks -->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" 
+                                            value="" id="checkComedy">
+                                    <label class="form-check-label" for="checkComedy">
+                                        Comedy
+                                    </label>
+                                </div>
+                                <!-- Form Checks -->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" 
+                                            value="" id="checkDrama">
+                                    <label class="form-check-label" for="checkDrama">
+                                        Drama
+                                    </label>
+                                </div>
+                                <!-- Form Checks -->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" 
+                                            value="" id="checkRomance">
+                                    <label class="form-check-label" for="checkRomance">
+                                        Romance
+                                    </label>
+                                </div>
+                                <!-- Form Checks -->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" 
+                                            value="" id="checkThriller">
+                                    <label class="form-check-label" for="checkThriller">
+                                        Thriller
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Country Filter -->
+                    <div class="accordion-item">
+                        <!-- Header -->
+                        <h2 class="accordion-header" id="flush-country">
+                            <button class="accordion-button collapsed" type="button" 
+                                    data-bs-toggle="collapse" data-bs-target="#flush-collapseCountries" 
+                                    aria-expanded="false" aria-controls="flush-collapseCountries">
+                                Por País
+                            </button>
+                        </h2>
+                        <!-- Collapse -->
+                        <div id="flush-collapseCountries" class="accordion-collapse collapse" 
+                            aria-labelledby="flush-country" data-bs-parent="#accordionFlushFilter">
+                            <div class="accordion-body">
+                                <!-- Form Checks -->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" 
+                                            value="" id="checkChina">
+                                    <label class="form-check-label" for="checkChina">
+                                        China
+                                    </label>
+                                </div>
+                                <!-- Form Checks -->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" 
+                                            value="" id="checkJapan">
+                                    <label class="form-check-label" for="checkJapan">
+                                        Japan
+                                    </label>
+                                </div>
+                                <!-- Form Checks -->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" 
+                                            value="" id="checkPeru">
+                                    <label class="form-check-label" for="checkPeru">
+                                        Peru
+                                    </label>
+                                </div>
+                                <!-- Form Checks -->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" 
+                                            value="" id="checkSpain">
+                                    <label class="form-check-label" for="checkSpain">
+                                        Spain
+                                    </label>
+                                </div>
+                                <!-- Form Checks -->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" 
+                                            value="" id="checkUSA">
+                                    <label class="form-check-label" for="checkUSA">
+                                        USA
+                                    </label>
+                                </div>
+                                
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Trailers -->
+            <div class="col-lg-9">
+                <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 row-cols-xxl-5">
+                    <div class="col px-3 py-1 c_trailer-preview-card">
+                        <a href="#">
+                            <img src="https://img.youtube.com/vi/5qs37JyMJrU/0.jpg" alt="" class="w-100">
+                            <p class="link text-truncate mt-1">Titulo de trailer</p>
+                        </a>
+                    </div>
+                    <div class="col px-3 py-1 c_trailer-preview-card">
+                        <a href="#">
+                            <img src="https://img.youtube.com/vi/5qs37JyMJrU/0.jpg" alt="" class="w-100">
+                            <p class="link text-truncate mt-1">Titulo de trailer</p>
+                        </a>
+                    </div>
+                    <div class="col px-3 py-1 c_trailer-preview-card">
+                        <a href="#">
+                            <img src="https://img.youtube.com/vi/5qs37JyMJrU/0.jpg" alt="" class="w-100">
+                            <p class="link text-truncate mt-1">Titulo de trailer</p>
+                        </a>
+                    </div>
+                    <div class="col px-3 py-1 c_trailer-preview-card">
+                        <a href="#">
+                            <img src="https://img.youtube.com/vi/5qs37JyMJrU/0.jpg" alt="" class="w-100">
+                            <p class="link text-truncate mt-1">Titulo de trailer</p>
+                        </a>
+                    </div>
+                    <div class="col px-3 py-1 c_trailer-preview-card">
+                        <a href="#">
+                            <img src="https://img.youtube.com/vi/5qs37JyMJrU/0.jpg" alt="" class="w-100">
+                            <p class="link text-truncate mt-1">Titulo de trailer</p>
+                        </a>
+                    </div>
+                    <div class="col px-3 py-1 c_trailer-preview-card">
+                        <a href="#">
+                            <img src="https://img.youtube.com/vi/5qs37JyMJrU/0.jpg" alt="" class="w-100">
+                            <p class="link text-truncate mt-1">Titulo de trailer</p>
+                        </a>
+                    </div>
+                    <div class="col px-3 py-1 c_trailer-preview-card">
+                        <a href="#">
+                            <img src="https://img.youtube.com/vi/5qs37JyMJrU/0.jpg" alt="" class="w-100">
+                            <p class="link text-truncate mt-1">Titulo de trailer</p>
+                        </a>
+                    </div>
+                    <div class="col px-3 py-1 c_trailer-preview-card">
+                        <a href="#">
+                            <img src="https://img.youtube.com/vi/5qs37JyMJrU/0.jpg" alt="" class="w-100">
+                            <p class="link text-truncate mt-1">Titulo de trailer</p>
+                        </a>
+                    </div>
+                    <div class="col px-3 py-1 c_trailer-preview-card">
+                        <a href="#">
+                            <img src="https://img.youtube.com/vi/5qs37JyMJrU/0.jpg" alt="" class="w-100">
+                            <p class="link text-truncate mt-1">Titulo de trailer</p>
+                        </a>
+                    </div>
+                    <div class="col px-3 py-1 c_trailer-preview-card">
+                        <a href="#">
+                            <img src="https://img.youtube.com/vi/5qs37JyMJrU/0.jpg" alt="" class="w-100">
+                            <p class="link text-truncate mt-1">Titulo de trailer</p>
+                        </a>
+                    </div>
+
+                    <!-- <div class="col bg-dark">Column</div>
+                    <div class="col bg-dark">Column</div>
+                    <div class="col bg-dark">Column</div> -->
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="./lib/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
