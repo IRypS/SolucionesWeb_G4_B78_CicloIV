@@ -66,3 +66,7 @@ $accordion-button-active-icon:  url("data:image/svg+xml,<svg xmlns='http://www.w
 body {
     background-image: $gradient-background
 }
+
+.form-check {
+  user-select: none; 
+}
