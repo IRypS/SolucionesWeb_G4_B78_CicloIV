@@ -1,62 +1,62 @@
-// // Variables
-// @import "../variables.scss";
+// Variables
+@import "../variables.scss";
 
-// .form-check {
-//     user-select: none; 
-// }
+.form-check {
+    user-select: none; 
+}
 
-// .c_trailer-preview-card img{
-//     max-height: 65px;
+.c_trailer-preview-card img{
+    max-height: 65px;
 
-//     object-fit: cover;
-// }
+    object-fit: cover;
+}
 
-// a {
-//     text-decoration: none;
-// }
-
-
-// @import "../../lib/bootstrap/scss/functions";
-// @import "../../lib/bootstrap/scss/variables";
-// @import "../../lib/bootstrap/scss/mixins";
+a {
+    text-decoration: none;
+}
 
 
-// @include media-breakpoint-up(sm) {
+@import "../../lib/bootstrap/scss/functions";
+@import "../../lib/bootstrap/scss/variables";
+@import "../../lib/bootstrap/scss/mixins";
 
-//     .c_trailer-preview-card img{
-//         max-height: 80px;
-//     }
+
+@include media-breakpoint-up(sm) {
+
+    .c_trailer-preview-card img{
+        max-height: 80px;
+    }
     
-// }
+}
 
-// @include media-breakpoint-up(md) {
+@include media-breakpoint-up(md) {
 
-//     .c_trailer-preview-card img{
-//         max-height: 100px;
-//     }
+    .c_trailer-preview-card img{
+        max-height: 100px;
+    }
     
-// }
+}
 
-// @include media-breakpoint-up(lg) {
+@include media-breakpoint-up(lg) {
 
-//     .c_trailer-preview-card img{
-//         max-height: 80px;
-//     }
+    .c_trailer-preview-card img{
+        max-height: 80px;
+    }
     
-// }
+}
 
-// @include media-breakpoint-up(xl) {
+@include media-breakpoint-up(xl) {
 
-//     .c_trailer-preview-card img{
-//         max-height: 100px;
-//     }
+    .c_trailer-preview-card img{
+        max-height: 100px;
+    }
     
-// }
+}
 
-// @include media-breakpoint-up(xxl) {
+@include media-breakpoint-up(xxl) {
 
-//     .c_trailer-preview-card img{
-//         max-height: 90px;
-//     }
+    .c_trailer-preview-card img{
+        max-height: 90px;
+    }
     
-// }
+}
