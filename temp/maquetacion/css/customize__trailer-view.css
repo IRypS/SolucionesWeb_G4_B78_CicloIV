@@ -1,0 +1,8 @@
+.c_link-video-container a {
+  text-decoration: none;
+}
+
+.c_link-video-container a img {
+  -o-object-fit: cover;
+     object-fit: cover;
+}/*# sourceMappingURL=customize__trailer-view.css.map */

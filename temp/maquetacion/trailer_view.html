@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS (Temporally location)-->
+    <link type="text/css" rel="stylesheet" href="./css/styles.css">
+
+    <!-- Customize css -->
+    <link type="text/css" rel="stylesheet" href="./css/customize__navbar.css">
+    <link type="text/css" rel="stylesheet" href="./css/customize__trailer-view.css">
+
+    <!-- Header styles -->
+    <link rel="icon" href="./icons/main__icon.png">
+    <title>Home</title>
+
+</head>
+<body>
+
+    <!-- Nav header -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+            <div class="container-fluid">
+
+                <!-- Hamburguer Menu -->
+                <button class="navbar-toggler" type="button" 
+                        data-bs-toggle="collapse" data-bs-target="#navbarPage" 
+                        aria-controls="navbarPage" aria-expanded="false" 
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Logo -->
+                <a class="navbar-brand" href="#">
+                    <img src="./icons/main__icon.png" alt="">
+                </a>
+
+                <!-- Nav Menu Container  -->
+                <div class="collapse navbar-collapse" id="navbarPage">
+                    <!-- Links -->
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                        <!-- User Profile Button -->
+                        <li class="nav-item dropdown me-lg-2">
+
+                            <!-- Button Dropdown -->
+                            <button class="nav-link dropdown-toggle ms-auto py-1 px-2 btn btn-primary c_btn-user-profile" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+                                <img src="https://i.ytimg.com/vi/fykmLCRzlwc/maxresdefault.jpg" alt="Avatar de perfil de usuario" width="100%">
+                                <span class="d-lg-none ms-2 ms-lg-0 tex-wrap">El ida</span>
+                            </button>
+
+                            <!-- Dropdown Menu  -->
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                              <li><a class="dropdown-item" href="#">Perfil de usuario</a></li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Nav Links -->
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" 
+                                href="/temp/maquetacion/home.html">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Trailers</a>
+                        </li>
+                    </ul>
+
+                    <!-- Search bar -->
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" 
+                                placeholder="Buscar" aria-label="Buscar">
+                        <button class="btn btn-primary" type="submit">Buscar</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container my-4 my-lg-5 overflow-hidden">
+        <div class="row text-light">
+            
+            <!-- Trailer View -->
+            <div class="col-lg-9 ">
+
+                <!-- Lazy loading -->
+                <div style="width: 100%; max-width: 800px; box-shadow: 6px 6px 10px rgb(20, 2, 49); margin: 0 auto">
+                    <div style="position: relative; left: 0; top: 0; padding-bottom: 56.15%; height: 0; overflow: hidden;">
+                        <iframe 
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+                            loading="lazy";
+                            srcdoc="<style>
+                                * {
+                                    padding: 0;
+                                    margin: 0;
+                                    overflow: hidden;
+                                }
+    
+                                body, html {
+                                    heigth: 100%;
+                                }
+    
+                                img, svg {
+                                    position: absolute;
+                                    width: 100%;
+                                    top: 0;
+                                    bottom: 0;
+                                    margin: auto;
+                                }
+    
+                                svg {
+                                    filter: drop-shadow(1px 1px 10px hsl(206.5, 70.7%, 8%));
+                                    transition: all 250ms ease-in-out;
+                                }
+    
+                                body:hover svg {
+                                    filter: drop-shadow(1px 1px 10px hsl(206.5, 0%, 10%));
+                                    transform: scale(1.2);
+                                }
+                            </style>
+                            <a href = 'https://www.youtube.com/embed/RRq4-uktHiI?autoplay=1&color=white'>
+                                <img src='https://img.youtube.com/vi/RRq4-uktHiI/hqdefault.jpg' 
+                                alt='VideoTrailer'>
+                                <svg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 24 24' fill='none' stroke='#ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-play-circle'><circle cx='12' cy='12' r='10'></circle><polygon points='10 8 16 12 10 16 10 8'></polygon></svg>
+                            </a>"
+                            src="https://www.youtube.com/embed/RRq4-uktHiI" 
+                            title="Video Trailer" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; 
+                            gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+                
+                <div class="row g-0">
+
+                    <!-- Trailer title -->
+                    <div class="col-12 my-3">
+                        <span class="h6">AVATAR 2: EL CAMINO DEL AGUA Tráiler Español Latino Subtitulado (2022)</span>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="col-12 ">
+                        <div class="row h-100 g-2">
+
+                            <div class="col-12 col-sm-6">
+                                <button type="button" class="btn btn-danger h-100 w-100">
+                                    <img src="/temp/maquetacion/icons/info.svg"> 
+                                    Reportar link caido
+                                </button>
+                            </div>
+
+                            <div class="col-12 col-sm-6">
+                                <button type="button" class="btn btn-dark h-100 w-100">
+                                    <img src="/temp/maquetacion/icons/add.svg"> 
+                                    Guardar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related videos -->
+            <div class="col-lg-3 mt-3 mt-lg-0">
+                <p class="h4">Video Relacionados</p>
+
+                <div class="my-2 w-100 c_link-video-container">
+                    <a href="#">
+                        <img src="https://img.youtube.com/vi/SvJwEiy2Wok/hqdefault.jpg" alt="Trailer" class="w-100 c_img-video">
+                        <p class="text-truncate">Probando</p>
+                    </a>
+                </div>
+                <div class="my-2 w-100 c_link-video-container">
+                    <a href="#">
+                        <img src="https://img.youtube.com/vi/SvJwEiy2Wok/hqdefault.jpg" alt="Trailer" class="w-100 c_img-video">
+                        <p class="text-truncate">Probando</p>
+                    </a>
+                </div>
+                <div class="my-2 w-100 c_link-video-container">
+                    <a href="#">
+                        <img src="https://img.youtube.com/vi/SvJwEiy2Wok/hqdefault.jpg" alt="Trailer" class="w-100 c_img-video">
+                        <p class="text-truncate">Probando</p>
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    
+
+    <!-- Bootstrap JS -->
+    <script src="./lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Customm Js -->
+    <script src="./javascript/autoadjust__video-proportions.js"></script>
+</body>
+</html>
