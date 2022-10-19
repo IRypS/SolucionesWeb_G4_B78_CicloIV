@@ -9,9 +9,13 @@
 
     setNewHeigth();
 
-    window.onresize = () => {
+    // window.onresize = () => {
+    //     setNewHeigth();
+    // }
+
+    window.addEventListener('resize', () => {
         setNewHeigth();
-    }
+    });
 
     function setNewHeigth() {
         let calculateHeigth = (getContainerWidth * 0.5625).toString() + 'px';
@@ -20,5 +24,4 @@
             img.style.height = calculateHeigth;
         });
     };
-
 }) ();
