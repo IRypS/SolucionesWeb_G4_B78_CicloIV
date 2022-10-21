@@ -1,10 +1,18 @@
 package com.soluciones.web.appGrupo4.model;
 
+import javax.validation.constraints.NotEmpty;
+
 public class User {
     private String id;
     private String role;
+
+    @NotEmpty(message = "No debe ser un campo nulo")
     private String email;
+
+    @NotEmpty(message = "No debe ser un campo nulo")
     private String password;
+
+    @NotEmpty(message = "No debe ser un campo nulo")
     private String username;
     private String avatarUrl;
     private String country;

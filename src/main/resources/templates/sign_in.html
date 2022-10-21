@@ -18,15 +18,6 @@
 
 </head>
 <body class="c_body-bg-sign-up">
-    <!-- Return nav -->
-    <header class="container-xxl px-4">
-        <nav class="pt-4">
-            <a href="#">
-                <img src="./icons/return__icon.svg" alt="Icono de retorno" class="c_form-return-arrow" style="color: green;">
-            </a>
-        </nav>
-    </header>
-
 
     <main class="d-flex justify-content-center align-items-center 
                 position-absolute top-0 left-0 w-100
@@ -36,45 +27,63 @@
 
         <section class="col-10 col-sm-8 col-md-7 col-lg-4 me-lg-auto">
             
-            <form action="" class="d-grid gap-3 mb-5">
+            <form th:action="@{/account/createNewUser}" th:object="${user}" method="post" class="d-grid gap-3 mb-5">
 
                 <!-- Logo -->
                 <figure class="pb-0 ">
-                    <img src="./img/logo.png" alt="Logotipo de la página" class="d-block mx-auto c_logo-form">
+                    <img src="/resources/img/logo.png" alt="Logotipo de la página" class="d-block mx-auto c_logo-form">
                 </figure>
 
                 <!-- Title form -->
                 <h2 class="h1">Sign up</h2>
 
                 <!-- Inputs -->
-                <div class="form-floating">
-                    <img src="./icons/user__icon.svg" alt="Icono para el input de nombre de usuario" class="c_icon">
-                    <input type="text" class="form-control" id="floatingUserName" placeholder="User name">
-                    <label for="floatingUserName">User name</label>
+                <div>
+                    <div class="form-floating">
+                        <img src="/resources/icons/user__icon.svg" 
+                            alt="Icono para el input de nombre de usuario" class="c_icon">
+                        <input type="text" class="form-control" name="username" th:field="*{username}"
+                            id="floatingUserName" placeholder="User name">
+                        <label for="floatingUserName">User name</label>
+                    </div>
+                    <div th:if = "${#fields.hasErrors('username')}" th:errors = "*{username}"
+                        class="alert alert-danger" role="alert"></div>
                 </div>
 
-                <div class="form-floating">
-                    <img src="./icons/email__icon.svg" alt="Icono para el input de correo" class="c_icon">
-                    <input type="email" class="form-control" id="floatingEmail" placeholder="Email">
-                    <label for="floatingEmail">Email</label>
+                <div>
+                    <div class="form-floating">
+                        <img src="/resources/icons/email__icon.svg" 
+                            alt="Icono para el input de correo" class="c_icon">
+                        <input type="email" class="form-control" name="email" th:field="*{email}"
+                            id="floatingEmail" placeholder="Email">
+                        <label for="floatingEmail">Email</label>
+                    </div>
+                    <div th:if = "${#fields.hasErrors('email')}" th:errors = "*{email}"
+                        class="alert alert-danger" role="alert"></div>
                 </div>
 
-                <div class="form-floating">
-                    <img src="./icons/lock__icon.svg" alt="Icono para el input de contraseña" class="c_icon">
-                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                    <label for="floatingPassword">Password</label>
+                <div>
+                    <div class="form-floating">
+                        <img src="/resources/icons/lock__icon.svg" 
+                            alt="Icono para el input de contraseña" class="c_icon">
+                        <input type="password" class="form-control" name="password" th:field="*{password}"
+                            id="floatingPassword" placeholder="Password">
+                        <label for="floatingPassword">Password</label>
+                    </div>
+                    <div th:if = "${#fields.hasErrors('password')}" th:errors = "*{password}"
+                        class="alert alert-danger" role="alert"></div>
                 </div>
 
-                <div class="form-floating">
-                    <img src="./icons/lock__icon--border.svg" alt="Icono para el input de confimar contraseña" class="c_icon">
+                <!-- <div class="form-floating">
+                    <img src="/resources/icons/lock__icon--border.svg" alt="Icono para el input de confimar contraseña" class="c_icon">
                     <input type="password" class="form-control" id="floatingConfirmPassword" placeholder="Confirm Password">
                     <label for="floatingConfirmPassword">Confirm Password</label>
-                </div>
+                </div> -->
 
                 <!-- Submit button -->
                 <button type="submit" class="btn btn-cta mt-2 w-100">Registrarse</button>
 
-                <small class="text-center">Ya tienes una cuenta? <a href="#" class="link">Ingresa ahora</a></small>
+                <small class="text-center">Ya tienes una cuenta? <a href="/account/login" class="link">Ingresa ahora</a></small>
             </form>
         </section>
     </main>

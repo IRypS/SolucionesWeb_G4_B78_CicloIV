@@ -16,19 +16,15 @@ main {
 
 .c_body-bg-login {
     background-image:   $gradient-background-opacity, 
-                        url('/temp/maquetacion/img/bg_login.jpg'); 
+                        url('/resources/img/bg_login.jpg'); 
 }
 
 .c_body-bg-sign-up {
     background-image:   $gradient-background-opacity, 
-                        url('/temp/maquetacion/img/bg_sign_up.jpg'); 
+                        url('/resources/img/bg_sign_up.jpg'); 
 }
 
-// Return icon
-.c_form-return-arrow {
-    width: 40px;
-}
-  
+ 
 
 // Forms
 .c_form-container {

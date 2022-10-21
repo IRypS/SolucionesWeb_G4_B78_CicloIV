@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Meta tags -->
     <meta charset="UTF-8">
@@ -7,16 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Bootstrap CSS (Temporally location)-->
-    <link type="text/css" rel="stylesheet" href="./css/styles.css">
+    <link type="text/css" rel="stylesheet" href="/styles/css/styles.css">
 
     <!-- Customize css -->
-    <link type="text/css" rel="stylesheet" href="./css/customize__navbar.css">
-    <!-- <link type="text/css" rel="stylesheet" href="./css/customize__trailers.css"> -->
-    <link type="text/css" rel="stylesheet" href="./css/customize__trailer-preview.css">
+    <link type="text/css" rel="stylesheet" href="/styles/css/customize__navbar.css">
+    <link type="text/css" rel="stylesheet" href="/styles/css/customize__trailer-preview.css">
 
     <!-- Header styles -->
-    <link rel="icon" href="./icons/main__icon.png">
-    <title>Trailers</title>
+    <link rel="icon" href="/resources/icons/main_icon.ico">
+    <title th:text="${title}">...</title>
 
 </head>
 <body>
@@ -36,7 +35,7 @@
 
                 <!-- Logo -->
                 <a class="navbar-brand" href="#">
-                    <img src="./icons/main__icon.png" alt="">
+                    <img src="/resources/icons/main_icon.ico" alt="Logotipo de la pagina web">
                 </a>
 
                 <!-- Nav Menu Container  -->
@@ -45,11 +44,16 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-center">
 
                         <!-- User Profile Button -->
-                        <li class="nav-item dropdown mt-3 mt-lg-0 ms-lg-3 order-lg-1">
+                        <li th:if="${activeSession == true}"
+                            class="nav-item dropdown mt-3 mt-lg-0 ms-lg-3 order-lg-1">
 
                             <!-- Button Dropdown -->
-                            <button class="nav-link w-100 dropdown-toggle me-auto py-1 px-2 btn btn-primary c_btn-user-profile" data-bs-toggle="dropdown" role="button" aria-expanded="false">
-                                <img src="https://i.ytimg.com/vi/fykmLCRzlwc/maxresdefault.jpg" alt="Avatar de perfil de usuario" width="100%">
+                            <button class="nav-link dropdown-toggle w-100 me-auto py-1 px-2 
+                                    btn btn-primary c_btn-user-profile" 
+                                    data-bs-toggle="dropdown" 
+                                    role="button" 
+                                    aria-expanded="false">
+                                <img src="https://i.ytimg.com/vi/fykmLCRzlwc/mqdefault.jpg" alt="Avatar de perfil de usuario" width="100%">
                                 <span class="ms-2 ms-lg-1 tex-truncate">IRypS</span>
                             </button>
 
@@ -58,8 +62,8 @@
                                 <li><a class="dropdown-item" href="#">Perfil de usuario</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <a class="dropdown-item" href="#" class="d-grid">
-                                        <img src="./icons/log-out__icon.svg" alt="Icono de salir" class="m">
+                                    <a class="dropdown-item" href="/">
+                                        <img src="/resources/icons/log-out__icon.svg" alt="Icono de cerrar sesión">
                                         Cerrar sesión
                                     </a>
                                 </li>
@@ -67,19 +71,21 @@
                         </li>
 
                         <!-- Register button -->
-                        <!-- <li class="nav-item me-lg-2">
-                            <button class="nav-link mt-3 mt-lg-0 ms-auto py-2 px-3 btn btn-cta c_btn-user-profile" role="button">
+                        <li th:if="${activeSession == false}"
+                            class="nav-item me-lg-2">
+                            <a href="/account/login"
+                                class="nav-link mt-3 mt-lg-0 ms-auto py-2 px-3 
+                                btn btn-cta c_btn-user-profile" role="button">
                                 <span class="ms-2 ms-lg-0 tex-wrap text-light">Iniciar Sesion</span>
-                            </button>
-                        </li> -->
+                            </a>
+                        </li>
                         
                         <!-- Nav Links -->
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" 
-                                href="/temp/maquetacion/home.html">Inicio</a>
+                            <a class="nav-link active" aria-current="page" href="/">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Trailers</a>
+                            <a class="nav-link" href="/app/trailers">Trailers</a>
                         </li>
 
                     </ul>
@@ -248,7 +254,7 @@
             <div class="col-lg-9">
                 <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 row-cols-xxl-5">
                     <div class="col px-3 py-1 c_link-video-container">
-                        <a href="#">
+                        <a href="/app/trailer/view">
                             <img src="https://img.youtube.com/vi/SvJwEiy2Wok/hqdefault.jpg" alt="Trailer" class="w-100 c_img-video">
                             <p class="text-truncate">Probando</p>
                         </a>
@@ -358,9 +364,9 @@
     </footer>
 
     <!-- Bootstrap JS -->
-    <script src="./lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/utils/bootstrap.js"></script>
 
     <!-- Customm Js -->
-    <script src="./javascript/autoadjust__video-proportions.js"></script>
+    <script src="/utils/autoadjust__video-proportions.js"></script>
 </body>
 </html>
