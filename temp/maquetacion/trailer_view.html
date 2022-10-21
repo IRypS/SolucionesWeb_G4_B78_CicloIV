@@ -15,7 +15,7 @@
 
     <!-- Header styles -->
     <link rel="icon" href="./icons/main__icon.png">
-    <title>Home</title>
+    <title>Trailer View</title>
 
 </head>
 <body>
@@ -41,33 +41,46 @@
                 <!-- Nav Menu Container  -->
                 <div class="collapse navbar-collapse" id="navbarPage">
                     <!-- Links -->
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-center">
 
                         <!-- User Profile Button -->
-                        <li class="nav-item dropdown me-lg-2">
+                        <li class="nav-item dropdown mt-3 mt-lg-0 ms-lg-3 order-lg-1">
 
                             <!-- Button Dropdown -->
-                            <button class="nav-link dropdown-toggle ms-auto py-1 px-2 btn btn-primary c_btn-user-profile" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+                            <button class="nav-link w-100 dropdown-toggle me-auto py-1 px-2 btn btn-primary c_btn-user-profile" data-bs-toggle="dropdown" role="button" aria-expanded="false">
                                 <img src="https://i.ytimg.com/vi/fykmLCRzlwc/maxresdefault.jpg" alt="Avatar de perfil de usuario" width="100%">
-                                <span class="d-lg-none ms-2 ms-lg-0 tex-wrap">El ida</span>
+                                <span class="ms-2 ms-lg-1 tex-truncate">IRypS</span>
                             </button>
 
                             <!-- Dropdown Menu  -->
                             <ul class="dropdown-menu dropdown-menu-dark">
-                              <li><a class="dropdown-item" href="#">Perfil de usuario</a></li>
-                              <li><hr class="dropdown-divider"></li>
-                              <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+                                <li><a class="dropdown-item" href="#">Perfil de usuario</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" href="#" class="d-grid">
+                                        <img src="./icons/log-out__icon.svg" alt="Icono de salir" class="m">
+                                        Cerrar sesión
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 
+                        <!-- Register button -->
+                        <!-- <li class="nav-item me-lg-2">
+                            <button class="nav-link mt-3 mt-lg-0 ms-auto py-2 px-3 btn btn-cta c_btn-user-profile" role="button">
+                                <span class="ms-2 ms-lg-0 tex-wrap text-light">Iniciar Sesion</span>
+                            </button>
+                        </li> -->
+                        
                         <!-- Nav Links -->
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" 
+                            <a class="nav-link active" aria-current="page" 
                                 href="/temp/maquetacion/home.html">Inicio</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Trailers</a>
                         </li>
+
                     </ul>
 
                     <!-- Search bar -->
@@ -193,7 +206,21 @@
         </div>
     </main>
 
-    
+    <!-- Footer -->
+    <footer class="mt-5 pb-5 text-light text-center ">
+        Copyright &copy; Trailers web 2022
+        <div class="mt-1">
+            <a href="#" alt="" style="text-decoration: none;">
+                <img src="/temp/maquetacion/icons/facebook.svg" alt="">
+            </a>
+            <a href="#" alt="" style="text-decoration: none;">
+                <img src="/temp/maquetacion/icons/twitter.svg" alt="">
+            </a>
+            <a href="#" alt="" style="text-decoration: none;">
+                <img src="/temp/maquetacion/icons/instagram.svg" alt="">
+            </a>
+        </div>
+    </footer>
 
     <!-- Bootstrap JS -->
     <script src="./lib/bootstrap/dist/js/bootstrap.min.js"></script>
