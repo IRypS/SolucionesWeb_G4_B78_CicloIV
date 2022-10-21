@@ -34,7 +34,7 @@
                 </button>
 
                 <!-- Logo -->
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="/">
                     <img src="/resources/icons/main_icon.ico" alt="Logotipo de la pagina web">
                 </a>
 
@@ -82,7 +82,7 @@
                         
                         <!-- Nav Links -->
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+                            <a class="nav-link" aria-current="page" href="/">Inicio</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/app/trailers">Trailers</a>
@@ -111,44 +111,11 @@
                 <div style="width: 100%; max-width: 800px; box-shadow: 6px 6px 10px rgb(20, 2, 49); margin: 0 auto">
                     <div style="position: relative; left: 0; top: 0; padding-bottom: 56.15%; height: 0; overflow: hidden;">
                         <iframe 
+                            id="trailerBox"
                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
                             loading="lazy";
-                            srcdoc="<style>
-                                * {
-                                    padding: 0;
-                                    margin: 0;
-                                    overflow: hidden;
-                                }
-    
-                                body, html {
-                                    heigth: 100%;
-                                }
-    
-                                img, svg {
-                                    position: absolute;
-                                    width: 100%;
-                                    top: 0;
-                                    bottom: 0;
-                                    margin: auto;
-                                }
-    
-                                svg {
-                                    filter: drop-shadow(1px 1px 10px hsl(206.5, 70.7%, 8%));
-                                    transition: all 250ms ease-in-out;
-                                }
-    
-                                body:hover svg {
-                                    filter: drop-shadow(1px 1px 10px hsl(206.5, 0%, 10%));
-                                    transform: scale(1.2);
-                                }
-                            </style>
-                            <a href = 'https://www.youtube.com/embed/RRq4-uktHiI?autoplay=1&color=white'>
-                                <img src='https://img.youtube.com/vi/RRq4-uktHiI/hqdefault.jpg' 
-                                alt='VideoTrailer'>
-                                <svg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 24 24' fill='none' stroke='#ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-play-circle'><circle cx='12' cy='12' r='10'></circle><polygon points='10 8 16 12 10 16 10 8'></polygon></svg>
-                            </a>"
-                            src="https://www.youtube.com/embed/RRq4-uktHiI" 
-                            title="Video Trailer" 
+                            th:src="@{ https://www.youtube.com/embed/{id}(id=${trailer.getId})  }" 
+                            title="Video Trailer Iframe" 
                             frameborder="0" 
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; 
                             gyroscope; picture-in-picture" 
@@ -161,7 +128,7 @@
 
                     <!-- Trailer title -->
                     <div class="col-12 my-3">
-                        <span class="h6">AVATAR 2: EL CAMINO DEL AGUA Tráiler Español Latino Subtitulado (2022)</span>
+                        <span th:text="${trailer.getTitle}" class="h6">Video Trailer</span>
                     </div>
 
                     <!-- Action Buttons -->
@@ -190,22 +157,14 @@
             <div class="col-lg-3 mt-3 mt-lg-0">
                 <p class="h4">Video Relacionados</p>
 
-                <div class="my-2 w-100 c_link-video-container">
-                    <a href="#">
-                        <img src="https://img.youtube.com/vi/SvJwEiy2Wok/hqdefault.jpg" alt="Trailer" class="w-100 c_img-video">
-                        <p class="text-truncate">Probando</p>
-                    </a>
-                </div>
-                <div class="my-2 w-100 c_link-video-container">
-                    <a href="#">
-                        <img src="https://img.youtube.com/vi/SvJwEiy2Wok/hqdefault.jpg" alt="Trailer" class="w-100 c_img-video">
-                        <p class="text-truncate">Probando</p>
-                    </a>
-                </div>
-                <div class="my-2 w-100 c_link-video-container">
-                    <a href="#">
-                        <img src="https://img.youtube.com/vi/SvJwEiy2Wok/hqdefault.jpg" alt="Trailer" class="w-100 c_img-video">
-                        <p class="text-truncate">Probando</p>
+                <div th:each="related : ${relatedTrailers}"
+                    th:if="${ related.getId != trailer.getId }"
+                    class="my-2 w-100 c_link-video-container">
+                    <a th:href="@{/app/trailer/view/{id}(id=${related.getId}) }">
+                        <img th:src="@{${ related.getImageUrl }}" 
+                            th:alt="${related.getTitle}" class="w-100 c_img-video">
+                        <p th:text="${related.getTitle}"
+                            class="text-truncate">...</p>
                     </a>
                 </div>
             </div>
@@ -217,22 +176,45 @@
     <footer class="mt-5 pb-5 text-light text-center ">
         Copyright &copy; Trailers web 2022
         <div class="mt-1">
-            <a href="#" alt="" style="text-decoration: none;">
-                <img src="/temp/maquetacion/icons/facebook.svg" alt="">
+            <a href="#" style="text-decoration: none;">
+                <img src="/resources/icons/facebook.svg" alt="Link a facebook">
             </a>
-            <a href="#" alt="" style="text-decoration: none;">
-                <img src="/temp/maquetacion/icons/twitter.svg" alt="">
+            <a href="#" style="text-decoration: none;">
+                <img src="/resources/icons/twitter.svg" alt="Link a twitter">
             </a>
-            <a href="#" alt="" style="text-decoration: none;">
-                <img src="/temp/maquetacion/icons/instagram.svg" alt="">
+            <a href="#" style="text-decoration: none;">
+                <img src="/resources/icons/instagram.svg" alt="Link a instagram">
             </a>
         </div>
     </footer>
+
+    <!-- Insert Trailer Document -->
+    <script th:inline="javascript">
+        /*[+
+        let getIdVideo  = [[${trailer.id}]];
+        +]*/
+        const trailerDocument = `
+            <style>
+                * { padding: 0; margin: 0; overflow: hidden; }
+                body, html { heigth: 100%; }
+                img, svg { position: absolute; width: 100%; top: 0; bottom: 0; margin: auto; }
+                svg { filter: drop-shadow(1px 1px 10px hsl(206.5, 70.7%, 8%)); transition: all 250ms ease-in-out; }
+                body:hover svg { filter: drop-shadow(1px 1px 10px hsl(206.5, 0%, 10%)); transform: scale(1.2); }
+            </style>
+            <a href = https://www.youtube.com/embed/` + getIdVideo + `?autoplay=1&color=white>
+                <img src='https://img.youtube.com/vi/` + getIdVideo + `/sddefault.jpg' alt='VideoTrailer'>
+                <svg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 24 24' fill='none' stroke='#ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-play-circle'><circle cx='12' cy='12' r='10'></circle><polygon points='10 8 16 12 10 16 10 8'></polygon></svg>
+            </a>
+        `;
+        const trailerBox = document.querySelector("#trailerBox");
+        trailerBox.srcdoc = trailerDocument;
+    </script>
 
     <!-- Bootstrap JS -->
     <script src="/utils/bootstrap.js"></script>
 
     <!-- Customm Js -->
     <script src="/utils/autoadjust__video-proportions.js"></script>
+
 </body>
 </html>
