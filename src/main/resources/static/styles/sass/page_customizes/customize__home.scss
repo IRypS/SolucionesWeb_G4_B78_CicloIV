@@ -1,0 +1,12 @@
+// Variables
+@import "../variables.scss";
+
+
+.c_bg-hero {
+    background-image: 
+        $gradient-background-opacity,
+        linear-gradient( 180deg, #000000a6 0%, #000000ad 100%),
+        url('/resources/img/home_bacground.jpg');
+    background-size: cover;
+    background-position: center;
+}

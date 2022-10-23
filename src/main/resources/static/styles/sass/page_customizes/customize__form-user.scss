@@ -1,0 +1,68 @@
+// Variables
+@import "../variables.scss";
+
+
+//backgrounds
+body {
+    background-size: cover;
+    background-position: center;
+    background-attachment: scroll;
+    min-height: 100vh;
+}
+
+main {
+    margin-top: 2rem;
+}
+
+.c_body-bg-login {
+    background-image:   $gradient-background-opacity, 
+                        url('/resources/img/bg_login.jpg'); 
+}
+
+.c_body-bg-sign-up {
+    background-image:   $gradient-background-opacity, 
+                        url('/resources/img/bg_sign_up.jpg'); 
+}
+
+ 
+
+// Forms
+.c_form-container {
+    min-height: 85vh;
+}
+  
+.c_logo-form {
+    width: 13rem;
+    max-width: 100%;
+}
+
+
+.form-floating {
+    position: relative;
+}
+
+.c_icon {
+    position: absolute;
+    top: calc(25%);
+    left: 1rem;
+    font-size: 2rem;
+    width: 2rem;
+}
+
+.form-floating label, .form-floating .form-control {
+    left: .5rem;
+    padding-left: 3.5rem;
+}
+  
+@import "../../../lib/bootstrap/scss/functions";
+@import "../../../lib/bootstrap/scss/variables";
+@import "../../../lib/bootstrap/scss/mixins";
+
+
+@include media-breakpoint-up(lg) {
+
+    .c_logo-form {
+        width: 9rem;
+    }
+    
+}

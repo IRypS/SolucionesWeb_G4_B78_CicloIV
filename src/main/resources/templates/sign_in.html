@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS (Temporally location)-->
+    <link type="text/css" rel="stylesheet" href="/styles/css/styles.css">
+
+    <!-- Customize css -->
+    <link type="text/css" rel="stylesheet" href="/styles/css/customize__form-user.css">
+
+    <!-- Header styles -->
+    <link rel="icon" href="/resources/icons/main_icon.ico">
+    <title th:text="${title}">...</title>
+
+</head>
+<body class="c_body-bg-sign-up">
+
+    <main class="d-flex justify-content-center align-items-center 
+                position-absolute top-0 left-0 w-100
+                text-light c_form-container ">
+
+        <div class="d-none d-lg-block col-1"></div>
+
+        <section class="col-10 col-sm-8 col-md-7 col-lg-4 me-lg-auto">
+            
+            <form th:action="@{/account/createNewUser}" th:object="${user}" method="post" class="d-grid gap-3 mb-5">
+
+                <!-- Logo -->
+                <a class="pb-0 d-inline" href="/">
+                    <img src="/resources/img/logo.png" alt="Logotipo de la página" class="d-block mx-auto c_logo-form">
+                </a>
+
+                <!-- Title form -->
+                <h2 class="h1">Sign up</h2>
+
+                <!-- Inputs -->
+                <div>
+                    <div class="form-floating">
+                        <img src="/resources/icons/user__icon.svg" 
+                            alt="Icono para el input de nombre de usuario" class="c_icon">
+                        <input th:classappend="${#fields.hasErrors('username')} ? 'is-invalid' : '' "
+                            type="text" class="form-control" name="username" th:field="*{username}"
+                            id="floatingUserName" placeholder="User name">
+                        <label for="floatingUserName">User name</label>
+                    </div>
+                    <small th:if = "${#fields.hasErrors('username')}" th:errors = "*{username}"
+                        class="d-block bg-danger text-light py-1 px-3" role="alert"></small>
+                </div>
+
+                <div>
+                    <div class="form-floating">
+                        <img src="/resources/icons/email__icon.svg" 
+                            alt="Icono para el input de correo" class="c_icon">
+                        <input th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''"
+                            type="email" class="form-control" name="email" th:field="*{email}"
+                            id="floatingEmail" placeholder="Email">
+                        <label for="floatingEmail">Email</label>
+                    </div>
+                    <small th:if = "${#fields.hasErrors('email')}" th:errors = "*{email}"
+                        class="d-block bg-danger text-light py-1 px-3" role="alert"></small>
+                </div>
+
+                <div>
+                    <div class="form-floating">
+                        <img src="/resources/icons/lock__icon.svg" 
+                            alt="Icono para el input de contraseña" class="c_icon">
+                        <input th:classappend="${#fields.hasErrors('password')} ? 'is-invalid' : ''"
+                            type="password" class="form-control" name="password" th:field="*{password}"
+                            id="floatingPassword" placeholder="Password">
+                        <label for="floatingPassword">Password</label>
+                    </div>
+                    <small th:if = "${#fields.hasErrors('password')}" th:errors = "*{password}"
+                        class="d-block bg-danger text-light py-1 px-3" role="alert"></small>
+                </div>
+
+                <div>
+                    <div class="form-floating">
+                        <img src="/resources/icons/lock__icon--border.svg" 
+                            alt="Icono para el input de confimar contraseña" class="c_icon">
+                        <input th:classappend="${#fields.hasErrors('confirmPassword')} ? 'is-invalid' : ''"
+                            type="password" class="form-control" name="confirmPassword" th:field="*{confirmPassword}"
+                            id="floatingConfirmPassword" placeholder="Confirm Password">
+                        <label for="floatingConfirmPassword">Confirm Password</label>
+                    </div>
+                    <small th:if = "${#fields.hasErrors('confirmPassword')}" th:errors = "*{confirmPassword}"
+                        class="d-block bg-danger text-light py-1 px-3" role="alert"></small>
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-cta mt-2 w-100">Registrarse</button>
+
+                <small class="text-center">Ya tienes una cuenta? <a href="/account/login" class="link">Ingresa ahora</a></small>
+            </form>
+        </section>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="/utils/bootstrap.js"></script>
+</body>
+</html>

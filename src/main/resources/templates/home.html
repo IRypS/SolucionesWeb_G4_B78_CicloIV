@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS (Temporally location)-->
+    <link type="text/css" rel="stylesheet" href="/styles/css/styles.css">
+
+    <!-- Customize css -->
+    <link type="text/css" rel="stylesheet" href="/styles/css/customize__navbar.css">
+    <link type="text/css" rel="stylesheet" href="/styles/css/customize__home.css">
+
+    <!-- Header styles -->
+    <link rel="icon" href="/resources/icons/main_icon.ico">
+    <title th:text="${title}">...</title>
+
+</head>
+<body>
+
+    <!-- Nav header -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+            <div class="container-fluid">
+
+                <!-- Hamburguer Menu -->
+                <button class="navbar-toggler" type="button" 
+                        data-bs-toggle="collapse" data-bs-target="#navbarPage" 
+                        aria-controls="navbarPage" aria-expanded="false" 
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Logo -->
+                <a class="navbar-brand" href="/">
+                    <img src="/resources/icons/main_icon.ico" alt="Logotipo de la pagina web">
+                </a>
+
+                <!-- Nav Menu Container  -->
+                <div class="collapse navbar-collapse" id="navbarPage">
+                    <!-- Links -->
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-center">
+
+                        <!-- User Profile Button -->
+                        <li th:if="${activeSession == true}"
+                            class="nav-item dropdown mt-3 mt-lg-0 ms-lg-3 order-lg-1">
+
+                            <!-- Button Dropdown -->
+                            <button class="nav-link dropdown-toggle w-100 me-auto py-1 px-2 
+                                    btn btn-primary c_btn-user-profile" 
+                                    data-bs-toggle="dropdown" 
+                                    role="button" 
+                                    aria-expanded="false">
+                                <img src="https://i.ytimg.com/vi/fykmLCRzlwc/mqdefault.jpg" alt="Avatar de perfil de usuario" width="100%">
+                                <span class="ms-2 ms-lg-1 tex-truncate">IRypS</span>
+                            </button>
+
+                            <!-- Dropdown Menu  -->
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                <li><a class="dropdown-item" href="#">Perfil de usuario</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" href="/">
+                                        <img src="/resources/icons/log-out__icon.svg" alt="Icono de cerrar sesión">
+                                        Cerrar sesión
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- Register button -->
+                        <li th:if="${activeSession == false}"
+                            class="nav-item me-lg-2">
+                            <a href="/account/login"
+                                class="nav-link mt-3 mt-lg-0 ms-auto py-2 px-3 
+                                btn btn-cta c_btn-user-profile" role="button">
+                                <span class="ms-2 ms-lg-0 tex-wrap text-light">Iniciar Sesion</span>
+                            </a>
+                        </li>
+                        
+                        <!-- Nav Links -->
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/app/trailers">Trailers</a>
+                        </li>
+
+                    </ul>
+
+                    <!-- Search bar -->
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" 
+                                placeholder="Buscar" aria-label="Buscar">
+                        <button class="btn btn-primary" type="submit">Buscar</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero section -->
+        <section class="py-5 px-2 w-100 h-50 d-flex flex-column justify-content-center
+                        align-items-center gap-4 text-center text-white c_bg-hero ">
+            <h1 th:text="${titleHero}" class="h1"></h1>
+            <p class="h6">Todos los trailers a un solo click <br>
+                Entérate de los últimos filmes antes que nadie</p>
+            <a href="/app/trailers" class="btn btn-cta btn-lg rounded">Ver trailers</a>
+        </section>
+
+        <!-- Register cta -->
+        <section class="container my-5 text-light">
+            <div class="row">
+                <div class="col-12 col-lg-9 text-center text-lg-start">
+                    <h2>¿Ya tienes una cuenta?</h2>
+                    <p class="my-5">Con una cuenta podrás tener una experiencia más personalizada, listar tus trailers preferidos y ¡mucho más!</p>
+                    <a href="/account/signin" class="btn btn-cta">Registrarse</a>
+                </div>
+                <div class="col-12 col-lg-3 d-flex">
+                    <img src="/resources/img/popcorn.png" alt="Popcorn con una cinta de video" class="h-100 mx-auto">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-5 pb-5 text-light text-center ">
+        Copyright &copy; Trailers web 2022
+        <div class="mt-1">
+            <a href="#" style="text-decoration: none;">
+                <img src="/resources/icons/facebook.svg" alt="Link a facebook">
+            </a>
+            <a href="#" style="text-decoration: none;">
+                <img src="/resources/icons/twitter.svg" alt="Link a twitter">
+            </a>
+            <a href="#" style="text-decoration: none;">
+                <img src="/resources/icons/instagram.svg" alt="Link a instagram">
+            </a>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="/utils/bootstrap.js"></script>
+</body>
+</html>

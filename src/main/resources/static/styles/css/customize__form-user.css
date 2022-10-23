@@ -1,0 +1,52 @@
+body {
+  background-size: cover;
+  background-position: center;
+  background-attachment: scroll;
+  min-height: 100vh;
+}
+
+main {
+  margin-top: 2rem;
+}
+
+.c_body-bg-login {
+  background-image: -webkit-gradient(linear, left top, right top, from(rgba(15, 12, 41, 0.5137254902)), color-stop(50%, rgba(48, 43, 99, 0.4862745098)), to(rgba(36, 36, 62, 0.4941176471))), url("/resources/img/bg_login.jpg");
+  background-image: linear-gradient(90deg, rgba(15, 12, 41, 0.5137254902) 0%, rgba(48, 43, 99, 0.4862745098) 50%, rgba(36, 36, 62, 0.4941176471) 100%), url("/resources/img/bg_login.jpg");
+}
+
+.c_body-bg-sign-up {
+  background-image: -webkit-gradient(linear, left top, right top, from(rgba(15, 12, 41, 0.5137254902)), color-stop(50%, rgba(48, 43, 99, 0.4862745098)), to(rgba(36, 36, 62, 0.4941176471))), url("/resources/img/bg_sign_up.jpg");
+  background-image: linear-gradient(90deg, rgba(15, 12, 41, 0.5137254902) 0%, rgba(48, 43, 99, 0.4862745098) 50%, rgba(36, 36, 62, 0.4941176471) 100%), url("/resources/img/bg_sign_up.jpg");
+}
+
+.c_form-container {
+  min-height: 85vh;
+}
+
+.c_logo-form {
+  width: 13rem;
+  max-width: 100%;
+}
+
+.form-floating {
+  position: relative;
+}
+
+.c_icon {
+  position: absolute;
+  top: 25%;
+  left: 1rem;
+  font-size: 2rem;
+  width: 2rem;
+}
+
+.form-floating label, .form-floating .form-control {
+  left: 0.5rem;
+  padding-left: 3.5rem;
+}
+
+@media (min-width: 992px) {
+  .c_logo-form {
+    width: 9rem;
+  }
+}/*# sourceMappingURL=customize__form-user.css.map */

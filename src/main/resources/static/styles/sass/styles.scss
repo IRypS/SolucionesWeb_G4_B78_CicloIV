@@ -1,0 +1,72 @@
+// Variables
+@import "./variables.scss";
+
+// Colors
+$primary:   $color-2;
+$secondary: $color-3;
+$info:      $color-1-opacity;
+$dark:      $color-1;
+$danger:    $color-4;
+
+@import "../../lib/bootstrap/scss/functions";
+@import "../../lib/bootstrap/scss/variables";
+@import "../../lib/bootstrap/scss/mixins";
+@import "../../lib/bootstrap/scss/root";
+
+// Create new colors
+$custom-colors: (
+  "cta": $color-3,
+);
+
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+// Modify Boostrap components
+
+// Inputs
+$input-bg:                      $color-1;
+$input-border-color:            $color-1;
+$input-color:                   $white;
+$input-focus-color:             $white;
+$input-focus-bg:                $color-1;
+$input-focus-border-color:      $color-3;
+$input-placeholder-color:       $white;
+
+
+// Links
+$link-color:                $white;
+$link-decoration:           underline;
+$link-hover-color:          $gray-500;
+$link-hover-decoration:     none;
+
+
+// Dropdown - dark
+$dropdown-dark-color:               $gray-300;
+$dropdown-dark-bg:                  $primary;
+
+
+// Acordion
+$accordion-color:                         $white;
+$accordion-bg:                            $color-1-opacity;
+
+$accordion-button-color:                  $accordion-color;
+$accordion-button-bg:                     $accordion-bg;
+$accordion-button-active-bg:              $color-3;
+$accordion-button-active-color:           $white;
+
+$accordion-button-icon:         url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$white}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>");
+$accordion-button-active-icon:  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$white}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>");
+
+@import "../../lib/bootstrap/scss/bootstrap.scss";
+
+
+// *********************
+// * Reglas personalizadas
+// *********************
+
+body {
+    background-image: $gradient-background
+}
+
+.form-check {
+  user-select: none; 
+}

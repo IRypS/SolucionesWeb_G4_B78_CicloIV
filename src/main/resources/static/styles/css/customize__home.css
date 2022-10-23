@@ -1,0 +1,6 @@
+.c_bg-hero {
+  background-image: -webkit-gradient(linear, left top, right top, from(rgba(15, 12, 41, 0.5137254902)), color-stop(50%, rgba(48, 43, 99, 0.4862745098)), to(rgba(36, 36, 62, 0.4941176471))), -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.6509803922)), to(rgba(0, 0, 0, 0.6784313725))), url("/resources/img/home_bacground.jpg");
+  background-image: linear-gradient(90deg, rgba(15, 12, 41, 0.5137254902) 0%, rgba(48, 43, 99, 0.4862745098) 50%, rgba(36, 36, 62, 0.4941176471) 100%), linear-gradient(180deg, rgba(0, 0, 0, 0.6509803922) 0%, rgba(0, 0, 0, 0.6784313725) 100%), url("/resources/img/home_bacground.jpg");
+  background-size: cover;
+  background-position: center;
+}/*# sourceMappingURL=customize__home.css.map */
