@@ -41,13 +41,16 @@ public class AccountController {
     @PostMapping("/createNewUser")
     public String createNewUser(@Validated User usr, BindingResult br, Model model) {
 
+        // Compare Passwords 
         String password = usr.getPassword().toString();
         String confirmPassword = usr.getConfirmPassword().toString();
-
+        
         if( !password.equals(confirmPassword) ) {
             br.addError( new FieldError("user", "confirmPassword", "Las contraseñas no coinciden"));
         };
 
+
+        // Verify errors
         if(br.hasErrors()) {
             model.addAttribute("user", usr);
 			return "sign_in";
@@ -56,9 +59,8 @@ public class AccountController {
 
         model.addAttribute("user", usr);
 
-        System.out.println(usr.getUsername());
-
-        return "home";
+        // return "home";
+        return "redirect:/app/trailers";
     }
     
 }

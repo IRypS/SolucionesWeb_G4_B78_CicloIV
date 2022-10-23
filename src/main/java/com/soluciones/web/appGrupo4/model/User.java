@@ -16,7 +16,7 @@ public class User {
     private String email;
 
     @NotEmpty(message = "El campo no debe estar vacío")
-    // @Size(min = 8, max = 30, message = "Ingrese más de 8 caracteres y menos de 30")
+    @Size(min = 8, max = 30, message = "Ingrese más de 8 caracteres y menos de 30")
     private String password;
 
     @NotEmpty(message = "El campo no debe estar vacío")
