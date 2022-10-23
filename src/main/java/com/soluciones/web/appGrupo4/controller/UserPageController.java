@@ -40,13 +40,13 @@ public class UserPageController {
         Map<String, Trailer> mapaTrailers = trailerInterface.getTrailersMap();
         Trailer targetTrailer = mapaTrailers.get(id);
 
-        System.out.println(trailerInterface.getRelatedTrailers().get(1).getImageUrl());   
+        // System.out.println(trailerInterface.getRelatedTrailers().get(1).getImageUrl());   
 
         model.addAttribute("title", "Trailer View | " + title);
         model.addAttribute("activeSession", true);
 
         model.addAttribute("trailer", targetTrailer);
-        model.addAttribute("relatedTrailers", trailerInterface.getRelatedTrailers());
+        model.addAttribute("relatedTrailers", trailerInterface.getRelatedTrailers(id));
  
         return "trailer_view";
     };

@@ -11,6 +11,6 @@ public interface ITrailerService {
     
     Map<String, Trailer> getTrailersMap();
 
-    List<Trailer> getRelatedTrailers();
+    List<Trailer> getRelatedTrailers(String id);
 
 }

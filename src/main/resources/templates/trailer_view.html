@@ -158,7 +158,6 @@
                 <p class="h4">Video Relacionados</p>
 
                 <div th:each="related : ${relatedTrailers}"
-                    th:if="${ related.getId != trailer.getId }"
                     class="my-2 w-100 c_link-video-container">
                     <a th:href="@{/app/trailer/view/{id}(id=${related.getId}) }">
                         <img th:src="@{${ related.getImageUrl }}" 
