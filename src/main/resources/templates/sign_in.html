@@ -42,43 +42,53 @@
                     <div class="form-floating">
                         <img src="/resources/icons/user__icon.svg" 
                             alt="Icono para el input de nombre de usuario" class="c_icon">
-                        <input type="text" class="form-control" name="username" th:field="*{username}"
+                        <input th:classappend="${#fields.hasErrors('username')} ? 'is-invalid' : '' "
+                            type="text" class="form-control" name="username" th:field="*{username}"
                             id="floatingUserName" placeholder="User name">
                         <label for="floatingUserName">User name</label>
                     </div>
-                    <div th:if = "${#fields.hasErrors('username')}" th:errors = "*{username}"
-                        class="alert alert-danger" role="alert"></div>
+                    <small th:if = "${#fields.hasErrors('username')}" th:errors = "*{username}"
+                        class="d-block bg-danger text-light py-1 px-3" role="alert"></small>
                 </div>
 
                 <div>
                     <div class="form-floating">
                         <img src="/resources/icons/email__icon.svg" 
                             alt="Icono para el input de correo" class="c_icon">
-                        <input type="email" class="form-control" name="email" th:field="*{email}"
+                        <input th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''"
+                            type="email" class="form-control" name="email" th:field="*{email}"
                             id="floatingEmail" placeholder="Email">
                         <label for="floatingEmail">Email</label>
                     </div>
-                    <div th:if = "${#fields.hasErrors('email')}" th:errors = "*{email}"
-                        class="alert alert-danger" role="alert"></div>
+                    <small th:if = "${#fields.hasErrors('email')}" th:errors = "*{email}"
+                        class="d-block bg-danger text-light py-1 px-3" role="alert"></small>
                 </div>
 
                 <div>
                     <div class="form-floating">
                         <img src="/resources/icons/lock__icon.svg" 
                             alt="Icono para el input de contraseña" class="c_icon">
-                        <input type="password" class="form-control" name="password" th:field="*{password}"
+                        <input th:classappend="${#fields.hasErrors('password')} ? 'is-invalid' : ''"
+                            type="password" class="form-control" name="password" th:field="*{password}"
                             id="floatingPassword" placeholder="Password">
                         <label for="floatingPassword">Password</label>
                     </div>
-                    <div th:if = "${#fields.hasErrors('password')}" th:errors = "*{password}"
-                        class="alert alert-danger" role="alert"></div>
+                    <small th:if = "${#fields.hasErrors('password')}" th:errors = "*{password}"
+                        class="d-block bg-danger text-light py-1 px-3" role="alert"></small>
                 </div>
 
-                <!-- <div class="form-floating">
-                    <img src="/resources/icons/lock__icon--border.svg" alt="Icono para el input de confimar contraseña" class="c_icon">
-                    <input type="password" class="form-control" id="floatingConfirmPassword" placeholder="Confirm Password">
-                    <label for="floatingConfirmPassword">Confirm Password</label>
-                </div> -->
+                <div>
+                    <div class="form-floating">
+                        <img src="/resources/icons/lock__icon--border.svg" 
+                            alt="Icono para el input de confimar contraseña" class="c_icon">
+                        <input th:classappend="${#fields.hasErrors('confirmPassword')} ? 'is-invalid' : ''"
+                            type="password" class="form-control" name="confirmPassword" th:field="*{confirmPassword}"
+                            id="floatingConfirmPassword" placeholder="Confirm Password">
+                        <label for="floatingConfirmPassword">Confirm Password</label>
+                    </div>
+                    <small th:if = "${#fields.hasErrors('confirmPassword')}" th:errors = "*{confirmPassword}"
+                        class="d-block bg-danger text-light py-1 px-3" role="alert"></small>
+                </div>
 
                 <!-- Submit button -->
                 <button type="submit" class="btn btn-cta mt-2 w-100">Registrarse</button>

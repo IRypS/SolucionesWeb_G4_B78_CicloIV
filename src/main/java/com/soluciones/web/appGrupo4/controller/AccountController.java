@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,12 +39,25 @@ public class AccountController {
     };
 
     @PostMapping("/createNewUser")
-    public String a(@Validated User usr, BindingResult br, Model model) {
+    public String createNewUser(@Validated User usr, BindingResult br, Model model) {
+
+        String password = usr.getPassword().toString();
+        String confirmPassword = usr.getConfirmPassword().toString();
+
+        if( !password.equals(confirmPassword) ) {
+            br.addError( new FieldError("user", "confirmPassword", "Las contraseñas no coinciden"));
+        };
 
         if(br.hasErrors()) {
-		
+            model.addAttribute("user", usr);
+            System.out.println("Souuuuuuuuuuuuuuuuuuuuuuuuu -------------------------------------->>>>>>>>>>>>>>>");
 			return "sign_in";
 		}
+        
+
+        model.addAttribute("user", usr);
+
+        System.out.println(usr.getUsername());
 
         return "home";
     }
