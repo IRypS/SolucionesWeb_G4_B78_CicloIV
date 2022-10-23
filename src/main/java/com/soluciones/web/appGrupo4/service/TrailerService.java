@@ -19,16 +19,12 @@ public class TrailerService implements ITrailerService{
     
     @Override
     public List<Trailer> getAllTrailers() {
-        List<Trailer> trailerList = trailerrepo.getAllTrailersObjects();
-        return trailerList;
+        return trailerrepo.getAllTrailersObjects();
     };
 
     @Override
     public Map<String, Trailer> getTrailersMap() {
-
-        Map<String, Trailer> trailersMap = trailerrepo.getTrailersMap();
-
-        return trailersMap;
+        return trailerrepo.getTrailersMap();
     }
 
 

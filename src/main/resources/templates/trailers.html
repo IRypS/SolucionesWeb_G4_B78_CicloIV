@@ -128,62 +128,19 @@
                         <div id="flush-collapseGenres" class="accordion-collapse collapse" 
                             aria-labelledby="flush-genres" data-bs-parent="#accordionFlushFilter">
                             <div class="accordion-body">
-                                <!-- Form Checks -->
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" 
-                                            value="" id="checkAction">
-                                    <label class="form-check-label" for="checkAction">
-                                        Action
+
+                                <!-- Genres Each  -->
+                                <div th:each=" category : ${categoriesList}"
+                                    class="form-check">
+                                    <input th:value="${category.getName.toLowerCase()}" 
+                                        th:id="check + ${category.getName}"
+                                        class="form-check-input" type="checkbox" >
+                                    <label th:text="${category.getName}"
+                                        th:for="check + ${category.getName}"
+                                        class="form-check-label" >
                                     </label>
                                 </div>
-                                <!-- Form Checks -->
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" 
-                                            value="" id="checkAdventure">
-                                    <label class="form-check-label" for="checkAdventure">
-                                        Adventure
-                                    </label>
-                                </div>
-                                <!-- Form Checks -->
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" 
-                                            value="" id="checkAnimation">
-                                    <label class="form-check-label" for="checkAnimation">
-                                        Animation
-                                    </label>
-                                </div>
-                                <!-- Form Checks -->
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" 
-                                            value="" id="checkComedy">
-                                    <label class="form-check-label" for="checkComedy">
-                                        Comedy
-                                    </label>
-                                </div>
-                                <!-- Form Checks -->
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" 
-                                            value="" id="checkDrama">
-                                    <label class="form-check-label" for="checkDrama">
-                                        Drama
-                                    </label>
-                                </div>
-                                <!-- Form Checks -->
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" 
-                                            value="" id="checkRomance">
-                                    <label class="form-check-label" for="checkRomance">
-                                        Romance
-                                    </label>
-                                </div>
-                                <!-- Form Checks -->
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" 
-                                            value="" id="checkThriller">
-                                    <label class="form-check-label" for="checkThriller">
-                                        Thriller
-                                    </label>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -202,48 +159,17 @@
                         <div id="flush-collapseCountries" class="accordion-collapse collapse" 
                             aria-labelledby="flush-country" data-bs-parent="#accordionFlushFilter">
                             <div class="accordion-body">
-                                <!-- Form Checks -->
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" 
-                                            value="" id="checkChina">
-                                    <label class="form-check-label" for="checkChina">
-                                        China
+                                <!-- Countries Each -->
+                                <div th:each=" country : ${countriesList}"
+                                    class="form-check">
+                                    <input th:value="${country.getCountryname.toLowerCase()}" 
+                                        th:id="check + ${country.getCountryname}"
+                                        class="form-check-input" type="checkbox">
+                                    <label th:text="${country.getCountryname}"
+                                        th:for="check + ${country.getCountryname}"
+                                        class="form-check-label">
                                     </label>
                                 </div>
-                                <!-- Form Checks -->
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" 
-                                            value="" id="checkJapan">
-                                    <label class="form-check-label" for="checkJapan">
-                                        Japan
-                                    </label>
-                                </div>
-                                <!-- Form Checks -->
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" 
-                                            value="" id="checkPeru">
-                                    <label class="form-check-label" for="checkPeru">
-                                        Peru
-                                    </label>
-                                </div>
-                                <!-- Form Checks -->
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" 
-                                            value="" id="checkSpain">
-                                    <label class="form-check-label" for="checkSpain">
-                                        Spain
-                                    </label>
-                                </div>
-                                <!-- Form Checks -->
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" 
-                                            value="" id="checkUSA">
-                                    <label class="form-check-label" for="checkUSA">
-                                        USA
-                                    </label>
-                                </div>
-                                
-
                             </div>
                         </div>
                     </div>

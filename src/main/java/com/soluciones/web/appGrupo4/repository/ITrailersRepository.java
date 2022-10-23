@@ -7,8 +7,8 @@ import com.soluciones.web.appGrupo4.model.Trailer;
 
 public interface ITrailersRepository {
 
-    List<Trailer> getAllTrailersObjects();
+    public List<Trailer> getAllTrailersObjects();
 
-    Map<String, Trailer> getTrailersMap();
+    public Map<String, Trailer> getTrailersMap();
     
 }

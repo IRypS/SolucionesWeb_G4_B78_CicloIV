@@ -7,10 +7,10 @@ import com.soluciones.web.appGrupo4.model.Trailer;
 
 public interface ITrailerService {
     
-    List<Trailer> getAllTrailers();
+    public List<Trailer> getAllTrailers();
     
-    Map<String, Trailer> getTrailersMap();
+    public Map<String, Trailer> getTrailersMap();
 
-    List<Trailer> getRelatedTrailers(String id);
+    public List<Trailer> getRelatedTrailers(String id);
 
 }

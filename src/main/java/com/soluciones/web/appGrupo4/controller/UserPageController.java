@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.soluciones.web.appGrupo4.model.Trailer;
+import com.soluciones.web.appGrupo4.service.ICategoriesService;
+import com.soluciones.web.appGrupo4.service.ICountryService;
 import com.soluciones.web.appGrupo4.service.ITrailerService;
 
 @Controller
@@ -22,6 +24,12 @@ public class UserPageController {
 
     @Autowired
     private ITrailerService trailerInterface;
+
+    @Autowired
+    private ICategoriesService categoriesInterface;
+
+    @Autowired
+    private ICountryService countriesInterface;
    
     @GetMapping("/trailers")
     public String allTrailers(Model model) {
@@ -30,6 +38,8 @@ public class UserPageController {
         model.addAttribute("activeSession", true);
 
         model.addAttribute("trailersList", trailerInterface.getAllTrailers());
+        model.addAttribute("categoriesList", categoriesInterface.getAllCategories());
+        model.addAttribute("countriesList", countriesInterface.getAllCountries());
  
         return "trailers";
     };
@@ -40,7 +50,10 @@ public class UserPageController {
         Map<String, Trailer> mapaTrailers = trailerInterface.getTrailersMap();
         Trailer targetTrailer = mapaTrailers.get(id);
 
-        // System.out.println(trailerInterface.getRelatedTrailers().get(1).getImageUrl());   
+        // Redirect when id from link is invalid
+        if (targetTrailer == null) {
+            return "redirect:/";
+        }
 
         model.addAttribute("title", "Trailer View | " + title);
         model.addAttribute("activeSession", true);
