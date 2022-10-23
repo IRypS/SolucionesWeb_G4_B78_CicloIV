@@ -50,7 +50,6 @@ public class AccountController {
 
         if(br.hasErrors()) {
             model.addAttribute("user", usr);
-            System.out.println("Souuuuuuuuuuuuuuuuuuuuuuuuu -------------------------------------->>>>>>>>>>>>>>>");
 			return "sign_in";
 		}
         
