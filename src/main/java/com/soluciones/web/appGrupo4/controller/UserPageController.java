@@ -8,11 +8,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.soluciones.web.appGrupo4.model.Trailer;
+import com.soluciones.web.appGrupo4.model.UserList;
 import com.soluciones.web.appGrupo4.service.ICategoriesService;
 import com.soluciones.web.appGrupo4.service.ICountryService;
+import com.soluciones.web.appGrupo4.service.IListService;
 import com.soluciones.web.appGrupo4.service.ITrailerService;
 
 @Controller
@@ -30,6 +33,9 @@ public class UserPageController {
 
     @Autowired
     private ICountryService countriesInterface;
+
+    @Autowired
+    private IListService listsInterface;
    
     @GetMapping("/trailers")
     public String allTrailers(Model model) {
@@ -60,8 +66,20 @@ public class UserPageController {
 
         model.addAttribute("trailer", targetTrailer);
         model.addAttribute("relatedTrailers", trailerInterface.getRelatedTrailers(id));
+        model.addAttribute("userList", listsInterface.getAllLists());
+
  
         return "trailer_view";
+    };
+
+
+    @PostMapping("/list/createNewList/{id}")
+    public String createNewList(UserList usrList, @PathVariable String id) {
+        System.out.println("*** ---> Lista creada");
+        System.out.println(usrList.getName());
+
+        // Redirect to same page
+        return "redirect:/app/trailer/view/" + id;
     };
 
 }

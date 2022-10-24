@@ -22,7 +22,10 @@ public class AccountController {
     @GetMapping("/login")
     public String login(Model model) {
 
+        User usr = new User();
+
         model.addAttribute("title", "Login | " + title);
+        model.addAttribute("user", usr);
 
         return "login";
     };
@@ -59,8 +62,42 @@ public class AccountController {
 
         model.addAttribute("user", usr);
 
+        System.out.println("*** ---> Datos de usuario");
+        System.out.println(usr.getEmail());
+        System.out.println(usr.getUsername());
+
         // return "home";
         return "redirect:/app/trailers";
     }
+
+    @PostMapping("/accessAccount")
+    public String accessAccount(User usr, BindingResult br, Model md) {
+
+
+        // Simulated login credentiasl
+        String email = "demo@gmail.com";
+        String password = "123456";
+
+        if( !usr.getEmail().equals(email) ) {
+            System.out.println("Los correos NO coinciden !!!");
+            br.addError( new FieldError("user", "email", "Correo inválido: (intenta: demo@gmail.com)"));
+        };
+
+        if( !usr.getPassword().equals(password) ) {
+            System.out.println("Las contraseñas NO coinciden !!!");
+            br.addError( new FieldError("user", "password", "Contraseña inválida: (intenta: 123456)"));
+        };
+
+        if(br.hasErrors()) {
+            return "login";
+        };
+
+        System.out.println("*** ---> Ingresando a la cuenta:");
+        System.out.println(usr.getEmail());
+        System.out.println(usr.getPassword());
+
+
+        return "redirect:/app/trailers";
+    };
     
 }
