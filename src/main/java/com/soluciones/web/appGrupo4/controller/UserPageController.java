@@ -75,6 +75,7 @@ public class UserPageController {
 
     @PostMapping("/list/createNewList/{id}")
     public String createNewList(UserList usrList, @PathVariable String id) {
+        System.out.println("*** ---> Lista creada");
         System.out.println(usrList.getName());
 
         // Redirect to same page
