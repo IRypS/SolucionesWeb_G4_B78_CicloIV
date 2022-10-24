@@ -30,6 +30,7 @@ build/
 !**/src/test/**/build/
 
 /src/main/resources/static/lib/bootstrap/
+/temp/maquetacion/lib/bootstrap/
 /temp/
 ### VS Code ###
 .vscode/
