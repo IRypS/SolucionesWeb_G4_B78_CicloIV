@@ -4,6 +4,7 @@ public class Country {
     
     private String id;
     private String countryname;
+    private String countryIcon;
 
     
     public String getId() {
@@ -18,7 +19,11 @@ public class Country {
     public void setCountryname(String countryname) {
         this.countryname = countryname;
     }
-
+    public String getCountryIcon() {
+        return countryIcon;
+    }
+    public void setCountryIcon(String countryIcon) {
+        this.countryIcon = countryIcon;
+    }
     
-
 }

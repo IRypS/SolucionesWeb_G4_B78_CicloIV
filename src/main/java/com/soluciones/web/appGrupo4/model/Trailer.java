@@ -6,6 +6,8 @@ public class Trailer {
     private String title;
     private String url;
     private String imageUrl;
+    private String languageId;
+    private String subtitleId;
     private int views;
 
     public String getId() {
@@ -40,13 +42,24 @@ public class Trailer {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+    public String getLanguageId() {
+        return languageId;
+    }
+    public void setLanguageId(String languageId) {
+        this.languageId = languageId;
+    }
+    public String getSubtitleId() {
+        return subtitleId;
+    }
+    public void setSubtitleId(String subtitleId) {
+        this.subtitleId = subtitleId;
+    }
     public int getViews() {
         return views;
     }
     public void setViews(int views) {
         this.views = views;
     }
-    
-    
+
     
 }

@@ -15,6 +15,7 @@ import com.soluciones.web.appGrupo4.model.Trailer;
 import com.soluciones.web.appGrupo4.model.UserList;
 import com.soluciones.web.appGrupo4.service.ICategoriesService;
 import com.soluciones.web.appGrupo4.service.ICountryService;
+import com.soluciones.web.appGrupo4.service.ILanguageService;
 import com.soluciones.web.appGrupo4.service.IListService;
 import com.soluciones.web.appGrupo4.service.ITrailerService;
 
@@ -27,6 +28,9 @@ public class UserPageController {
 
     @Autowired
     private ITrailerService trailerInterface;
+
+    @Autowired
+    private ILanguageService languageInterface;
 
     @Autowired
     private ICategoriesService categoriesInterface;
@@ -44,6 +48,7 @@ public class UserPageController {
         model.addAttribute("activeSession", true);
 
         model.addAttribute("trailersList", trailerInterface.getAllTrailers());
+        model.addAttribute("LanguagesMap", languageInterface.getLanguagesMap());
         model.addAttribute("categoriesList", categoriesInterface.getAllCategories());
         model.addAttribute("countriesList", countriesInterface.getAllCountries());
  
