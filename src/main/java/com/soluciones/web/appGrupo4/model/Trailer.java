@@ -1,7 +1,16 @@
 package com.soluciones.web.appGrupo4.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "trailer")
 public class Trailer {
+
+    @Id
     private String id;
+    
     private String movie_id;
     private String title;
     private String url;
