@@ -1,6 +1,9 @@
 package com.soluciones.web.appGrupo4.repository;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
@@ -9,17 +12,15 @@ import com.soluciones.web.appGrupo4.model.Language;
 
 @Repository
 public class LanguageRepository implements ILanguageRepository {
-    
+
+    Language lang1 = new Language();
+    Language lang2 = new Language();
+    Language lang3 = new Language();
+    Language lang4 = new Language();
+
     @Override
-    public Map<String, Language> getLanguagesObjects() {
+    public List<Language> getAllLanguagesObjects() {
         
-        Language lang1 = new Language();
-        Language lang2 = new Language();
-        Language lang3 = new Language();
-        Language lang4 = new Language();
-
-        Map<String, Language> languagesMap = new HashMap<String, Language>();
-
         lang1.setIdLanguage("c66f3e3f-5c0c-40ad-ab40-1f62c04a2f3a");
         lang1.setNameLanguage("Inglés");
         lang1.setIconLanguage("/resources/icons/flags/united-states.svg");
@@ -36,11 +37,19 @@ public class LanguageRepository implements ILanguageRepository {
         lang4.setNameLanguage("Japonés");
         lang4.setIconLanguage("/resources/icons/flags/japan.svg");
 
+        List<Language> languagesList = Arrays.asList(lang1, lang2, lang3, lang4);
 
-        languagesMap.put(lang1.getIdLanguage(), lang1);
-        languagesMap.put(lang2.getIdLanguage(), lang2);
-        languagesMap.put(lang3.getIdLanguage(), lang3);
-        languagesMap.put(lang4.getIdLanguage(), lang4);
+        return languagesList;
+    };
+    
+    @Override
+    public Map<String, Language> getLanguagesObjects() {
+
+        Map<String, Language> languagesMap = new HashMap<String, Language>();
+
+        this.getAllLanguagesObjects().forEach( language -> {
+            languagesMap.put( language.getIdLanguage(), language);
+        } );
 
         return languagesMap;     
     };

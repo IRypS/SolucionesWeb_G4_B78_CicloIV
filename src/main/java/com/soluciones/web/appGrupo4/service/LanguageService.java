@@ -1,5 +1,6 @@
 package com.soluciones.web.appGrupo4.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,11 @@ public class LanguageService implements ILanguageService {
 
     @Autowired
     private ILanguageRepository languageRepo;
+
+    @Override
+    public List<Language> getLanguagesListObjects() {
+        return languageRepo.getAllLanguagesObjects();
+    };
 
     @Override
     public Map<String, Language> getLanguagesMap() {

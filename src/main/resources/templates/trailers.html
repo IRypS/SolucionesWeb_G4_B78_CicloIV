@@ -145,6 +145,68 @@
                         </div>
                     </div>
 
+                    <!-- Audio Filter -->
+                    <div class="accordion-item">
+                        <!-- Header -->
+                        <h2 class="accordion-header" id="flush-audio">
+                            <button class="accordion-button collapsed" type="button" 
+                                    data-bs-toggle="collapse" data-bs-target="#flush-collpaseAudio" 
+                                    aria-expanded="false" aria-controls="flush-collpaseAudio">
+                                Por Audio
+                            </button>
+                        </h2>
+                        <!-- Collapse -->
+                        <div id="flush-collpaseAudio" class="accordion-collapse collapse" 
+                            aria-labelledby="flush-audio" data-bs-parent="#accordionFlushFilter">
+                            <div class="accordion-body">
+
+                                <!-- Audio Each  -->
+                                <div th:each=" audio : ${languagesList}"
+                                    class="form-check">
+                                    <input th:value="${audio.getNameLanguage.toLowerCase()}" 
+                                        th:id="check + ${audio.getNameLanguage}"
+                                        class="form-check-input" type="checkbox" >
+                                    <label th:text="${audio.getNameLanguage}"
+                                        th:for="check + ${audio.getNameLanguage}"
+                                        class="form-check-label" >
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Subtitle Filter -->
+                    <div class="accordion-item">
+                        <!-- Header -->
+                        <h2 class="accordion-header" id="flush-subtitle">
+                            <button class="accordion-button collapsed" type="button" 
+                                    data-bs-toggle="collapse" data-bs-target="#flush-collapseSubtitle" 
+                                    aria-expanded="false" aria-controls="flush-collapseSubtitle">
+                                Por Subtitulos
+                            </button>
+                        </h2>
+                        <!-- Collapse -->
+                        <div id="flush-collapseSubtitle" class="accordion-collapse collapse" 
+                            aria-labelledby="flush-subtitle" data-bs-parent="#accordionFlushFilter">
+                            <div class="accordion-body">
+
+                                <!-- Subtitle Each  -->
+                                <div th:each=" subtitle : ${languagesList}"
+                                    class="form-check">
+                                    <input th:value="${subtitle.getNameLanguage.toLowerCase()}" 
+                                        th:id="check + ${subtitle.getNameLanguage}"
+                                        class="form-check-input" type="checkbox" >
+                                    <label th:text="${subtitle.getNameLanguage}"
+                                        th:for="check + ${subtitle.getNameLanguage}"
+                                        class="form-check-label" >
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Country Filter -->
                     <div class="accordion-item">
                         <!-- Header -->

@@ -48,6 +48,7 @@ public class UserPageController {
         model.addAttribute("activeSession", true);
 
         model.addAttribute("trailersList", trailerInterface.getAllTrailers());
+        model.addAttribute("languagesList", languageInterface.getLanguagesListObjects());
         model.addAttribute("languagesMap", languageInterface.getLanguagesMap());
         model.addAttribute("categoriesList", categoriesInterface.getAllCategories());
         model.addAttribute("countriesList", countriesInterface.getAllCountries());
