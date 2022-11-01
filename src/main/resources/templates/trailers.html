@@ -185,12 +185,36 @@
                         class="col px-3 py-1 c_link-video-container">
 
                         <a th:href="@{/app/trailer/view/{id}(id=${trailer.getId}) }">
-                            <img th:src="@{${ trailer.getImageUrl }}" 
+
+                            <div class="position-relative overflow-hidden rounded-3">
+                                <!-- Image -->
+                                <img th:src="@{${ trailer.getImageUrl }}" 
                                 th:alt="${trailer.getTitle}" class="w-100 c_img-video">
+                                <!-- Icons Language -->
+                                <div class="position-absolute top-0 end-0 p-2 d-flex rounded-3 c_languageInfo">
+                                    <!-- Audio Icon -->
+                                    <div th:if="${ trailer.getLanguageId != null }"
+                                        class="d-flex">
+                                        <img src="/resources/icons/volume__icon.svg" 
+                                            alt="Icono de audio" class="me-1"> 
+                                        <img th:src="${ languagesMap.get(trailer.getLanguageId).getIconLanguage }" alt="" 
+                                            style="height: 100%;">
+                                    </div>
+                                    <!-- Subtitle Icon -->
+                                    <div th:if="${ trailer.getSubtitleId != null }"
+                                        class="d-flex ms-2">
+                                        <img src="/resources/icons/subtitle__icon.svg" 
+                                            alt="Icono de subtitulo" class="me-1"> 
+                                        <img th:src="${ languagesMap.get(trailer.getSubtitleId).getIconLanguage }" alt="" 
+                                            style="height: 100%;">
+                                    </div>
+                                </div>
+                            </div>
                             <p th:text="${ trailer.getTitle }"
                                 class="text-truncate">Trailer</p>
                         </a>
                     </div>
+
                 </div>
             </div>
             

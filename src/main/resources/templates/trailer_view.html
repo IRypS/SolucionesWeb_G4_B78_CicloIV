@@ -127,7 +127,17 @@
 
                     <!-- Trailer title -->
                     <div class="col-12 my-3">
-                        <span th:text="${trailer.getTitle}" class="h6">Video Trailer</span>
+                        <span th:if="${ trailer.getLanguageId != null }">
+                            <img src="/resources/icons/volume__icon.svg" 
+                                alt="Icono de audio" class=""> 
+                            <img th:src="${ languagesMap.get(trailer.getLanguageId).getIconLanguage }" alt="" style="width:20px">
+                        </span>
+                        <span th:if="${ trailer.getSubtitleId != null }">
+                            | <img src="/resources/icons/subtitle__icon.svg" 
+                                alt="Icono de audio" class=""> 
+                            <img th:src="${ languagesMap.get(trailer.getSubtitleId).getIconLanguage }" alt="" style="width:20px">
+                        </span>
+                        <span th:text="${trailer.getTitle}" class="h6 ms-1"></span>
                     </div>
 
                     <!-- Action Buttons -->
@@ -293,15 +303,40 @@
             <div class="col-lg-3 mt-3 mt-lg-0">
                 <p class="h4">Video Relacionados</p>
 
-                <div th:each="related : ${relatedTrailers}"
-                    class="my-2 w-100 c_link-video-container">
-                    <a th:href="@{/app/trailer/view/{id}(id=${related.getId}) }">
-                        <img th:src="@{${ related.getImageUrl }}" 
-                            th:alt="${related.getTitle}" class="w-100 c_img-video">
-                        <p th:text="${related.getTitle}"
-                            class="text-truncate">...</p>
-                    </a>
-                </div>
+                <div th:each="related : ${relatedTrailers}" 
+                        class="col px-3 py-1 c_link-video-container">
+
+                        <a th:href="@{/app/trailer/view/{id}(id=${related.getId}) }">
+
+                            <div class="position-relative overflow-hidden rounded-3">
+                                <!-- Image -->
+                                <img th:src="@{${ related.getImageUrl }}" 
+                                th:alt="${related.getTitle}" class="w-100 c_img-video">
+                                <!-- Icons Language -->
+                                <div class="position-absolute top-0 end-0 p-2 d-flex rounded-3 c_languageInfo">
+                                    <!-- Audio Icon -->
+                                    <div th:if="${ related.getLanguageId != null }"
+                                        class="d-flex">
+                                        <img src="/resources/icons/volume__icon.svg" 
+                                            alt="Icono de audio" class="me-1"> 
+                                        <img th:src="${ languagesMap.get(related.getLanguageId).getIconLanguage }" alt="" 
+                                            style="height: 100%;">
+                                    </div>
+                                    <!-- Subtitle Icon -->
+                                    <div th:if="${ related.getSubtitleId != null }"
+                                        class="d-flex ms-2">
+                                        <img src="/resources/icons/subtitle__icon.svg" 
+                                            alt="Icono de subtitulo" class="me-1"> 
+                                        <img th:src="${ languagesMap.get(related.getSubtitleId).getIconLanguage }" alt="" 
+                                            style="height: 100%;">
+                                    </div>
+                                </div>
+                            </div>
+                            <p th:text="${ related.getTitle }"
+                                class="text-truncate">Trailer</p>
+                        </a>
+                    </div>
+
             </div>
             
         </div>

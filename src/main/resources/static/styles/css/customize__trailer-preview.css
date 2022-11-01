@@ -4,4 +4,9 @@
 .c_link-video-container a img {
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.c_languageInfo {
+  background-color: rgba(15, 12, 41, 0.7333333333);
+  height: 32px;
 }/*# sourceMappingURL=customize__trailer-preview.css.map */

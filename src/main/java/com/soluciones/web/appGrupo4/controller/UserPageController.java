@@ -48,7 +48,7 @@ public class UserPageController {
         model.addAttribute("activeSession", true);
 
         model.addAttribute("trailersList", trailerInterface.getAllTrailers());
-        model.addAttribute("LanguagesMap", languageInterface.getLanguagesMap());
+        model.addAttribute("languagesMap", languageInterface.getLanguagesMap());
         model.addAttribute("categoriesList", categoriesInterface.getAllCategories());
         model.addAttribute("countriesList", countriesInterface.getAllCountries());
  
@@ -71,6 +71,7 @@ public class UserPageController {
 
         model.addAttribute("trailer", targetTrailer);
         model.addAttribute("relatedTrailers", trailerInterface.getRelatedTrailers(id));
+        model.addAttribute("languagesMap", languageInterface.getLanguagesMap());
         model.addAttribute("userList", listsInterface.getAllLists());
 
  

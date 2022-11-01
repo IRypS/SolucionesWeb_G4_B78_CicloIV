@@ -1,4 +1,4 @@
-
+@import "../variables.scss";
 
 .c_link-video-container {
     a {
@@ -8,4 +8,9 @@
             object-fit: cover;
         }
     }
+}
+
+.c_languageInfo {
+    background-color: $color-1-opacity-75; 
+    height: 32px;
 }
