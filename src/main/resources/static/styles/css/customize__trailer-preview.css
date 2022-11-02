@@ -1,3 +1,11 @@
+.c_link-video-container {
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.c_link-video-container:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
 .c_link-video-container a {
   text-decoration: none;
 }
