@@ -4,8 +4,6 @@ public class Category {
     
     private String id;
     private String name;
-    private String color;
-    private String bgColor;
 
     
     public String getId() {
@@ -19,20 +17,6 @@ public class Category {
     }
     public void setName(String name) {
         this.name = name;
-    }
-    public String getColor() {
-        return color;
-    }
-    public void setColor(String color) {
-        this.color = color;
-    }
-    public String getBgColor() {
-        return bgColor;
-    }
-    public void setBgColor(String bgColor) {
-        this.bgColor = bgColor;
-    }
-
-    
+    }   
 
 }

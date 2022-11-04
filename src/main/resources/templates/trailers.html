@@ -246,15 +246,18 @@
                     <div th:each="trailer : ${trailersList}" 
                         class="col px-3 py-1 c_link-video-container">
 
-                        <a th:href="@{/app/trailer/view/{id}(id=${trailer.getId}) }">
+                        <a th:href="@{/app/trailer/view/{id}(id=${trailer.getId}) }"
+                        th:title="${trailer.getTitle}" tabindex="0" data-bs-toggle="popover" 
+                        data-bs-placement="right" data-bs-content-id="popover-categories" 
+                        data-bs-trigger="hover focus">
 
                             <div class="position-relative overflow-hidden rounded-3">
                                 <!-- Image -->
-                                <!-- <img th:src="@{${ trailer.getImageUrl }}" 
-                                th:alt="${trailer.getTitle}" class="w-100 c_img-video"> -->
+                                <img th:src="@{${ trailer.getImageUrl }}" 
+                                th:alt="${trailer.getTitle}" class="w-100 c_img-video">
                                 <!-- Image Temp Offline -->
-                                <img th:src="@{/resources/img/temp_hqdefault.jpg}" 
-                                    class="w-100 c_img-video">
+                                <!-- <img th:src="@{/resources/img/temp_hqdefault.jpg}" 
+                                    class="w-100 c_img-video"> -->
                                 <!-- Icons Language -->
                                 <div class="position-absolute top-0 end-0 p-2 d-flex rounded-3 c_languageInfo">
                                     <!-- Audio Icon -->
@@ -278,6 +281,18 @@
                             <p th:text="${ trailer.getTitle }"
                                 class="text-truncate">Trailer</p>
                         </a>
+
+                        <!-- Popover -->
+                        <div id="popover-categories" class="d-none">
+                            <div class="row justify-content-center">
+                                <div class="col-auto bg-secondary text-light rounded-pill m-1">Comedia</div>
+                                <div class="col-auto bg-secondary text-light rounded-pill m-1">Romance</div>
+                                <div class="col-auto bg-secondary text-light rounded-pill m-1">Accion</div>
+                                <div class="col-auto bg-secondary text-light rounded-pill m-1">Sci-fi</div>
+                                <div class="col-auto bg-secondary text-light rounded-pill m-1">Thriller</div>
+                                <div class="col-auto bg-secondary text-light rounded-pill m-1">Comedia</div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -303,7 +318,10 @@
     </footer>
 
     <!-- Bootstrap JS -->
+    <script src="/utils/popper.min.js"></script>
     <script src="/utils/bootstrap.js"></script>
+    <!-- Enable tooltips -->
+    <script src="/utils/enablePopovers.js"></script>
 
     <!-- Customm Js -->
     <script src="/utils/autoadjust__video-proportions.js"></script>

@@ -1,7 +1,9 @@
 package com.soluciones.web.appGrupo4.repository;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.stereotype.Repository;
@@ -48,6 +50,17 @@ public class CategoriesRepository implements ICategoriesRepository {
             category5, category6, category7 );
 
         return categoryList;
+    };
+
+    @Override
+    public Map<String, Category> getTrailersMap() {
+        Map<String, Category> trailersCategories = new HashMap<String, Category>();
+
+        this.getAllCategoriesObjects().forEach( category -> {
+            trailersCategories.put( category.getId(), category);
+        } );
+
+        return trailersCategories;
     };
     
 }

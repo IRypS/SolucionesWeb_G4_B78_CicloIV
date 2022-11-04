@@ -304,41 +304,56 @@
                 <p class="h4 mb-4">Videos Relacionados</p>
 
                 <div th:each="related : ${relatedTrailers}" 
-                        class="col px-3 py-1 c_link-video-container">
+                    class="col px-3 py-1 c_link-video-container">
 
-                        <a th:href="@{/app/trailer/view/{id}(id=${related.getId}) }">
+                    <a th:href="@{/app/trailer/view/{id}(id=${related.getId}) }"
+                    th:title="${related.getTitle}" tabindex="0" data-bs-toggle="popover" 
+                    data-bs-placement="left" data-bs-content-id="popover-categories" 
+                    data-bs-trigger="hover focus">
 
-                            <div class="position-relative overflow-hidden rounded-3">
-                                <!-- Image -->
-                                <!-- <img th:src="@{${ related.getImageUrl }}" 
-                                th:alt="${related.getTitle}" class="w-100 c_img-video"> -->
-                                <!-- Image Temp Offline -->
-                                <img th:src="@{/resources/img/temp_hqdefault.jpg}" 
-                                    class="w-100 c_img-video">
-                                <!-- Icons Language -->
-                                <div class="position-absolute top-0 end-0 p-2 d-flex rounded-3 c_languageInfo">
-                                    <!-- Audio Icon -->
-                                    <div th:if="${ related.getLanguageId != null }"
-                                        class="d-flex">
-                                        <img src="/resources/icons/volume__icon.svg" 
-                                            alt="Icono de audio" class="me-1"> 
-                                        <img th:src="${ languagesMap.get(related.getLanguageId).getIconLanguage }" alt="" 
-                                            style="height: 100%;">
-                                    </div>
-                                    <!-- Subtitle Icon -->
-                                    <div th:if="${ related.getSubtitleId != null }"
-                                        class="d-flex ms-2">
-                                        <img src="/resources/icons/subtitle__icon.svg" 
-                                            alt="Icono de subtitulo" class="me-1"> 
-                                        <img th:src="${ languagesMap.get(related.getSubtitleId).getIconLanguage }" alt="" 
-                                            style="height: 100%;">
-                                    </div>
+                        <div class="position-relative overflow-hidden rounded-3">
+                            <!-- Image -->
+                            <img th:src="@{${ related.getImageUrl }}" 
+                            th:alt="${related.getTitle}" class="w-100 c_img-video">
+                            <!-- Image Temp Offline -->
+                            <!-- <img th:src="@{/resources/img/temp_hqdefault.jpg}" 
+                                class="w-100 c_img-video"> -->
+                            <!-- Icons Language -->
+                            <div class="position-absolute top-0 end-0 p-2 d-flex rounded-3 c_languageInfo">
+                                <!-- Audio Icon -->
+                                <div th:if="${ related.getLanguageId != null }"
+                                    class="d-flex">
+                                    <img src="/resources/icons/volume__icon.svg" 
+                                        alt="Icono de audio" class="me-1"> 
+                                    <img th:src="${ languagesMap.get(related.getLanguageId).getIconLanguage }" alt="" 
+                                        style="height: 100%;">
+                                </div>
+                                <!-- Subtitle Icon -->
+                                <div th:if="${ related.getSubtitleId != null }"
+                                    class="d-flex ms-2">
+                                    <img src="/resources/icons/subtitle__icon.svg" 
+                                        alt="Icono de subtitulo" class="me-1"> 
+                                    <img th:src="${ languagesMap.get(related.getSubtitleId).getIconLanguage }" alt="" 
+                                        style="height: 100%;">
                                 </div>
                             </div>
-                            <p th:text="${ related.getTitle }"
-                                class="text-truncate">Trailer</p>
-                        </a>
+                        </div>
+                        <p th:text="${ related.getTitle }"
+                            class="text-truncate">Trailer</p>
+                    </a>
+
+                    <!-- Popover -->
+                    <div id="popover-categories" class="d-none">
+                        <div class="row justify-content-center">
+                            <div class="col-auto bg-secondary text-light rounded-pill m-1">Comedia</div>
+                            <div class="col-auto bg-secondary text-light rounded-pill m-1">Romance</div>
+                            <div class="col-auto bg-secondary text-light rounded-pill m-1">Accion</div>
+                            <div class="col-auto bg-secondary text-light rounded-pill m-1">Sci-fi</div>
+                            <div class="col-auto bg-secondary text-light rounded-pill m-1">Thriller</div>
+                            <div class="col-auto bg-secondary text-light rounded-pill m-1">Comedia</div>
+                        </div>
                     </div>
+                </div>
 
             </div>
             
@@ -384,7 +399,10 @@
     </script>
 
     <!-- Bootstrap JS -->
+    <script src="/utils/popper.min.js"></script>
     <script src="/utils/bootstrap.js"></script>
+    <!-- Enable tooltips -->
+    <script src="/utils/enablePopovers.js"></script>
 
     <!-- Customm Js -->
     <script src="/utils/autoadjust__video-proportions.js"></script>
