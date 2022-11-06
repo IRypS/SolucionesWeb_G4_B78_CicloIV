@@ -21,3 +21,19 @@
     background-color: $color-1-opacity-75; 
     height: 32px;
 }
+
+
+.c_movieInfo {
+
+    div {
+        
+        img {
+            width: 100%;
+            object-fit: cover;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    }
+}
