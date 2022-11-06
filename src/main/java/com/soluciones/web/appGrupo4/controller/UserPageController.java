@@ -1,7 +1,5 @@
 package com.soluciones.web.appGrupo4.controller;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -11,13 +9,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.soluciones.web.appGrupo4.model.Trailer;
 import com.soluciones.web.appGrupo4.model.UserList;
+import com.soluciones.web.appGrupo4.model.entities.E_Trailer;
 import com.soluciones.web.appGrupo4.service.ICategoriesService;
 import com.soluciones.web.appGrupo4.service.ICountryService;
 import com.soluciones.web.appGrupo4.service.ILanguageService;
 import com.soluciones.web.appGrupo4.service.IListService;
-import com.soluciones.web.appGrupo4.service.ITrailerService;
+import com.soluciones.web.appGrupo4.service.interfaces.ITrailerService;
 
 @Controller
 @RequestMapping("/app")
@@ -52,9 +50,6 @@ public class UserPageController {
         model.addAttribute("languagesMap", languageInterface.getLanguagesMap());
         model.addAttribute("categoriesList", categoriesInterface.getAllCategories());
         model.addAttribute("countriesList", countriesInterface.getAllCountries());
-
-        System.out.println(trailerInterface.getAllTrailers());
-        System.out.println("x1a23└");
  
         return "trailers";
     };
@@ -62,11 +57,11 @@ public class UserPageController {
     @GetMapping("/trailer/view/{id}")
     public String trailerView(@PathVariable String id, Model model) {
 
-        Map<String, Trailer> mapaTrailers = trailerInterface.getTrailersMap();
-        Trailer targetTrailer = mapaTrailers.get(id);
+        E_Trailer targetTrailer = new E_Trailer();
 
-        // Redirect when id from link is invalid
-        if (targetTrailer == null) {
+        try {
+            targetTrailer = trailerInterface.getTargetTrailer(id);
+        } catch (Exception e){
             return "redirect:/";
         }
 

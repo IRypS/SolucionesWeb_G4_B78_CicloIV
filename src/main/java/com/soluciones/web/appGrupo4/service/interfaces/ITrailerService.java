@@ -1,4 +1,4 @@
-package com.soluciones.web.appGrupo4.service;
+package com.soluciones.web.appGrupo4.service.interfaces;
 
 import java.util.List;
 import java.util.Map;
@@ -9,9 +9,9 @@ import com.soluciones.web.appGrupo4.model.entities.E_Trailer;
 public interface ITrailerService {
     
     public List<E_Trailer> getAllTrailers();
-    
-    public Map<String, Trailer> getTrailersMap();
 
-    public List<Trailer> getRelatedTrailers(String id);
+    public E_Trailer getTargetTrailer(String id);
+
+    public List<E_Trailer> getRelatedTrailers(String id);
 
 }
