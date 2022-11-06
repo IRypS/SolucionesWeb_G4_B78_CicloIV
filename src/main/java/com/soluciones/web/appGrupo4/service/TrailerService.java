@@ -9,19 +9,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.soluciones.web.appGrupo4.model.Trailer;
+import com.soluciones.web.appGrupo4.model.entities.E_Trailer;
 import com.soluciones.web.appGrupo4.repository.ITrailersRepository;
+import com.soluciones.web.appGrupo4.repository.I_trailer_db;
 
 @Service
 public class TrailerService implements ITrailerService{
 
     @Autowired
     private ITrailersRepository trailerrepo;
+
+    @Autowired
+    private I_trailer_db trailer_entity;
     
     @Override
-    public List<Trailer> getAllTrailers() {
-        return trailerrepo.getAllTrailersObjects();
+    public List<E_Trailer> getAllTrailers() {
+        return (List<E_Trailer>)trailer_entity.findAll();
     };
 
+    // EDIT
+    
     @Override
     public Map<String, Trailer> getTrailersMap() {
         return trailerrepo.getTrailersMap();

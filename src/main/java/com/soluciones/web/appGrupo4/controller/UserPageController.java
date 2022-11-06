@@ -52,6 +52,9 @@ public class UserPageController {
         model.addAttribute("languagesMap", languageInterface.getLanguagesMap());
         model.addAttribute("categoriesList", categoriesInterface.getAllCategories());
         model.addAttribute("countriesList", countriesInterface.getAllCountries());
+
+        System.out.println(trailerInterface.getAllTrailers());
+        System.out.println("x1a23└");
  
         return "trailers";
     };
