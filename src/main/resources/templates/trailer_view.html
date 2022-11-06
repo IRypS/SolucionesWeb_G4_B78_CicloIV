@@ -123,20 +123,28 @@
                     </div>
                 </div>
                 
+                <!-- Info Trailer & Actions -->
                 <div class="row g-0">
 
-                    <!-- Trailer title -->
+                    <!-- Trailer title-->
                     <div class="col-12 my-3">
+                        <!-- Audio icon -->
                         <span th:if="${ trailer.getLanguageId != null }">
                             <img src="/resources/icons/volume__icon.svg" 
-                                alt="Icono de audio" class=""> 
-                            <img th:src="${ languagesMap.get(trailer.getLanguageId).getIconLanguage }" alt="" style="width:20px">
+                                alt="Icono de audio"> 
+                            <img th:src="${ languagesMap.get(trailer.getLanguageId).getIconLanguage }" 
+                                th:alt="${ 'Icono de audio ' + languagesMap.get(trailer.getLanguageId).getNameLanguage.toLowerCase() }" 
+                                style="width:20px">
                         </span>
+                        <!-- Subtitle icon -->
                         <span th:if="${ trailer.getSubtitleId != null }">
-                            | <img src="/resources/icons/subtitle__icon.svg" 
-                                alt="Icono de audio" class=""> 
-                            <img th:src="${ languagesMap.get(trailer.getSubtitleId).getIconLanguage }" alt="" style="width:20px">
+                            <img src="/resources/icons/subtitle__icon.svg" 
+                                alt="Icono de sutitulo"> 
+                            <img th:src="${ languagesMap.get(trailer.getSubtitleId).getIconLanguage }" 
+                                th:alt="${ 'Icono de subtitulos en ' + languagesMap.get(trailer.getLanguageId).getNameLanguage.toLowerCase() }"  
+                                style="width:20px">
                         </span>
+                        <!-- Title -->
                         <span th:text="${trailer.getTitle}" class="h6 ms-1"></span>
                     </div>
 
@@ -303,21 +311,19 @@
             <div class="col-lg-3 mt-3 mt-lg-0">
                 <p class="h4 mb-4">Videos Relacionados</p>
 
+                <!-- Trailers Divs-->
                 <div th:each="related : ${relatedTrailers}" 
                     class="col px-3 py-1 c_link-video-container">
 
                     <a th:href="@{/app/trailer/view/{id}(id=${related.getId}) }"
-                    th:title="${related.getTitle}" tabindex="0" data-bs-toggle="popover" 
-                    data-bs-placement="left" data-bs-content-id="popover-categories" 
-                    data-bs-trigger="hover focus">
+                        th:title="${related.getTitle}" tabindex="0" data-bs-toggle="popover" 
+                        data-bs-placement="left" data-bs-content-id="popover-categories" 
+                        data-bs-trigger="hover focus">
 
                         <div class="position-relative overflow-hidden rounded-3">
                             <!-- Image -->
                             <img th:src="@{${ related.getImageUrl }}" 
-                            th:alt="${related.getTitle}" class="w-100 c_img-video">
-                            <!-- Image Temp Offline -->
-                            <!-- <img th:src="@{/resources/img/temp_hqdefault.jpg}" 
-                                class="w-100 c_img-video"> -->
+                                th:alt="${related.getTitle}" class="w-100 c_img-video">
                             <!-- Icons Language -->
                             <div class="position-absolute top-0 end-0 p-2 d-flex rounded-3 c_languageInfo">
                                 <!-- Audio Icon -->
@@ -325,7 +331,8 @@
                                     class="d-flex">
                                     <img src="/resources/icons/volume__icon.svg" 
                                         alt="Icono de audio" class="me-1"> 
-                                    <img th:src="${ languagesMap.get(related.getLanguageId).getIconLanguage }" alt="" 
+                                    <img th:src="${ languagesMap.get(related.getLanguageId).getIconLanguage }" 
+                                        th:alt="${ 'Icono de audio ' + languagesMap.get(related.getLanguageId).getNameLanguage.toLowerCase() }" 
                                         style="height: 100%;">
                                 </div>
                                 <!-- Subtitle Icon -->
@@ -333,7 +340,8 @@
                                     class="d-flex ms-2">
                                     <img src="/resources/icons/subtitle__icon.svg" 
                                         alt="Icono de subtitulo" class="me-1"> 
-                                    <img th:src="${ languagesMap.get(related.getSubtitleId).getIconLanguage }" alt="" 
+                                    <img th:src="${ languagesMap.get(related.getSubtitleId).getIconLanguage }" 
+                                        th:alt="${ 'Icono de subtitulos en ' + languagesMap.get(related.getSubtitleId).getNameLanguage.toLowerCase() }" 
                                         style="height: 100%;">
                                 </div>
                             </div>
