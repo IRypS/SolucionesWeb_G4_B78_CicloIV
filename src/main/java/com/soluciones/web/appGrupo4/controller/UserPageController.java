@@ -13,8 +13,8 @@ import com.soluciones.web.appGrupo4.model.UserList;
 import com.soluciones.web.appGrupo4.model.entities.E_Trailer;
 import com.soluciones.web.appGrupo4.service.ICategoriesService;
 import com.soluciones.web.appGrupo4.service.ICountryService;
-import com.soluciones.web.appGrupo4.service.ILanguageService;
 import com.soluciones.web.appGrupo4.service.IListService;
+import com.soluciones.web.appGrupo4.service.interfaces.ILanguageService;
 import com.soluciones.web.appGrupo4.service.interfaces.ITrailerService;
 
 @Controller
@@ -46,7 +46,7 @@ public class UserPageController {
         model.addAttribute("activeSession", true);
 
         model.addAttribute("trailersList", trailerInterface.getAllTrailers());
-        model.addAttribute("languagesList", languageInterface.getLanguagesListObjects());
+        model.addAttribute("languagesList", languageInterface.getAllLanguages());
         model.addAttribute("languagesMap", languageInterface.getLanguagesMap());
         model.addAttribute("categoriesList", categoriesInterface.getAllCategories());
         model.addAttribute("countriesList", countriesInterface.getAllCountries());

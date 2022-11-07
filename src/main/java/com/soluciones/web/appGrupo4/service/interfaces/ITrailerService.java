@@ -1,9 +1,7 @@
 package com.soluciones.web.appGrupo4.service.interfaces;
 
 import java.util.List;
-import java.util.Map;
 
-import com.soluciones.web.appGrupo4.model.Trailer;
 import com.soluciones.web.appGrupo4.model.entities.E_Trailer;
 
 public interface ITrailerService {
