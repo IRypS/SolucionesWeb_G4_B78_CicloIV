@@ -30,9 +30,6 @@ public class E_Trailer implements Serializable{
     @Column(name = "url_cover_trailer")
     private String imageUrl;
 
-    // @Column(name = "subtitle_id")
-    // private String subtitleId;
-
     @Column(name = "vistas")
     private int views;
 
@@ -41,6 +38,10 @@ public class E_Trailer implements Serializable{
     @ManyToOne
     @JoinColumn(name = "language_id")
     private E_Language language;
+
+    @ManyToOne
+    @JoinColumn(name = "subtitle_id")
+    private E_Language subtitle;
 
     
     
@@ -94,14 +95,6 @@ public class E_Trailer implements Serializable{
         this.imageUrl = imageUrl;
     }
 
-    // public String getSubtitleId() {
-    //     return subtitleId;
-    // }
-
-    // public void setSubtitleId(String subtitleId) {
-    //     this.subtitleId = subtitleId;
-    // }
-
     public int getViews() {
         return views;
     }
@@ -117,6 +110,13 @@ public class E_Trailer implements Serializable{
     public void setLanguage(E_Language language) {
         this.language = language;
     }
-   
 
+    public E_Language getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(E_Language subtitle) {
+        this.subtitle = subtitle;
+    }
+   
 }

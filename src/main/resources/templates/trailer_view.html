@@ -129,20 +129,20 @@
                     <!-- Trailer title-->
                     <div class="col-12 my-3">
                         <!-- Audio icon -->
-                        <span th:if="${ trailer.getLanguageId != null }">
+                        <span th:if="${ trailer.getLanguage.getIdLanguage != '0' }">
                             <img src="/resources/icons/volume__icon.svg" 
                                 alt="Icono de audio"> 
-                            <img th:src="${ languagesMap.get(trailer.getLanguageId).getIconLanguage }" 
-                                th:alt="${ 'Icono de audio ' + languagesMap.get(trailer.getLanguageId).getNameLanguage.toLowerCase() }" 
-                                style="width:20px">
+                            <img th:src="${ trailer.getLanguage.getIconLanguage }" 
+                                th:alt="${ 'Icono de audio ' + trailer.getLanguage.getNameLanguage.toLowerCase() }" 
+                                style="width: 20px">
                         </span>
                         <!-- Subtitle icon -->
-                        <span th:if="${ trailer.getSubtitleId != null }">
+                        <span th:if="${ trailer.getSubtitle.getIdLanguage != '0' }">
                             <img src="/resources/icons/subtitle__icon.svg" 
                                 alt="Icono de sutitulo"> 
-                            <img th:src="${ languagesMap.get(trailer.getSubtitleId).getIconLanguage }" 
-                                th:alt="${ 'Icono de subtitulos en ' + languagesMap.get(trailer.getLanguageId).getNameLanguage.toLowerCase() }"  
-                                style="width:20px">
+                            <img th:src="${ trailer.getSubtitle.getIconLanguage }"
+                                th:alt="${ 'Icono de subtitulos en ' + trailer.getSubtitle.getNameLanguage.toLowerCase() }" 
+                                style="width: 20px">
                         </span>
                         <!-- Title -->
                         <span th:text="${trailer.getTitle}" class="h6 ms-1"></span>
@@ -383,24 +383,23 @@
                             <img th:src="@{${ related.getImageUrl }}" 
                                 th:alt="${related.getTitle}" class="w-100 c_img-video">
                             <!-- Icons Language -->
-                            <div th:if="${related.getLanguageId != null}"
-                                class="position-absolute top-0 end-0 p-2 d-flex rounded-3 c_languageInfo">
+                            <div class="position-absolute top-0 end-0 p-2 d-flex rounded-3 c_languageInfo">
                                 <!-- Audio Icon -->
-                                <div th:if="${ related.getLanguageId != null }"
+                                <div th:if="${ related.getLanguage.getIdLanguage != '0' }"
                                     class="d-flex">
                                     <img src="/resources/icons/volume__icon.svg" 
                                         alt="Icono de audio" class="me-1"> 
-                                    <img th:src="${ languagesMap.get(related.getLanguageId).getIconLanguage }" 
-                                        th:alt="${ 'Icono de audio ' + languagesMap.get(related.getLanguageId).getNameLanguage.toLowerCase() }" 
+                                    <img th:src="${ related.getLanguage.getIconLanguage }" 
+                                        th:alt="${ 'Icono de audio ' + related.getLanguage.getNameLanguage.toLowerCase() }" 
                                         style="height: 100%;">
                                 </div>
                                 <!-- Subtitle Icon -->
-                                <div th:if="${ related.getSubtitleId != null }"
+                                <div th:if="${ related.getSubtitle.getIdLanguage != '0' }"
                                     class="d-flex ms-2">
                                     <img src="/resources/icons/subtitle__icon.svg" 
                                         alt="Icono de subtitulo" class="me-1"> 
-                                    <img th:src="${ languagesMap.get(related.getSubtitleId).getIconLanguage }" 
-                                        th:alt="${ 'Icono de subtitulos en ' + languagesMap.get(related.getSubtitleId).getNameLanguage.toLowerCase() }" 
+                                    <img th:src="${ related.getSubtitle.getIconLanguage }"
+                                        th:alt="${ 'Icono de subtitulos en ' + related.getSubtitle.getNameLanguage.toLowerCase() }" 
                                         style="height: 100%;">
                                 </div>
                             </div>
