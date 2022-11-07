@@ -1,14 +1,18 @@
 package com.soluciones.web.appGrupo4.model.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "trailer")
-public class E_Trailer {
+public class E_Trailer implements Serializable{
 
     @Id
     @Column(name = "id_trailer")
@@ -26,14 +30,17 @@ public class E_Trailer {
     @Column(name = "url_cover_trailer")
     private String imageUrl;
 
-    @Column(name = "language_id")
-    private String languageId;
-
-    @Column(name = "subtitle_id")
-    private String subtitleId;
+    // @Column(name = "subtitle_id")
+    // private String subtitleId;
 
     @Column(name = "vistas")
     private int views;
+
+
+    
+    @ManyToOne
+    @JoinColumn(name = "language_id")
+    private E_Language language;
 
     
     
@@ -45,7 +52,7 @@ public class E_Trailer {
     }
 
 
-    // Getters & Setters 
+    // Getters & Setters
 
     public String getId() {
         return id;
@@ -87,21 +94,13 @@ public class E_Trailer {
         this.imageUrl = imageUrl;
     }
 
-    public String getLanguageId() {
-        return languageId;
-    }
+    // public String getSubtitleId() {
+    //     return subtitleId;
+    // }
 
-    public void setLanguageId(String languageId) {
-        this.languageId = languageId;
-    }
-
-    public String getSubtitleId() {
-        return subtitleId;
-    }
-
-    public void setSubtitleId(String subtitleId) {
-        this.subtitleId = subtitleId;
-    }
+    // public void setSubtitleId(String subtitleId) {
+    //     this.subtitleId = subtitleId;
+    // }
 
     public int getViews() {
         return views;
@@ -110,5 +109,14 @@ public class E_Trailer {
     public void setViews(int views) {
         this.views = views;
     }
+
+    public E_Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(E_Language language) {
+        this.language = language;
+    }
+   
 
 }

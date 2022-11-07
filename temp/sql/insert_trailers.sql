@@ -89,3 +89,5 @@ VALUES ('4NrgOIDHNGg',
     15);
 
 DROP TABLE trailer;
+
+DELETE FROM trailer;

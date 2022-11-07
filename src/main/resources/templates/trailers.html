@@ -256,26 +256,26 @@
                                 <img th:src="@{${ trailer.getImageUrl }}" 
                                     th:alt="${ 'Imagen del trailer: ' + trailer.getTitle }" class="w-100 c_img-video">
                                 <!-- Icons Language -->
-                                <div th:if="${trailer.getLanguageId != null}"
+                                <div
                                     class="position-absolute top-0 end-0 p-2 d-flex rounded-3 c_languageInfo">
                                     <!-- Audio Icon -->
-                                    <div th:if="${ trailer.getLanguageId != null }"
+                                    <div 
                                         class="d-flex">
                                         <img src="/resources/icons/volume__icon.svg" 
                                             alt="Icono de audio" class="me-1"> 
-                                        <img th:src="${ languagesMap.get(trailer.getLanguageId).getIconLanguage }" 
-                                            th:alt="${ 'Icono de audio ' + languagesMap.get(trailer.getLanguageId).getNameLanguage.toLowerCase() }" 
+                                        <img th:src="${ trailer.getLanguage.getIconLanguage }" 
+                                            th:alt="${ 'Icono de audio ' + trailer.getLanguage.getNameLanguage.toLowerCase() }" 
                                             style="height: 100%;">
                                     </div>
                                     <!-- Subtitle Icon -->
-                                    <div th:if="${ trailer.getSubtitleId != null }"
+                                    <!-- <div th:if="${ trailer.getSubtitleId != null }"
                                         class="d-flex ms-2">
                                         <img src="/resources/icons/subtitle__icon.svg" 
                                             alt="Icono de subtitulo" class="me-1"> 
                                         <img th:src="${ languagesMap.get(trailer.getSubtitleId).getIconLanguage }"
                                             th:alt="${ 'Icono de subtitulos en ' + languagesMap.get(trailer.getLanguageId).getNameLanguage.toLowerCase() }" 
                                             style="height: 100%;">
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             <p th:text="${ trailer.getTitle }"

@@ -47,7 +47,7 @@ public class UserPageController {
 
         model.addAttribute("trailersList", trailerInterface.getAllTrailers());
         model.addAttribute("languagesList", languageInterface.getAllLanguages());
-        model.addAttribute("languagesMap", languageInterface.getLanguagesMap());
+        // model.addAttribute("languagesMap", languageInterface.getLanguagesMap());
         model.addAttribute("categoriesList", categoriesInterface.getAllCategories());
         model.addAttribute("countriesList", countriesInterface.getAllCountries());
  
