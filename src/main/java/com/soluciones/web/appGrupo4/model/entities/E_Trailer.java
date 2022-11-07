@@ -18,10 +18,7 @@ public class E_Trailer implements Serializable{
     @Column(name = "id_trailer")
     private String id;
 
-    @Column(name = "pelicula_id")
-    private String movieId;
-
-    @Column(name = "nombre_trailer")
+    @Column(name = "name_trailer")
     private String title;
 
     @Column(name = "url_trailer")
@@ -30,7 +27,7 @@ public class E_Trailer implements Serializable{
     @Column(name = "url_cover_trailer")
     private String imageUrl;
 
-    @Column(name = "vistas")
+    @Column(name = "views_trailer")
     private int views;
 
 
@@ -43,8 +40,11 @@ public class E_Trailer implements Serializable{
     @JoinColumn(name = "subtitle_id")
     private E_Language subtitle;
 
-    
-    
+    @ManyToOne
+    @JoinColumn(name = "movie_id")
+    private E_Movie movie;
+
+
     // Constructor
 
     public E_Trailer() {
@@ -61,14 +61,6 @@ public class E_Trailer implements Serializable{
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getMovieId() {
-        return movieId;
-    }
-
-    public void setMovieId(String movieId) {
-        this.movieId = movieId;
     }
 
     public String getTitle() {
@@ -118,5 +110,19 @@ public class E_Trailer implements Serializable{
     public void setSubtitle(E_Language subtitle) {
         this.subtitle = subtitle;
     }
+
+    public E_Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(E_Movie movie) {
+        this.movie = movie;
+    }
+
+    
+    
+    
+
+
    
 }
