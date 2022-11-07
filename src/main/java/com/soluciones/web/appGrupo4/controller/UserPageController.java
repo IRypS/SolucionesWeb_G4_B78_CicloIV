@@ -69,7 +69,6 @@ public class UserPageController {
 
         model.addAttribute("trailer", targetTrailer);
         model.addAttribute("relatedTrailers", trailerInterface.getRelatedTrailers(id));
-        // model.addAttribute("languagesMap", languageInterface.getLanguagesMap());
         model.addAttribute("userList", listsInterface.getAllLists());
 
  

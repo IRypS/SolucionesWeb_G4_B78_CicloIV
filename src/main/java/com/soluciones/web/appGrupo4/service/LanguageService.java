@@ -25,17 +25,5 @@ public class LanguageService implements ILanguageService {
     public List<E_Language> getAllLanguages() {
         return language_entity.findByOrderByNameLanguageAsc();
     };
-
-    @Override
-    public List<Language> getLanguagesListObjects() {
-        return languageRepo.getAllLanguagesObjects();
-    };
-
-    @Override
-    public Map<String, Language> getLanguagesMap() {
-
-        return languageRepo.getLanguagesObjects();
-
-    };
     
 }
