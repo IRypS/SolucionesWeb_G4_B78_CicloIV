@@ -130,13 +130,13 @@
                             <div class="accordion-body">
 
                                 <!-- Genres Each  -->
-                                <div th:each=" category : ${categoriesList}"
+                                <div th:each=" genre : ${genresList}"
                                     class="form-check">
-                                    <input th:value="${category.getName.toLowerCase()}" 
-                                        th:id="check + ${category.getName}"
+                                    <input th:value="${genre.getNameGenre.toLowerCase()}" 
+                                        th:id="check + ${genre.getNameGenre}"
                                         class="form-check-input" type="checkbox" >
-                                    <label th:text="${category.getName}"
-                                        th:for="check + ${category.getName}"
+                                    <label th:text="${genre.getNameGenre}"
+                                        th:for="check + ${genre.getNameGenre}"
                                         class="form-check-label" >
                                     </label>
                                 </div>
@@ -162,6 +162,7 @@
 
                                 <!-- Audio Each  -->
                                 <div th:each=" audio : ${languagesList}"
+                                    th:if="${ audio.getIdLanguage != '0' }"
                                     class="form-check">
                                     <input th:value="${audio.getNameLanguage.toLowerCase()}" 
                                         th:id="check + ${audio.getNameLanguage}"
@@ -193,6 +194,7 @@
 
                                 <!-- Subtitle Each  -->
                                 <div th:each=" subtitle : ${languagesList}"
+                                    th:if="${ subtitle.getIdLanguage != '0' }"
                                     class="form-check">
                                     <input th:value="${subtitle.getNameLanguage.toLowerCase()}" 
                                         th:id="check + ${subtitle.getNameLanguage}"
@@ -247,8 +249,9 @@
                         class="col px-3 py-1 c_link-video-container">
 
                         <a th:href="@{/app/trailer/view/{id}(id=${trailer.getId}) }"
-                            th:title="${trailer.getTitle}" tabindex="0" data-bs-toggle="popover" 
-                            data-bs-placement="right" data-bs-content-id="popover-categories" 
+                            th:title="${trailer.getTitle}" 
+                            th:data-bs-content-id="${ 'popover' + trailer.getId}" 
+                            tabindex="0" data-bs-toggle="popover" data-bs-placement="left" 
                             data-bs-trigger="hover focus">
 
                             <div class="position-relative overflow-hidden rounded-3">
@@ -278,18 +281,15 @@
                                 </div>
                             </div>
                             <p th:text="${ trailer.getTitle }"
-                                class="text-truncate">Trailer</p>
+                                class="text-truncate"></p>
                         </a>
 
                         <!-- Popover -->
-                        <div id="popover-categories" class="d-none">
-                            <div class="row justify-content-center">
-                                <div class="col-auto bg-secondary text-light rounded-pill m-1">Comedia</div>
-                                <div class="col-auto bg-secondary text-light rounded-pill m-1">Romance</div>
-                                <div class="col-auto bg-secondary text-light rounded-pill m-1">Accion</div>
-                                <div class="col-auto bg-secondary text-light rounded-pill m-1">Sci-fi</div>
-                                <div class="col-auto bg-secondary text-light rounded-pill m-1">Thriller</div>
-                                <div class="col-auto bg-secondary text-light rounded-pill m-1">Comedia</div>
+                        <div th:id="${ 'popover' + trailer.getId}" class="d-none">
+                            <div class="row justify-content-center px-1">
+                                <div th:each="genre : ${ trailer.getMovie.getGenreList }"
+                                    th:text="${ genre.getNameGenre }"
+                                    class="col-auto bg-secondary text-light rounded-pill m-1"></div>
                             </div>
                         </div>
                     </div>

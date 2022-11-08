@@ -1,9 +1,14 @@
 package com.soluciones.web.appGrupo4.model.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -16,7 +21,7 @@ public class E_Movie {
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "id_movie")
-    private String idPelicula;
+    private String idMovie;
 
     @Column(name = "cover_movie")
     private String coverUrl;
@@ -36,16 +41,21 @@ public class E_Movie {
     @Column(name = "rate_movie")
     private double rate;
 
+    @ManyToMany
+    @JoinTable(name = "movie_genre",
+            joinColumns = { @JoinColumn(name = "movie_id") },
+            inverseJoinColumns = { @JoinColumn(name = "genre_id") })
+    private List<E_Genre> genreList;
 
 
     // getters & setters
 
-    public String getIdPelicula() {
-        return idPelicula;
+    public String getIdMovie() {
+        return idMovie;
     }
 
-    public void setIdPelicula(String idPelicula) {
-        this.idPelicula = idPelicula;
+    public void setIdMovie(String idMovie) {
+        this.idMovie = idMovie;
     }
 
     public String getCoverUrl() {
@@ -94,6 +104,14 @@ public class E_Movie {
 
     public void setRate(double rate) {
         this.rate = rate;
-    }  
+    }
+
+    public List<E_Genre> getGenreList() {
+        return genreList;
+    }
+
+    public void setGenreList(List<E_Genre> genreList) {
+        this.genreList = genreList;
+    }
 
 }

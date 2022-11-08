@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.soluciones.web.appGrupo4.model.UserList;
 import com.soluciones.web.appGrupo4.model.entities.E_Trailer;
-import com.soluciones.web.appGrupo4.service.ICategoriesService;
 import com.soluciones.web.appGrupo4.service.ICountryService;
 import com.soluciones.web.appGrupo4.service.IListService;
+import com.soluciones.web.appGrupo4.service.interfaces.IGenreService;
 import com.soluciones.web.appGrupo4.service.interfaces.ILanguageService;
 import com.soluciones.web.appGrupo4.service.interfaces.ITrailerService;
 
@@ -31,7 +31,7 @@ public class UserPageController {
     private ILanguageService languageInterface;
 
     @Autowired
-    private ICategoriesService categoriesInterface;
+    private IGenreService genreInterface;
 
     @Autowired
     private ICountryService countriesInterface;
@@ -47,7 +47,7 @@ public class UserPageController {
 
         model.addAttribute("trailersList", trailerInterface.getAllTrailers());
         model.addAttribute("languagesList", languageInterface.getAllLanguages());
-        model.addAttribute("categoriesList", categoriesInterface.getAllCategories());
+        model.addAttribute("genresList", genreInterface.getAllGenres());
         model.addAttribute("countriesList", countriesInterface.getAllCountries());
  
         return "trailers";
@@ -71,7 +71,6 @@ public class UserPageController {
         model.addAttribute("relatedTrailers", trailerInterface.getRelatedTrailers(id));
         model.addAttribute("userList", listsInterface.getAllLists());
 
- 
         return "trailer_view";
     };
 

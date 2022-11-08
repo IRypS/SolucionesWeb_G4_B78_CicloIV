@@ -327,24 +327,12 @@
 
                         <!-- Categories Movie -->
                         <div class="row my-3 my-md-2 justify-content-center justify-content-md-start">
-                            <div class="col-auto bg-secondary text-light rounded-pill m-1">
-                                <small>Comedia</small>
+                            <div th:each="genre : ${ trailer.getMovie.getGenreList }"
+                                class="col-auto bg-secondary text-light rounded-pill m-1">
+
+                                <small th:text="${ genre.getNameGenre }"></small>
                             </div>
-                            <div class="col-auto bg-secondary text-light rounded-pill m-1">
-                                <small>Romance</small>
-                            </div>
-                            <div class="col-auto bg-secondary text-light rounded-pill m-1">
-                                <small>Accion</small>
-                            </div>
-                            <div class="col-auto bg-secondary text-light rounded-pill m-1">
-                                <small>Sci-fi</small>
-                            </div>
-                            <div class="col-auto bg-secondary text-light rounded-pill m-1">
-                                <small>Thriller</small>
-                            </div>
-                            <div class="col-auto bg-secondary text-light rounded-pill m-1">
-                                <small>Comedia</small>
-                            </div>
+
                         </div>
 
                         <!-- Persons Movie -->
@@ -376,8 +364,9 @@
                     class="col px-3 py-1 c_link-video-container">
 
                     <a th:href="@{/app/trailer/view/{id}(id=${related.getId}) }"
-                        th:title="${related.getTitle}" tabindex="0" data-bs-toggle="popover" 
-                        data-bs-placement="left" data-bs-content-id="popover-categories" 
+                        th:title="${related.getTitle}" 
+                        th:data-bs-content-id="${ 'popover' + related.getId}" 
+                        tabindex="0" data-bs-toggle="popover" data-bs-placement="left" 
                         data-bs-trigger="hover focus">
 
                         <div class="position-relative overflow-hidden rounded-3">
@@ -407,18 +396,15 @@
                             </div>
                         </div>
                         <p th:text="${ related.getTitle }"
-                            class="text-truncate">Trailer</p>
+                            class="text-truncate"></p>
                     </a>
 
                     <!-- Popover -->
-                    <div id="popover-categories" class="d-none">
-                        <div class="row justify-content-center">
-                            <div class="col-auto bg-secondary text-light rounded-pill m-1">Comedia</div>
-                            <div class="col-auto bg-secondary text-light rounded-pill m-1">Romance</div>
-                            <div class="col-auto bg-secondary text-light rounded-pill m-1">Accion</div>
-                            <div class="col-auto bg-secondary text-light rounded-pill m-1">Sci-fi</div>
-                            <div class="col-auto bg-secondary text-light rounded-pill m-1">Thriller</div>
-                            <div class="col-auto bg-secondary text-light rounded-pill m-1">Comedia</div>
+                    <div th:id="${ 'popover' + related.getId}" class="d-none">
+                        <div class="row justify-content-center px-1">
+                            <div th:each="genre : ${ related.getMovie.getGenreList }"
+                                th:text="${ genre.getNameGenre }"
+                                class="col-auto bg-secondary text-light rounded-pill m-1"></div>
                         </div>
                     </div>
                 </div>

@@ -1,12 +1,9 @@
 package com.soluciones.web.appGrupo4.model.entities;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -26,10 +23,6 @@ public class E_Language {
 
     @Column(name = "url_icon_language")
     private String iconLanguage;
-
-
-    @OneToMany(mappedBy = "language")
-    private List<E_Trailer> trailers;
 
 
     // Getters & Setters
@@ -56,14 +49,6 @@ public class E_Language {
 
     public void setIconLanguage(String iconLanguage) {
         this.iconLanguage = iconLanguage;
-    }
-
-    public List<E_Trailer> getTrailers() {
-        return trailers;
-    }
-
-    public void setTrailers(List<E_Trailer> trailers) {
-        this.trailers = trailers;
     }
 
 }

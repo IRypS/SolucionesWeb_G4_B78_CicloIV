@@ -63,7 +63,7 @@ VALUES ('d03d98a7-bed4-48aa-84b5-e79b04fc5aa8',
     125, 
     0.0, 
     '2022-10-00', 
-    'Casi 5000 años después de que los dioses egipcios le otorgaran los poderes todopoderosos y lo encarcelaran con la misma rapidez, Black Adam (Johnson) es liberado de su tumba terrenal, listo para desatar su forma única de justicia en el mundo moderno.');
+    'Black Adam es la película del antihéroe de DC Comics que da nombre al filme -encarnado por Dwayne Johnson- gran antagonista de Shazam!. Este largometraje es la hisotoria de su origen y revelando su pasado como esclavo en el país Kahndaq. Nacido en el Antiguo Egipto, Black Adam tiene superfuerza, velocidad, resistencia, la capacidad de volar y disparar rayos. Alter ego de Teth-Adam e hijo del faraón Ramsés II, fue consumido por sus poderes mágicos y se transformó en un hechicero. Gran enemigo de Shazam! en los cómics, a pesar de creer en su potencial e incluso ofrecerlo como guerrero del bien, Black Adam acaba utilizando sus habilidades especiales para el mal. Sin embargo, un grupo de héroes conocido como la JSA encabezados por Doctor Fate (Pierce Brosnan) tratarán que el peligroso superhumano busque la redención y pase a utilizar sus poderes para hacer el bien, ievocando a la humanidad que alguna vez habitó en su interior.');
 
 INSERT INTO movie (id_movie, cover_movie, name_movie, duration_movie, rate_movie, realease_movie, synopsis_movie) 
 VALUES ('a04defa9-7845-43dd-9a62-2c8b6dad1a54', 
