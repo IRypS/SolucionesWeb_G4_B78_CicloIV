@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.soluciones.web.appGrupo4.model.entities.E_Trailer;
 
+
 @Repository
 public interface I_trailer_db extends JpaRepository<E_Trailer, String>{
     

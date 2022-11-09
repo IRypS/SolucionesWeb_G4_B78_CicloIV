@@ -208,35 +208,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Country Filter -->
-                    <div class="accordion-item">
-                        <!-- Header -->
-                        <h2 class="accordion-header" id="flush-country">
-                            <button class="accordion-button collapsed" type="button" 
-                                    data-bs-toggle="collapse" data-bs-target="#flush-collapseCountries" 
-                                    aria-expanded="false" aria-controls="flush-collapseCountries">
-                                Por País
-                            </button>
-                        </h2>
-                        <!-- Collapse -->
-                        <div id="flush-collapseCountries" class="accordion-collapse collapse" 
-                            aria-labelledby="flush-country" data-bs-parent="#accordionFlushFilter">
-                            <div class="accordion-body">
-                                <!-- Countries Each -->
-                                <div th:each=" country : ${countriesList}"
-                                    class="form-check">
-                                    <input th:value="${country.getCountryname.toLowerCase()}" 
-                                        th:id="check + ${country.getCountryname}"
-                                        class="form-check-input" type="checkbox">
-                                    <label th:text="${country.getCountryname}"
-                                        th:for="check + ${country.getCountryname}"
-                                        class="form-check-label">
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </aside>
 

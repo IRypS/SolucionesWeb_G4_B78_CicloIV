@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.soluciones.web.appGrupo4.model.UserList;
 import com.soluciones.web.appGrupo4.model.entities.E_Trailer;
-import com.soluciones.web.appGrupo4.service.ICountryService;
 import com.soluciones.web.appGrupo4.service.IListService;
+import com.soluciones.web.appGrupo4.service.interfaces.ICountryService;
 import com.soluciones.web.appGrupo4.service.interfaces.IGenreService;
 import com.soluciones.web.appGrupo4.service.interfaces.ILanguageService;
 import com.soluciones.web.appGrupo4.service.interfaces.ITrailerService;

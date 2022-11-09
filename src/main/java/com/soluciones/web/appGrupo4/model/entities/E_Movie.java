@@ -47,6 +47,12 @@ public class E_Movie {
             inverseJoinColumns = { @JoinColumn(name = "genre_id") })
     private List<E_Genre> genreList;
 
+    @ManyToMany
+    @JoinTable(name = "movie_director",
+            joinColumns = { @JoinColumn(name = "movie_id") },
+            inverseJoinColumns = { @JoinColumn(name = "person_id") })
+    private List<E_Person> directorsList;
+
 
     // getters & setters
 
@@ -113,5 +119,15 @@ public class E_Movie {
     public void setGenreList(List<E_Genre> genreList) {
         this.genreList = genreList;
     }
+
+    public List<E_Person> getDirectorsList() {
+        return directorsList;
+    }
+
+    public void setDirectorsList(List<E_Person> directorsList) {
+        this.directorsList = directorsList;
+    }
+
+    
 
 }
