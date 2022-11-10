@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.soluciones.web.appGrupo4.service.interfaces.ITrailerService;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @Controller
@@ -30,14 +32,24 @@ public class AdminPageController {
         return "admin/dashboard";
     }
 
-    @GetMapping("trailerList")
-    public String getMethodName(Model model) {
+    @GetMapping("/trailerList")
+    public String getTrailerList(Model model) {
 
         model.addAttribute("title", title);
         model.addAttribute("activeSession", true);
 
         model.addAttribute("trailerList", trailerInterface.getAllTrailers());
         return "admin/trailer";
+    }
+    
+    @GetMapping("/insert/trailer")
+    public String trailerForm(Model model) {
+
+        model.addAttribute("title", title);
+        model.addAttribute("activeSession", true);
+
+        model.addAttribute("trailerList", trailerInterface.getAllTrailers());
+        return "admin/trailer_form";
     }
     
     

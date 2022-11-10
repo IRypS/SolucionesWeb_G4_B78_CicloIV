@@ -46,11 +46,20 @@
         <!-- Content -->
         <div class="col-md-8 col-lg-9 col-xl-10 overflow-auto p-5 vh-100 text-light">
 
-            <h2 class="mb-4">
-                Trailers
-                <img th:src="@{ /resources/icons/trailer__icon.svg }" alt="Icono de inicio" >
-            </h2>
+            <div class="d-flex justify-content-between mb-3">
+                <h2 class="p-0 m-0 text-nowrap">
+                    Trailer
+                    <img th:src="@{ /resources/icons/trailer__icon.svg }" alt="">
+                </h2>
 
+                <a th:href="@{ /app/administrator/insert/trailer }" class="text-nowrap text-decoration-none">
+                    <div class="bg-dark rounded-pill px-3 py-1">
+                        <img th:src="@{ /resources/icons/plus-circle.svg }" alt="" class="h-100">
+                        <small>Insertar</small>
+                    </div>
+                </a>
+            </div>
+            
             <table id="dataTable" class="display wrap overflow-auto" cellspacing="0" style="width:100%">
                 <thead>
                     <tr>
