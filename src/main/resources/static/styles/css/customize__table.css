@@ -1,0 +1,12 @@
+#dataTable_wrapper .row div {
+  padding: 5px;
+}
+
+#dataTable {
+  width: 100%;
+  max-width: 100%;
+}
+#dataTable thead tr td, #dataTable tbody tr td {
+  padding: 3px 10px;
+  border-bottom: 1px solid rgb(116, 116, 116);
+}/*# sourceMappingURL=customize__table.css.map */

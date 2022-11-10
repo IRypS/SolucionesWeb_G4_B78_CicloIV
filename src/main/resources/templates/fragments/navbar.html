@@ -33,19 +33,31 @@
                             <img src="https://i.ytimg.com/vi/fykmLCRzlwc/mqdefault.jpg" alt="Avatar de perfil de usuario" width="100%">
                             <span class="ms-2 ms-lg-1 tex-truncate">IRypS</span>
                         </button>
+                        <!-- End Button Dropdown -->
 
                         <!-- Dropdown Menu  -->
                         <ul class="dropdown-menu dropdown-menu-dark">
+
                             <li><a class="dropdown-item" href="#">Perfil de usuario</a></li>
                             <li><hr class="dropdown-divider"></li>
+                            
+                            <!-- Administrator -->
+                            <div>
+                                <li><a class="dropdown-item" href="/app/administrator/dashboard">Panel de administración</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                            </div>
+                            <!-- End Administrator -->
+
                             <li>
-                                <a class="dropdown-item" href="/">
-                                    <img src="/resources/icons/log-out__icon.svg" alt="Icono de cerrar sesión">
+                                <a class="dropdown-item d-flex justify-content-between" href="/">
                                     Cerrar sesión
+                                    <img src="/resources/icons/log-out__icon.svg" alt="Icono de cerrar sesión">
                                 </a>
                             </li>
                         </ul>
+                        <!-- End Dropdown Menu -->
                     </li>
+                    <!-- End User Profile Button -->
 
                     <!-- Register button -->
                     <li th:if="${activeSession == false}"
@@ -56,7 +68,8 @@
                             <span class="ms-2 ms-lg-0 tex-wrap text-light">Iniciar Sesion</span>
                         </a>
                     </li>
-                    
+                    <!-- End Register button -->
+
                     <!-- Nav Links -->
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/">Inicio</a>
@@ -64,8 +77,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/app/trailers">Trailers</a>
                     </li>
+                    <!-- End Nav Links -->
 
                 </ul>
+                <!-- End Links -->
 
                 <!-- Search bar -->
                 <form class="d-flex" role="search">

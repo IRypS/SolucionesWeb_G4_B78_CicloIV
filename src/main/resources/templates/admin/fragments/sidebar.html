@@ -1,0 +1,83 @@
+
+
+<!-- Side Bar -->
+<div th:fragment="sidebar" 
+    class="d-flex flex-column flex-shrink-0 vh-100 w-100 p-3 text-white bg-dark">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between">
+
+        <a th:href="@{ /app/administrator/dashboard }"
+            class="d-flex align-items-center my-3 mb-md-0 me-md-auto text-white text-decoration-none">
+
+            <img th:src="@{ /resources/icons/main_icon.ico }" style="height: 2.5rem;">
+            <span class="fs-6">&nbsp;&nbsp;Administrador</span>
+        </a>
+
+        <button type="button" class="btn-close btn-close-white d-md-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div> <!-- End Header -->
+
+    <hr>
+
+    <!-- Side bar links -->
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+            <a th:href="@{ /app/administrator/dashboard }"
+                class="nav-link active d-flex" aria-current="page">
+                <img th:src="@{ /resources/icons/home__icon.svg }" alt="Icono de inicio" >
+                &nbsp; Home
+            </a>
+        </li>
+        <li class="nav-item">
+            <a th:href="@{ /app/administrator/trailerList }"
+                class="nav-link d-flex" aria-current="page">
+                <img th:src="@{ /resources/icons/trailer__icon.svg }" alt="Icono de inicio" >
+                &nbsp; Trailers
+            </a>
+        </li>
+        <li class="nav-item">
+            <a th:href="@{ /app/administrator/movieList }"
+                class="nav-link d-flex" aria-current="page">
+                <img th:src="@{ /resources/icons/movie__icon.svg }" alt="Icono de inicio" >
+                &nbsp; Movie
+            </a>
+        </li>
+    </ul> <!-- End Side bar links -->
+
+    <hr>
+
+    <!-- Dropdown -->
+    <div th:if="${activeSession == true}"
+        class="dropdown">
+
+        <!-- Button Dropdown -->
+        <div class="dropdown-toggle btn" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://i.ytimg.com/vi/fykmLCRzlwc/mqdefault.jpg" 
+                alt="Avatar de perfil de usuario">
+            <span class="ms-2 ms-lg-1 tex-truncate">IRypS</span>
+        </div> <!-- End Button Dropdown -->
+
+        <!-- Dropdown Menu  -->
+        <ul class="dropdown-menu dropdown-menu-dark">
+
+            <li><a class="dropdown-item" href="#">Perfil de usuario</a></li>
+            <li><hr class="dropdown-divider"></li>
+            
+            <!-- Administrator -->
+            <div>
+                <li><a class="dropdown-item" href="/app/administrator/dashboard">Panel de administración</a></li>
+                <li><hr class="dropdown-divider"></li>
+            </div> <!-- End Administrator -->
+
+            <li>
+                <a class="dropdown-item d-flex justify-content-between" href="/">
+                    Cerrar sesión
+                    <img src="/resources/icons/log-out__icon.svg" alt="Icono de cerrar sesión">
+                </a>
+            </li>
+        </ul> <!-- End Dropdown Menu -->
+
+    </div> <!-- End Dropdown -->
+    
+</div> 
+<!-- End Side Bar -->

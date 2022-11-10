@@ -7,6 +7,7 @@ $secondary: $color-3;
 $info:      $color-1-opacity;
 $dark:      $color-1;
 $danger:    $color-4;
+$warning:   $color-5;
 
 @import "../../lib/bootstrap/scss/functions";
 @import "../../lib/bootstrap/scss/variables";
@@ -79,6 +80,36 @@ $modal-content-box-shadow-xs:       $box-shadow-sm;
 $modal-content-box-shadow-sm-up:    $box-shadow;
 
 
+$list-group-bg:                     $color-2;
+$list-group-color:                  $white;
+$list-group-hover-bg:               $color-1;
+$list-group-action-hover-color:     $white;
+
+
+$form-select-color:                 $white;
+$form-select-bg:                    $dark;
+$form-select-border-color:          $dark;
+
+
+$pagination-color:                  $white;
+$pagination-bg:                     $color-1;
+$pagination-border-color:           $color-2;
+
+$pagination-hover-color:            $white;
+$pagination-hover-bg:               $color-2;
+$pagination-hover-border-color:     $dark;
+
+$pagination-active-color:           $white;
+$pagination-active-bg:              $color-2;
+$pagination-active-border-color:    $dark;
+
+$pagination-disabled-color:         $gray-500;
+$pagination-disabled-bg:            $color-3;
+$pagination-disabled-border-color:  $gray-900;
+
+
+
+
 @import "../../lib/bootstrap/scss/bootstrap.scss";
 
 
@@ -87,7 +118,7 @@ $modal-content-box-shadow-sm-up:    $box-shadow;
 // *********************
 
 body {
-    background-image: $gradient-background
+  background-image: $gradient-background
 }
 
 .form-check {

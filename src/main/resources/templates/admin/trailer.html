@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS (Temporally location)-->
+    <link type="text/css" rel="stylesheet" href="/styles/css/styles.css">
+
+    <!-- Datatables -->
+    <link rel="stylesheet" href="/lib/DataTables/DataTables-1.12.1/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="/lib/DataTables/Responsive-2.3.0/css/responsive.bootstrap5.min.css">
+
+    <!-- Customize css -->    
+    <link type="text/css" rel="stylesheet" href="/styles/css/customize__sidebar.css">
+    <link type="text/css" rel="stylesheet" href="/styles/css/customize__table.css">
+
+
+    <!-- Header styles -->
+    <link rel="icon" href="/resources/icons/main_icon.ico">
+    <title th:text="${title}">...</title>
+</head>
+<body class="vw-100 mw-100">
+
+    <header th:replace="/admin/fragments/header :: headerAdmin" class="d-md-none"></header>
+
+    <main class="row w-100 m-0">
+
+        <!-- offcanvas Menu Side bar -->
+        <div class="d-md-none offcanvas offcanvas-start w-75 bg-dark p-0" tabindex="-1" id="sideBar" aria-labelledby="sideBarLabel">
+            <div class="offcanvas-body p-0">
+                <div th:insert="/admin/fragments/sidebar :: sidebar"
+                    class="bg-primary">
+                </div>
+            </div>
+        </div> <!-- End offcanvas Menu Side bar -->
+
+        <!-- Menu Side bar -->
+        <div th:insert="/admin/fragments/sidebar :: sidebar"
+            class="col-md-4 col-lg-3 col-xl-2 d-none d-md-flex p-0 m-0 bg-primary">
+        </div>
+
+
+        <!-- Content -->
+        <div class="col-md-8 col-lg-9 col-xl-10 overflow-auto p-5 vh-100 text-light">
+
+            <h2 class="mb-4">
+                Trailers
+                <img th:src="@{ /resources/icons/trailer__icon.svg }" alt="Icono de inicio" >
+            </h2>
+
+            <table id="dataTable" class="display wrap overflow-auto" cellspacing="0" style="width:100%">
+                <thead>
+                    <tr>
+                        <td>Imagen</td>
+                        <td>Acciones</td>
+                        <td>ID</td>
+                        <td>Titulo</td>
+                        <td>Audio</td>
+                        <td>Subtitulos</td>
+                        <td>URL</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="trailer : ${ trailerList }">
+                        <td style="width: 100px; height: 100%;">
+                            <img th:src="@{${ 'http://i.ytimg.com/vi/' + trailer.getId + '/mqdefault.jpg' }}" alt="" style="width: 65%;">
+                        </td>
+                        <td class="text-nowrap">
+                            <a th:href="@{/}" class="btn btn-sm btn-info">
+                                <img th:src="@{ /resources/icons/edit__icon.svg }" alt="">
+                            </a>
+							<a th:href="@{/}" class="btn btn-sm btn-danger">
+                                <img th:src="@{ /resources/icons/trash__icon.svg }" alt="">
+                            </a>
+                        </td>
+                        <td th:text="${ trailer.getId }"></td>
+                        <td th:text="${ trailer.getTitle }"></td>
+                        <td class="text-nowrap">
+                            <img th:if="${ trailer.getLanguage.getIdLanguage != '0' }"
+                                th:src="@{${ trailer.getLanguage.getIconLanguage }}" 
+                                alt="" width="20px">
+                            <span>
+                                <small th:text="${ trailer.getLanguage.getIdLanguage != '0' } ? 
+                                    ${trailer.getLanguage.getNameLanguage} : '' "></small>
+                            </span>
+                        </td>
+                        <td class="text-nowrap">
+                            <img th:if="${ trailer.getSubtitle.getIdLanguage != '0' }"
+                                th:src="@{ ${ trailer.getSubtitle.getIconLanguage }}" 
+                                alt="" width="20px">
+
+                            <span>
+                                <small th:text="${ trailer.getSubtitle.getIdLanguage != '0' } ? 
+                                    ${trailer.getSubtitle.getNameLanguage} : '' "></small>
+                            </span>
+                        </td>
+                        <td th:text="${ trailer.getUrl } ? ${ trailer.getUrl } : 'sadnasjkdnksjadnkjsadn' "></td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+
+        </div>
+
+        
+    </main>
+
+
+    
+
+    <!-- Bootstrap JS -->
+    <script src="/utils/popper.min.js"></script>
+    <script src="/utils/bootstrap.js"></script>
+
+    <!-- Jquery -->
+    <script type="text/javascript" src="/lib/jquery/jquery-3.5.1.min.js"></script>    <!-- Datatables -->
+
+    <!-- Datatables  -->
+    <script type="text/javascript" src="/lib/DataTables/DataTables-1.12.1/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/lib/DataTables/DataTables-1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" src="/lib/DataTables/Responsive-2.3.0/js/dataTables.responsive.min.js"></script>
+    <script src="/lib/config/dataTableConfig.js"></script>
+
+</body>
+</html>

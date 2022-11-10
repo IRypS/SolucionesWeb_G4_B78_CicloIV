@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS (Temporally location)-->
+    <link type="text/css" rel="stylesheet" href="/styles/css/styles.css">
+
+    <!-- Customize css -->    
+    <link type="text/css" rel="stylesheet" href="/styles/css/customize__sidebar.css">
+
+
+    <!-- Header styles -->
+    <link rel="icon" href="/resources/icons/main_icon.ico">
+    <title th:text="${title}">...</title>
+
+</head>
+
+<body class="vw-100 mw-100">
+
+    <header th:replace="/admin/fragments/header :: headerAdmin" class="d-md-none"></header>
+
+    <main class="row w-100 m-0">
+
+        <!-- offcanvas Menu Side bar -->
+        <div class="d-md-none offcanvas offcanvas-start w-75 bg-dark p-0" tabindex="-1" id="sideBar" aria-labelledby="sideBarLabel">
+            <div class="offcanvas-body p-0">
+                <div th:insert="/admin/fragments/sidebar :: sidebar"
+                    class="bg-primary">
+                </div>
+            </div>
+        </div> <!-- End offcanvas Menu Side bar -->
+
+        <!-- Menu Side bar -->
+        <div th:insert="/admin/fragments/sidebar :: sidebar"
+            class="col-md-4 col-lg-3 col-xl-2 d-none d-md-flex p-0 m-0 bg-primary">
+        </div>
+
+
+        <!-- Content -->
+        <div class="col-md-8 col-lg-9 col-xl-10 overflow-auto p-5 vh-100 text-light">
+
+            <h2>Dashboard</h2>
+
+            <div class="my-5 bg-warning p-4 rounded">
+                <h3>Insertar datos</h3>
+
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <img th:src="@{ /resources/icons/trailer__icon.svg }" alt="Icono de inicio" >
+                        Insertar trailers
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <img th:src="@{ /resources/icons/movie__icon.svg }" alt="Icono de inicio" >
+                        Insertar películas
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+
+
+
+    <!-- Bootstrap JS -->
+    <script src="/utils/popper.min.js"></script>
+    <script src="/utils/bootstrap.js"></script>
+</body>
+</html>
