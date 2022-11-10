@@ -1,7 +1,5 @@
 package com.soluciones.web.appGrupo4.model.entities;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "trailer")
-public class E_Trailer implements Serializable{
+public class E_Trailer {
 
     @Id
     @Column(name = "id_trailer")
