@@ -80,10 +80,18 @@
                             class="d-block bg-danger text-light py-1 px-3" role="alert"></small>
                     </div>
 
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label for="movieID" class="form-label">Pelicula perteneciente</label>
                         <input type="text" class="form-control" name="movieId" th:field="*{movieId}"
                             id="movieID" placeholder="">
+                    </div> -->
+
+                    <div class="mb-3">
+                        <label for="movieID" class="form-label">Pelicula perteneciente</label>
+                        <select id="movieID" class="form-select" name="movieId"  th:field="*{movieId}">
+                            <option th:each="movieInfo : ${lazyMovie}"
+                                th:value="${movieInfo.getIdMovie}" th:text="${movieInfo.getName}"></option>
+                        </select>
                     </div>
 
                     <div class="mb-3">

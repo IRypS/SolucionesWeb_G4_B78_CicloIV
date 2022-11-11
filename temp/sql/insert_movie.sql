@@ -109,3 +109,13 @@ VALUES ('c8ed4d6c-da4b-4fc5-9c82-d6da678cf8b8',
     0.0, 
     '2023-01-27', 
     'Bodas de Plomo seguirá a una pareja cuya extravagante boda de destino es tomada por criminales. Todo comienza con Darcy  y Tom reúnen a sus queridas pero obstinadas familias para el mejor viaje de bodas, justo cuando la pareja empieza a arrepentirse de su decisión. Por si eso no fuera una amenaza suficiente para cancelar la celebración, repentinamente las vidas de todas las personas asistentes a la boda están en peligro, cuando se convierten en rehenes. “Hasta que la muerte los separe” cobra un nuevo significado en esta divertida aventura llena de adrenalina, ya que Darcy y Tom deben rescatar a sus seres queridos—si no se matan entre ellos primero.');
+
+
+INSERT INTO movie (id_movie, cover_movie, name_movie, duration_movie, rate_movie, realease_movie, synopsis_movie) 
+VALUES ('0', 
+    '', 
+    'Seleccione una pelicula',
+    0, 
+    0.0, 
+    '0000-00-00', 
+    '');

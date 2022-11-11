@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.soluciones.web.appGrupo4.model.validators.V_Trailer;
+import com.soluciones.web.appGrupo4.service.interfaces.IMovieService;
 import com.soluciones.web.appGrupo4.service.interfaces.ITrailerService;
 
 
@@ -25,6 +26,9 @@ public class AdminPageController {
 
     @Autowired
     private ITrailerService trailerInterface;
+
+    @Autowired
+    private IMovieService movieinterface;
 
 
     @GetMapping("/dashboard")
@@ -55,6 +59,7 @@ public class AdminPageController {
         model.addAttribute("activeSession", true);
 
         model.addAttribute("trailer", trailer);
+        model.addAttribute("lazyMovie", movieinterface.getLazyInfoTrailer());
         return "admin/trailer_form";
     }
 
@@ -64,7 +69,10 @@ public class AdminPageController {
             BindingResult br, Model model) {
 
         // Verify errors
-        if(br.hasErrors()) { return "admin/trailer_form"; };
+        if(br.hasErrors()) { 
+            model.addAttribute("lazyMovie", movieinterface.getLazyInfoTrailer());
+            return "admin/trailer_form"; 
+        };
 
         System.out.println("--| Resultados del trailer: |---");
         System.out.println(trailer.getId());
