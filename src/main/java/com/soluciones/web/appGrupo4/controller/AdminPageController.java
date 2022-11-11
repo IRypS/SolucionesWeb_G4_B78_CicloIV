@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.soluciones.web.appGrupo4.model.validators.V_Trailer;
+import com.soluciones.web.appGrupo4.service.interfaces.ILanguageService;
 import com.soluciones.web.appGrupo4.service.interfaces.IMovieService;
 import com.soluciones.web.appGrupo4.service.interfaces.ITrailerService;
 
@@ -29,6 +30,9 @@ public class AdminPageController {
 
     @Autowired
     private IMovieService movieinterface;
+
+    @Autowired
+    private ILanguageService languageInterface;
 
 
     @GetMapping("/dashboard")
@@ -60,6 +64,7 @@ public class AdminPageController {
 
         model.addAttribute("trailer", trailer);
         model.addAttribute("lazyMovie", movieinterface.getLazyInfoTrailer());
+        model.addAttribute("lazyLanguage", languageInterface.getLazyInfoLanguage());
         return "admin/trailer_form";
     }
 
@@ -71,6 +76,7 @@ public class AdminPageController {
         // Verify errors
         if(br.hasErrors()) { 
             model.addAttribute("lazyMovie", movieinterface.getLazyInfoTrailer());
+            model.addAttribute("lazyLanguage", languageInterface.getLazyInfoLanguage());
             return "admin/trailer_form"; 
         };
 

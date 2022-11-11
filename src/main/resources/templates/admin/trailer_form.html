@@ -96,14 +96,18 @@
 
                     <div class="mb-3">
                         <label for="languageID" class="form-label">Audio</label>
-                        <input type="text" class="form-control" name="laguageId" th:field="*{laguageId}"
-                            id="languageID" placeholder="">
+                        <select id="languageID" class="form-select" name="laguageId"  th:field="*{laguageId}">
+                            <option th:each="languageInfo : ${lazyLanguage}"
+                                th:value="${languageInfo.getIdLanguage}" th:text="${languageInfo.getNameLanguage}"></option>
+                        </select>
                     </div>
 
                     <div class="mb-3">
                         <label for="subtitleID" class="form-label">Subtitulo</label>
-                        <input type="text" class="form-control" name="subtitleId" th:field="*{subtitleId}"
-                            id="subtitleID" placeholder="">
+                        <select id="subtitleID" class="form-select" name="subtitleId"  th:field="*{subtitleId}">
+                            <option th:each="subtitleInfo : ${lazyLanguage}"
+                                th:value="${subtitleInfo.getIdLanguage}" th:text="${subtitleInfo.getNameLanguage}"></option>
+                        </select>
                     </div>
 
                     <button type="submit" class="btn btn-cta px-5 mt-3">Enviar</button>
