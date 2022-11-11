@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.soluciones.web.appGrupo4.model.validators.V_Movie;
 import com.soluciones.web.appGrupo4.model.validators.V_Trailer;
 import com.soluciones.web.appGrupo4.service.interfaces.ILanguageService;
 import com.soluciones.web.appGrupo4.service.interfaces.IMovieService;
@@ -80,19 +81,54 @@ public class AdminPageController {
             return "admin/trailer_form"; 
         };
 
-        System.out.println("--| Resultados del trailer: |---");
-        System.out.println(trailer.getId());
-        System.out.println(trailer.getTitle());
-        System.out.println(trailer.getViews());
-        System.out.println(trailer.getLaguageId());
-        System.out.println(trailer.getSubtitleId());
-        System.out.println(trailer.getMovieId());
-        
-        String a = trailerInterface.createTrailer(trailer);
-        System.out.println(a);
+        trailerInterface.createTrailer(trailer);
 
         return "redirect:/app/administrator/dashboard";
     }
     
-    
+    @GetMapping("/movieList")
+    public String getMovieList(Model model) {
+
+        model.addAttribute("title", title);
+        model.addAttribute("activeSession", true);
+
+        model.addAttribute("movieList", movieinterface.getAllMovies());
+        return "admin/movie";
+    }
+
+    @GetMapping("/insert/movie")
+    public String movieForm(Model model) {
+
+        V_Movie movie = new V_Movie();
+
+        model.addAttribute("title", title);
+        model.addAttribute("activeSession", true);
+
+        model.addAttribute("movie", movie);
+        return "admin/movie_form";
+    }
+
+    @PostMapping("/create/movie")
+    public String creteMovie(
+            @Validated @ModelAttribute("movie") V_Movie movie, 
+            BindingResult br, Model model) {
+
+        // Verify errors
+        if(br.hasErrors()) { 
+            return "admin/movie_form"; 
+        };
+
+        System.out.println("--| Resultados del objeto |--");
+        System.out.println(movie.getIdMovie());
+        System.out.println(movie.getCoverUrl());
+        System.out.println(movie.getName());
+        System.out.println(movie.getDuration());
+        System.out.println(movie.getSynopsis());
+        System.out.println(movie.getReleaseDate());
+        System.out.println(movie.getRate());
+
+        movieinterface.createTrailer(movie);
+
+        return "redirect:/app/administrator/dashboard";
+    }
 }

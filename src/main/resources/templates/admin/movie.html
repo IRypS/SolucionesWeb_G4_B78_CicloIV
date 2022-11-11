@@ -48,11 +48,11 @@
 
             <div class="d-flex justify-content-between mb-3">
                 <h2 class="p-0 m-0 text-nowrap">
-                    Trailer
-                    <img th:src="@{ /resources/icons/trailer__icon.svg }" alt="">
+                    Movie
+                    <img th:src="@{ /resources/icons/movie__icon.svg }" alt="">
                 </h2>
 
-                <a th:href="@{ /app/administrator/insert/trailer }" class="text-nowrap text-decoration-none">
+                <a th:href="@{ /app/administrator/insert/movie }" class="text-nowrap text-decoration-none">
                     <div class="bg-dark rounded-pill px-3 py-1">
                         <img th:src="@{ /resources/icons/plus-circle.svg }" alt="" class="h-100">
                         <small>Insertar</small>
@@ -63,22 +63,18 @@
             <table id="dataTable" class="display wrap overflow-auto" cellspacing="0" style="width:100%">
                 <thead>
                     <tr>
-                        <td>Imagen</td>
+                        <td>Cover</td>
                         <td>Acciones</td>
-                        <td>ID</td>
                         <td>Titulo</td>
-                        <td>Audio</td>
-                        <td>Subtitulos</td>
+                        <td>Duracion</td>
+                        <td>Estreno</td>
+                        <td>ID</td>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="trailer : ${ trailerList }">
-                        <td style="width: 100px; height: 100%;" class="text-nowrap">
-                            <img th:src="@{${ 'http://i.ytimg.com/vi/' + trailer.getId + '/mqdefault.jpg' }}" alt="" style="width: 65%;">
-                            <a th:href="@{${ '/app/trailer/view/' + trailer.getId }}" 
-                                target="_blank" class="ms-3">
-                                <img th:src="@{ /resources/icons/eye__icon.svg }" alt="">
-                            </a>
+                    <tr th:each="movie : ${ movieList }" th:if="${ !movie.getIdMovie.equals('0') }">
+                        <td style="height: 50px;" class="text-nowrap d-flex justify-content-center">
+                            <img th:src="@{${ movie.getCoverUrl }}" alt="" style="height: 100%;">
                         </td>
                         <td class="text-nowrap">
                             <a th:href="@{/}" class="btn btn-sm btn-info">
@@ -88,29 +84,11 @@
                                 <img th:src="@{ /resources/icons/trash__icon.svg }" alt="">
                             </a>
                         </td>
-                        <td th:text="${ trailer.getId }"></td>
-                        <td th:text="${ trailer.getTitle }"></td>
-                        <td class="text-nowrap">
-                            <img th:if="${ trailer.getLanguage.getIdLanguage != '0' }"
-                                th:src="@{${ trailer.getLanguage.getIconLanguage }}" 
-                                alt="" width="20px">
-                            <span>
-                                <small th:text="${ trailer.getLanguage.getIdLanguage != '0' } ? 
-                                    ${trailer.getLanguage.getNameLanguage} : '' "></small>
-                            </span>
-                        </td>
-                        <td class="text-nowrap">
-                            <img th:if="${ trailer.getSubtitle.getIdLanguage != '0' }"
-                                th:src="@{ ${ trailer.getSubtitle.getIconLanguage }}" 
-                                alt="" width="20px">
-
-                            <span>
-                                <small th:text="${ trailer.getSubtitle.getIdLanguage != '0' } ? 
-                                    ${trailer.getSubtitle.getNameLanguage} : '' "></small>
-                            </span>
-                        </td>
+                        <td th:text="${ movie.getName }" class="text-nowrap"></td>
+                        <td th:text="${ movie.getDuration + 'm'}" class="text-nowrap"></td>
+                        <td th:text="${ movie.getReleaseDate }" class="text-nowrap"></td>
+                        <td th:text="${ movie.getIdMovie }"></td>
                     </tr>
-                    
                 </tbody>
             </table>
 

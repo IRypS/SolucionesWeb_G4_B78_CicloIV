@@ -30,4 +30,12 @@ public class MovieService implements IMovieService {
         return movie_modify.findAll();
     };
     
+    @Override
+    public String createTrailer(V_Movie movie) {
+        V_Movie createdTrailer = movie_modify.save(movie);
+
+        System.out.println(createdTrailer.getIdMovie());
+
+        return "Creado correctamente <-------------------------";
+    };
 }

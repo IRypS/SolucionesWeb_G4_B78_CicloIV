@@ -10,5 +10,7 @@ public interface IMovieService {
     public List<E_Movie> getAllMovies();
 
     public List<V_Movie> getLazyInfoTrailer();
+
+    public String createTrailer(V_Movie movie);
     
 }

@@ -2,8 +2,12 @@ package com.soluciones.web.appGrupo4.model.validators;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.annotations.GenericGenerator;
 
 
 @Entity
@@ -12,12 +16,16 @@ public class V_Movie {
     
     @Id
     @Column(name = "id_movie")
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String idMovie;
 
     @Column(name = "cover_movie")
+    @NotEmpty(message = "Ingrese la url de la imagen")
     private String coverUrl;
 
     @Column(name = "name_movie")
+    @NotEmpty(message = "Ingrese un título")
     private String name;
 
     @Column(name = "duration_movie")
