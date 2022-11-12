@@ -108,6 +108,10 @@ $pagination-disabled-bg:            $color-3;
 $pagination-disabled-border-color:  $gray-900;
 
 
+$form-file-button-color:          $white;
+$form-file-button-bg:             $primary;
+$form-file-button-hover-bg:       shade-color($form-file-button-bg, 5%);
+
 
 
 @import "../../lib/bootstrap/scss/bootstrap.scss";

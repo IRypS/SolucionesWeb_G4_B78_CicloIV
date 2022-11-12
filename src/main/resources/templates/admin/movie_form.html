@@ -51,12 +51,12 @@
                 <div class="d-inline-flex align-items-center mb-3">
                     <img th:src="@{ /resources/icons/form__icon.svg }" alt="" style="width: 42px;">
                     <h2 class="p-0 m-0 text-nowrap ">
-                        Auxiliar - pweliculas
+                        InsertarPeliculas
                     </h2>
                 </div>
 
-                <form th:action="@{/app/administrator/create/movie}" th:object="${movie}" method="post"
-                    class="mt-3">
+                <form th:action="@{/app/administrator/create/movie}" th:object="${movie}" method="post" 
+                    enctype="multipart/form-data" class="mt-3">
 
                     <div class="mb-3">
                         <label for="idTitle" class="form-label">
@@ -73,11 +73,8 @@
                         <label for="idCover" class="form-label">
                             Imagen <span><b>*</b></span>
                         </label>
-                        <input th:classappend="${#fields.hasErrors('coverUrl')} ? 'is-invalid' : ''"
-                            type="text" class="form-control" name="coverUrl" th:field="*{coverUrl}"
+                        <input type="file" class="form-control" name="coverImage" 
                             id="idCover" placeholder="">
-                        <small th:if = "${#fields.hasErrors('coverUrl')}" th:errors = "*{coverUrl}"
-                            class="d-block bg-danger text-light py-1 px-3" role="alert"></small>
                     </div>
 
                     <div class="mb-3">

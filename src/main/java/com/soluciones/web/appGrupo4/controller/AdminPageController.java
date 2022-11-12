@@ -1,5 +1,8 @@
 package com.soluciones.web.appGrupo4.controller;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.soluciones.web.appGrupo4.model.entities.E_Movie;
 import com.soluciones.web.appGrupo4.model.validators.V_Trailer;
@@ -120,7 +124,8 @@ public class AdminPageController {
     public String createAux(
             @Validated @ModelAttribute("movie") E_Movie movie, 
             BindingResult br, Model model, 
-            @RequestParam(value = "idDirectors[]", required = false) List<String> idDirectors) {
+            @RequestParam(value = "idDirectors[]", required = false) List<String> idDirectors,
+            @RequestParam(value = "coverImage", required = false) MultipartFile coverImage) {
       
 
         // Verify errors
@@ -128,6 +133,22 @@ public class AdminPageController {
             model.addAttribute("lazyPerson", personInterface.getLazyInfoPerson());
             return "admin/movie_form"; 
         };
+
+        if (!coverImage.isEmpty()) {
+			Path pathImage = Paths.get("src//main//resources//static//upload//movie//cover");
+			String pathGeneric = pathImage.toFile().getAbsolutePath();
+
+			try {
+				byte[] bytesCoverImg = coverImage.getBytes();
+				Path completePath = Paths.get(pathGeneric + "//" + coverImage.getOriginalFilename());
+				Files.write(completePath, bytesCoverImg);
+
+				movie.setCoverUrl(coverImage.getOriginalFilename());
+			} catch (Exception e) {
+
+			}
+
+		}
 
         movieinterface.createMovie(movie, idDirectors);
 

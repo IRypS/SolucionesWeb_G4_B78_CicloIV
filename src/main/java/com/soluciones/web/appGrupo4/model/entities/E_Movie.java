@@ -25,7 +25,6 @@ public class E_Movie {
     private String idMovie;
 
     @Column(name = "cover_movie")
-    @NotEmpty(message = "Ingrese la url de la imagen")
     private String coverUrl;
 
     @Column(name = "name_movie")
