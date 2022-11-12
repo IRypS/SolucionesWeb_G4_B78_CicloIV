@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -21,11 +20,9 @@ public class V_Movie {
     private String idMovie;
 
     @Column(name = "cover_movie")
-    @NotEmpty(message = "Ingrese la url de la imagen")
     private String coverUrl;
 
     @Column(name = "name_movie")
-    @NotEmpty(message = "Ingrese un título")
     private String name;
 
     @Column(name = "duration_movie")

@@ -1,5 +1,8 @@
 package com.soluciones.web.appGrupo4.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -10,11 +13,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.soluciones.web.appGrupo4.model.validators.V_Movie;
+import com.soluciones.web.appGrupo4.model.entities.E_Movie;
 import com.soluciones.web.appGrupo4.model.validators.V_Trailer;
 import com.soluciones.web.appGrupo4.service.interfaces.ILanguageService;
 import com.soluciones.web.appGrupo4.service.interfaces.IMovieService;
+import com.soluciones.web.appGrupo4.service.interfaces.IPersonService;
 import com.soluciones.web.appGrupo4.service.interfaces.ITrailerService;
 
 
@@ -31,6 +36,9 @@ public class AdminPageController {
 
     @Autowired
     private IMovieService movieinterface;
+
+    @Autowired
+    private IPersonService personInterface;
 
     @Autowired
     private ILanguageService languageInterface;
@@ -71,7 +79,7 @@ public class AdminPageController {
 
     @PostMapping("/create/trailer")
     public String createTrailer(
-            @Validated @ModelAttribute("trailer") V_Trailer trailer, 
+            @Validated @ModelAttribute("trailer") V_Trailer trailer,
             BindingResult br, Model model) {
 
         // Verify errors
@@ -97,38 +105,33 @@ public class AdminPageController {
     }
 
     @GetMapping("/insert/movie")
-    public String movieForm(Model model) {
+    public String movieAux(Model model) {
 
-        V_Movie movie = new V_Movie();
+        E_Movie movie = new E_Movie();
 
         model.addAttribute("title", title);
         model.addAttribute("activeSession", true);
 
         model.addAttribute("movie", movie);
+        model.addAttribute("lazyPerson", personInterface.getLazyInfoPerson());
         return "admin/movie_form";
     }
 
     @PostMapping("/create/movie")
-    public String creteMovie(
-            @Validated @ModelAttribute("movie") V_Movie movie, 
-            BindingResult br, Model model) {
+    public String createAux(
+            @Validated @ModelAttribute("movie") E_Movie movie, 
+            BindingResult br, Model model, 
+            @RequestParam(value = "idDirectors[]", required = false) List<String> idDirectors) {
+      
 
         // Verify errors
         if(br.hasErrors()) { 
+            model.addAttribute("lazyPerson", personInterface.getLazyInfoPerson());
             return "admin/movie_form"; 
         };
 
-        System.out.println("--| Resultados del objeto |--");
-        System.out.println(movie.getIdMovie());
-        System.out.println(movie.getCoverUrl());
-        System.out.println(movie.getName());
-        System.out.println(movie.getDuration());
-        System.out.println(movie.getSynopsis());
-        System.out.println(movie.getReleaseDate());
-        System.out.println(movie.getRate());
+        movieinterface.createMovie(movie, idDirectors);
 
-        movieinterface.createTrailer(movie);
-
-        return "redirect:/app/administrator/dashboard";
+        return "redirect:/app/administrator/movieList";
     }
 }

@@ -51,7 +51,7 @@
                 <div class="d-inline-flex align-items-center mb-3">
                     <img th:src="@{ /resources/icons/form__icon.svg }" alt="" style="width: 42px;">
                     <h2 class="p-0 m-0 text-nowrap ">
-                        Insertar Peliculas
+                        Auxiliar - pweliculas
                     </h2>
                 </div>
 
@@ -78,6 +78,28 @@
                             id="idCover" placeholder="">
                         <small th:if = "${#fields.hasErrors('coverUrl')}" th:errors = "*{coverUrl}"
                             class="d-block bg-danger text-light py-1 px-3" role="alert"></small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="idDirectors" class="form-label">Directores</label>
+                        <div class="d-flex">
+                            <div id="addDirectorBtn" class="btn btn-success btn-sm">
+                                <img th:src="@{ /resources/icons/plus-circle.svg }" alt="">
+                            </div>
+                            <select id="selectPerson" class="form-select" >
+                                <option th:each="director : ${lazyPerson}"
+                                    th:value="${director.getIdPerson}" th:text="${director.getName + ' ' + director.getLastname}"></option>
+                            </select>
+                        </div>
+                        <div id="idDirectors" class="list-group px-4 mt-3" >
+                            <div th:each="director, itemStat  : *{directorsList}">
+                                <label th:for="*{directorsList[__${itemStat.index}__].idPerson}" 
+                                    th:text="*{directorsList[__${itemStat.index}__].getName}" class="form-label"><small>Makoto 3</small></label>
+                                <input th:id="*{directorsList[__${itemStat.index}__].idPerson}" name="directorsList[]" 
+                                    th:value="{directorsList[__${itemStat.index}__].idPerson}"
+                                type="text" class="list-group-item list-group-item-action">
+                            </div>
+                        </div>
                     </div>
 
                     <div class="mb-3">
@@ -122,6 +144,36 @@
     <!-- Bootstrap JS -->
     <script src="/utils/popper.min.js"></script>
     <script src="/utils/bootstrap.js"></script>
+
+    <!--Custom script-->
+    <script>
+
+        const btnAddDirector = document.querySelector("#addDirectorBtn");
+        const containerDirectors = document.querySelector("#idDirectors");
+
+        btnAddDirector.addEventListener( 'click', () => {
+            let personSelect = document.getElementById("selectPerson");
+            let valueSelect = personSelect.value;
+            let text = personSelect.options[personSelect.selectedIndex].text;
+
+            console.log("el nombre es: " + text);
+            console.log("el id es: " + valueSelect);
+
+            addInputToDom(valueSelect, text)
+        } );
+
+        function addInputToDom(id, name) {
+
+            let template = `<div>
+                                <label for="` + id + `" class="form-label"><small>` + name + `</small></label>
+                                <input id="` + id + `" name="idDirectors[]" value="` + id + `"
+                                    type="text" class="list-group-item list-group-item-action">
+                            </div>`;
+            // containerDirectors.lastElementChild.insertAdjacentHTML("afterend", template);
+            containerDirectors.insertAdjacentHTML("afterbegin", template);
+        };
+
+    </script>
 
 </body>
 </html>

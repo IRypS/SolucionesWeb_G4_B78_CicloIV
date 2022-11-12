@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -24,9 +25,11 @@ public class E_Movie {
     private String idMovie;
 
     @Column(name = "cover_movie")
+    @NotEmpty(message = "Ingrese la url de la imagen")
     private String coverUrl;
 
     @Column(name = "name_movie")
+    @NotEmpty(message = "Ingrese un título")
     private String name;
 
     @Column(name = "duration_movie")
@@ -127,7 +130,5 @@ public class E_Movie {
     public void setDirectorsList(List<E_Person> directorsList) {
         this.directorsList = directorsList;
     }
-
     
-
 }

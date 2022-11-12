@@ -92,3 +92,9 @@ insert into country (id_country, url_icon_country, name_country)
     values ('48905e9d-675b-4231-b0b1-cd18145cc94f', 
     '/resources/icons/flags/norway.svg', 
     'Norway');
+
+
+insert into country (id_country, url_icon_country, name_country)
+    values ('0', 
+    '/resources/icons/international.svg', 
+    'Seleccione un país');

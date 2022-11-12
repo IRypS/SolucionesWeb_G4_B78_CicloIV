@@ -87,6 +87,17 @@ INSERT INTO person (id_person, name_person, last_name_person, birthday_person, c
     '1970-10-22',
     '4aaf1316-20fc-4cb2-8e13-e74baea69f6f');
 
+
+
+
+INSERT INTO person (id_person, name_person, last_name_person, birthday_person, country_id)
+    VALUES('0', 
+    'Seleccione una persona', 
+    '', 
+    '0000-00-00',
+    '0');
+
+
 /* 
 INSERT INTO person (id_person, name_person, last_name_person, birthday_person, country_id)
     VALUES('', 
