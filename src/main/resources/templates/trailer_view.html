@@ -262,7 +262,7 @@
                             <span>
                                 <b>Director:</b> 
                                 <span th:each="director : ${ trailer.getMovie.getDirectorsList }"
-                                    th:text="${ director.getName + ' ' + director.getLastname}">
+                                    th:text="${ director.getName + ' ' + director.getLastname + ', ' }">
                                 </span>
                             </span>
                         </div>
