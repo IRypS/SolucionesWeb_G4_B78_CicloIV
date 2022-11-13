@@ -90,12 +90,7 @@ public class TrailerService implements ITrailerService{
 
 		return response;
     };
-
-    @Override
-    public V_Trailer getTrailerById(String id) {
-        return trailer_modify.findById(id).get();
-    };
-
+    
 
     @Override
     public Response<E_Trailer> createTrailer(E_Trailer trailer, String movieID, 
@@ -104,7 +99,7 @@ public class TrailerService implements ITrailerService{
         Response<E_Trailer> response = new Response<>();
 
 		try {
-
+            
             Response<E_Movie> movie = movie_service.getMovieById(movieID);
             if (movie.getState()) { trailer.setMovie(movie.getData()); };
 
@@ -118,7 +113,7 @@ public class TrailerService implements ITrailerService{
 			response.setState(true);
 			response.setData(createTrailer);
 			response.setListData((List<E_Trailer>) trailer_entity.findAll());
-			response.setMessage("Se creó correctamente el trailer " + createTrailer.getTitle());
+			response.setMessage("Se creó/editó correctamente el trailer " + createTrailer.getTitle());
 
 		} catch (Exception e) {
 			response.setState(false);

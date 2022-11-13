@@ -2,7 +2,6 @@ package com.soluciones.web.appGrupo4.service.interfaces;
 
 import com.soluciones.web.appGrupo4.model.Response;
 import com.soluciones.web.appGrupo4.model.entities.E_Trailer;
-import com.soluciones.web.appGrupo4.model.validators.V_Trailer;
 
 public interface ITrailerService {
     
@@ -15,7 +14,8 @@ public interface ITrailerService {
     // public List<E_Trailer> getRelatedTrailers(String id);
     public Response<E_Trailer> getRelatedTrailers(String id);
 
-    public V_Trailer getTrailerById(String id);
+    // public V_Trailer getTrailerById(String id);
+    // public Response<E_Trailer> getTrailerById(String id);
 
     // public String createTrailer(V_Trailer trailer);
     public Response<E_Trailer> createTrailer(E_Trailer trailer, String movieID, String languageID, String subtitleID );

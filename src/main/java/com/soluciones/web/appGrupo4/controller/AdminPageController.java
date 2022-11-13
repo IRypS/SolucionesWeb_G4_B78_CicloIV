@@ -24,7 +24,6 @@ import com.soluciones.web.appGrupo4.model.entities.E_Movie;
 import com.soluciones.web.appGrupo4.model.entities.E_Trailer;
 import com.soluciones.web.appGrupo4.model.validators.V_Language;
 import com.soluciones.web.appGrupo4.model.validators.V_Movie;
-import com.soluciones.web.appGrupo4.model.validators.V_Trailer;
 import com.soluciones.web.appGrupo4.service.interfaces.IGenreService;
 import com.soluciones.web.appGrupo4.service.interfaces.ILanguageService;
 import com.soluciones.web.appGrupo4.service.interfaces.IMovieService;
@@ -163,11 +162,37 @@ public class AdminPageController {
         model.addAttribute("title", title);
         model.addAttribute("activeSession", true);
 
-        model.addAttribute("trailer", trailerInterface.getTrailerById(id));
-        model.addAttribute("lazyMovie", movieinterface.getLazyInfoMovie());
-        model.addAttribute("lazyLanguage", languageInterface.getLazyInfoLanguage());
+        Response<E_Trailer> trailerResponse = trailerInterface.getTargetTrailer(id);
+        Response<V_Movie> movieDataResponse = movieinterface.getLazyInfoMovie();
+        Response<V_Language> languageDataResponse = languageInterface.getLazyInfoLanguage();
 
-        return "admin/trailer_form";
+        if (trailerResponse.getState()) {
+			model.addAttribute("trailer", trailerResponse.getData());
+		} else {
+			model.addAttribute("title", title + " | Error en el formulario de trailer");
+			model.addAttribute("response", trailerResponse.getMessage());
+			model.addAttribute("error", trailerResponse.getErrorMessage());
+			return "admin/errors";
+		}
+
+        if (movieDataResponse.getState()) {
+			model.addAttribute("lazyMovie", movieDataResponse.getListData());
+		} else {
+			model.addAttribute("title", title + " | Error en el formulario de trailer");
+			model.addAttribute("response", movieDataResponse.getMessage());
+			model.addAttribute("error", movieDataResponse.getErrorMessage());
+			return "admin/errors";
+		}
+
+        if (languageDataResponse.getState()) {
+			model.addAttribute("lazyLanguage", languageDataResponse.getListData());
+			return "admin/trailer_form";
+		} else {
+			model.addAttribute("title", title + " | Error en el formulario de trailer");
+			model.addAttribute("response", languageDataResponse.getMessage());
+			model.addAttribute("error", languageDataResponse.getErrorMessage());
+			return "admin/errors";
+		}
     };
     
     @GetMapping("/delete/trailer/{id}")
