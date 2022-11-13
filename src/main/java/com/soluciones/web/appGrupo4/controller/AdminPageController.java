@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.soluciones.web.appGrupo4.model.entities.E_Movie;
 import com.soluciones.web.appGrupo4.model.validators.V_Trailer;
+import com.soluciones.web.appGrupo4.service.interfaces.IGenreService;
 import com.soluciones.web.appGrupo4.service.interfaces.ILanguageService;
 import com.soluciones.web.appGrupo4.service.interfaces.IMovieService;
 import com.soluciones.web.appGrupo4.service.interfaces.IPersonService;
@@ -42,6 +43,9 @@ public class AdminPageController {
 
     @Autowired
     private IPersonService personInterface;
+
+    @Autowired
+    private IGenreService genreService;
 
     @Autowired
     private ILanguageService languageInterface;
@@ -117,6 +121,7 @@ public class AdminPageController {
 
         model.addAttribute("movie", movie);
         model.addAttribute("lazyPerson", personInterface.getLazyInfoPerson());
+        model.addAttribute("lazyGenre", genreService.getAllGenres());
         return "admin/movie_form";
     }
 
@@ -125,12 +130,14 @@ public class AdminPageController {
             @Validated @ModelAttribute("movie") E_Movie movie, 
             BindingResult br, Model model, 
             @RequestParam(value = "idDirectors[]", required = false) List<String> idDirectors,
+            @RequestParam(value = "idGenres[]", required = false) List<String> idGenres,
             @RequestParam(value = "coverImage", required = false) MultipartFile coverImage) {
-      
+
 
         // Verify errors
         if(br.hasErrors()) { 
             model.addAttribute("lazyPerson", personInterface.getLazyInfoPerson());
+            model.addAttribute("lazyGenre", genreService.getAllGenres());
             return "admin/movie_form"; 
         };
 
@@ -150,7 +157,7 @@ public class AdminPageController {
 
 		}
 
-        movieinterface.createMovie(movie, idDirectors);
+        movieinterface.createMovie(movie, idDirectors, idGenres);
 
         return "redirect:/app/administrator/movieList";
     }

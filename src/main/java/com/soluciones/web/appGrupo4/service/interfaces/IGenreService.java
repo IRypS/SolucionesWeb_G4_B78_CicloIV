@@ -8,4 +8,6 @@ public interface IGenreService {
     
     public List<E_Genre> getAllGenres();
 
+    public E_Genre getGenreById(String id);
+
 }

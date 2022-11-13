@@ -11,6 +11,6 @@ public interface IMovieService {
 
     public List<V_Movie> getLazyInfoTrailer();
 
-    public String createMovie(E_Movie movie, List<String> idDirectorList);
+    public String createMovie(E_Movie movie, List<String> idDirectorList, List<String> idGenreList);
     
 }

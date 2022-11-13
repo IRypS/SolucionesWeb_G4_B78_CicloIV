@@ -19,4 +19,9 @@ public class GenreService implements IGenreService {
     public List<E_Genre> getAllGenres() {
         return genre_entity.findByOrderByNameGenreAsc();
     };
+
+    @Override
+    public E_Genre getGenreById(String id) {
+        return genre_entity.findById(id).get();
+    };
 }
