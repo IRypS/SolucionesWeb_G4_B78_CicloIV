@@ -39,6 +39,12 @@ public class TrailerService implements ITrailerService{
     };
 
     @Override
+    public V_Trailer getTrailerById(String id) {
+        return trailer_modify.findById(id).get();
+    };
+
+
+    @Override
     public String createTrailer(V_Trailer trailer) {
 
         V_Trailer createdTrailer = trailer_modify.save(trailer);

@@ -13,6 +13,8 @@ public interface ITrailerService {
 
     public List<E_Trailer> getRelatedTrailers(String id);
 
+    public V_Trailer getTrailerById(String id);
+
     public String createTrailer(V_Trailer trailer);
 
     public String deleteTrailerById(String id);

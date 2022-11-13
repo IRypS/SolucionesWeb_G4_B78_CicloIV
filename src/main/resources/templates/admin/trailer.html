@@ -81,7 +81,7 @@
                             </a>
                         </td>
                         <td class="text-nowrap">
-                            <a th:href="@{/}" class="btn btn-sm btn-info">
+                            <a th:href="@{${ '/app/administrator/update/form/trailer/' + trailer.getId }}" class="btn btn-sm btn-info">
                                 <img th:src="@{ /resources/icons/edit__icon.svg }" alt="">
                             </a>
 							<a th:href="@{${ '/app/administrator/delete/trailer/' + trailer.getId }}" class="btn btn-sm btn-danger">

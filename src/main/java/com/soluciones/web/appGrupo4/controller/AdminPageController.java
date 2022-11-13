@@ -101,6 +101,19 @@ public class AdminPageController {
 
         return "redirect:/app/administrator/dashboard";
     }
+
+    @GetMapping("/update/form/trailer/{id}")
+    public String trailerUpdateForm(@PathVariable String id, Model model) {
+
+        model.addAttribute("title", title);
+        model.addAttribute("activeSession", true);
+
+        model.addAttribute("trailer", trailerInterface.getTrailerById(id));
+        model.addAttribute("lazyMovie", movieinterface.getLazyInfoTrailer());
+        model.addAttribute("lazyLanguage", languageInterface.getLazyInfoLanguage());
+
+        return "admin/trailer_form";
+    };
     
     @GetMapping("/delete/trailer/{id}")
     public String deleteTrailer(@PathVariable String id, Model model) {
