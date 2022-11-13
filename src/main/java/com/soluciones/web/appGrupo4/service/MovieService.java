@@ -73,6 +73,13 @@ public class MovieService implements IMovieService {
     };
 
 
+    @Override
+    public String deleteTrailerById(String id) {
+        movie_entity.deleteById(id);
+        return "";
+    };
+
+
     public List<E_Person> createDirectorObjectsIntoArray(List<String> idDirectorList) {
 
         List<E_Person> objectPersonList = new ArrayList<>();

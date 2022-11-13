@@ -102,7 +102,7 @@ public class AdminPageController {
         return "redirect:/app/administrator/dashboard";
     }
     
-    @GetMapping("/delete/{id}")
+    @GetMapping("/delete/trailer/{id}")
     public String deleteTrailer(@PathVariable String id, Model model) {
         trailerInterface.deleteTrailerById(id);
         return "redirect:/app/administrator/trailerList";
@@ -166,6 +166,12 @@ public class AdminPageController {
 
         movieinterface.createMovie(movie, idDirectors, idGenres);
 
+        return "redirect:/app/administrator/movieList";
+    }
+
+    @GetMapping("/delete/movie/{id}")
+    public String deleteMovie(@PathVariable String id, Model model) {
+        movieinterface.deleteTrailerById(id);
         return "redirect:/app/administrator/movieList";
     }
 }
