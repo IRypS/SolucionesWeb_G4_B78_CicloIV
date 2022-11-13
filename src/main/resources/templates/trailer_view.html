@@ -260,9 +260,13 @@
                         <!-- Persons Movie -->
                         <div class="my-2">
                             <span>
-                                <b>Director:</b> 
-                                <span th:each="director : ${ trailer.getMovie.getDirectorsList }"
-                                    th:text="${ director.getName + ' ' + director.getLastname + ', ' }">
+                                <b>Director(es):</b> 
+                                <span th:each="director : ${ trailer.getMovie.getDirectorsList }">
+                                    <!-- Director's Full Name -->
+                                    <span th:text="${director.getName + ' ' + director.getLastname}"></span>
+                                    <!-- DOT OR COMMA -->
+                                    <span th:if="${directorStat.index != trailer.getMovie.getDirectorsList.size()-1}">, </span>
+                                    <span th:if="${directorStat.index == trailer.getMovie.getDirectorsList.size()-1}">.</span>
                                 </span>
                             </span>
                         </div>

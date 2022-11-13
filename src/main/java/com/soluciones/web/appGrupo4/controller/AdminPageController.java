@@ -135,7 +135,7 @@ public class AdminPageController {
         };
 
         if (!coverImage.isEmpty()) {
-			Path pathImage = Paths.get("src//main//resources//static//upload//movie//cover");
+			Path pathImage = Paths.get("src//main//resources//static//resources//upload//movie//cover");
 			String pathGeneric = pathImage.toFile().getAbsolutePath();
 
 			try {
