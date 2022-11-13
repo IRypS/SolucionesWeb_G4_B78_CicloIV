@@ -22,6 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.soluciones.web.appGrupo4.model.Response;
 import com.soluciones.web.appGrupo4.model.entities.E_Movie;
 import com.soluciones.web.appGrupo4.model.entities.E_Trailer;
+import com.soluciones.web.appGrupo4.model.validators.V_Language;
+import com.soluciones.web.appGrupo4.model.validators.V_Movie;
 import com.soluciones.web.appGrupo4.model.validators.V_Trailer;
 import com.soluciones.web.appGrupo4.service.interfaces.IGenreService;
 import com.soluciones.web.appGrupo4.service.interfaces.ILanguageService;
@@ -74,12 +76,12 @@ public class AdminPageController {
         if (response.getState()) {
 			model.addAttribute("title", title + " | (ADMIN) Listado de Trailers");
 			model.addAttribute("trailerList", response.getListData());
-			model.addAttribute("respuesta", response.getMessage());
+			// model.addAttribute("response", response.getMessage());
 			return "admin/trailer";
 		} else {
 			model.addAttribute("title", title + " | Error al obtener trailers");
-			model.addAttribute("respuesta", response.getMessage());
-			model.addAttribute("errores", response.getErrorMessage());
+			model.addAttribute("response", response.getMessage());
+			model.addAttribute("error", response.getErrorMessage());
 			return "admin/errors";
 		}
         // model.addAttribute("trailerList", trailerInterface.getAllTrailers());
@@ -89,32 +91,70 @@ public class AdminPageController {
     @GetMapping("/insert/trailer")
     public String trailerForm(Model model) {
 
-        V_Trailer trailer = new V_Trailer();
+        E_Trailer trailer = new E_Trailer();
+        Response<V_Movie> movieDataResponse = movieinterface.getLazyInfoMovie();
+        Response<V_Language> languageDataResponse = languageInterface.getLazyInfoLanguage();
 
-        model.addAttribute("title", title);
+        // model.addAttribute("title", title);
         model.addAttribute("activeSession", true);
-
+        model.addAttribute("title", title + " | Crear Trailer");
         model.addAttribute("trailer", trailer);
-        model.addAttribute("lazyMovie", movieinterface.getLazyInfoTrailer());
-        model.addAttribute("lazyLanguage", languageInterface.getLazyInfoLanguage());
-        return "admin/trailer_form";
+
+        if (movieDataResponse.getState()) {
+			model.addAttribute("lazyMovie", movieDataResponse.getListData());
+		} else {
+			model.addAttribute("title", title + " | Error en el formulario de trailer");
+			model.addAttribute("response", movieDataResponse.getMessage());
+			model.addAttribute("error", movieDataResponse.getErrorMessage());
+			return "admin/errors";
+		}
+
+        if (languageDataResponse.getState()) {
+			model.addAttribute("lazyLanguage", languageDataResponse.getListData());
+			return "admin/trailer_form";
+		} else {
+			model.addAttribute("title", title + " | Error en el formulario de trailer");
+			model.addAttribute("response", languageDataResponse.getMessage());
+			model.addAttribute("error", languageDataResponse.getErrorMessage());
+			return "admin/errors";
+		}
+
+        // model.addAttribute("trailer", trailer);
+        // model.addAttribute("lazyMovie", movieinterface.getLazyInfoMovie());
+        // model.addAttribute("lazyLanguage", languageInterface.getLazyInfoLanguage());
+        // return "admin/trailer_form";
     }
 
     @PostMapping("/create/trailer")
     public String createTrailer(
-            @Validated @ModelAttribute("trailer") V_Trailer trailer,
-            BindingResult br, Model model) {
+            @Validated @ModelAttribute("trailer") E_Trailer trailer,
+            BindingResult br, Model model,
+            @RequestParam(value = "movieID", required = false) String movieID,
+            @RequestParam(value = "languageID", required = false) String languageID,
+            @RequestParam(value = "subtitleID", required = false) String subtitleID) {
 
         // Verify errors
         if(br.hasErrors()) { 
-            model.addAttribute("lazyMovie", movieinterface.getLazyInfoTrailer());
+            model.addAttribute("lazyMovie", movieinterface.getLazyInfoMovie());
             model.addAttribute("lazyLanguage", languageInterface.getLazyInfoLanguage());
             return "admin/trailer_form"; 
         };
 
-        trailerInterface.createTrailer(trailer);
+        Response<E_Trailer> createTrailerResponse = trailerInterface
+            .createTrailer(trailer, movieID, languageID, subtitleID);
 
-        return "redirect:/app/administrator/trailerList";
+        if (createTrailerResponse.getState()) {
+            model.addAttribute("title", title + " | (ADMIN) Listado de Trailers");
+			model.addAttribute("trailerList", createTrailerResponse.getListData());
+			model.addAttribute("response", createTrailerResponse.getMessage());
+            return "admin/trailer";
+        } else {
+            model.addAttribute("title", title + " | Error en el formulario de trailer");
+            model.addAttribute("response", createTrailerResponse.getMessage());
+            model.addAttribute("error", createTrailerResponse.getErrorMessage());
+            return "admin/errors";
+        }
+
     }
 
     @GetMapping("/update/form/trailer/{id}")
@@ -124,7 +164,7 @@ public class AdminPageController {
         model.addAttribute("activeSession", true);
 
         model.addAttribute("trailer", trailerInterface.getTrailerById(id));
-        model.addAttribute("lazyMovie", movieinterface.getLazyInfoTrailer());
+        model.addAttribute("lazyMovie", movieinterface.getLazyInfoMovie());
         model.addAttribute("lazyLanguage", languageInterface.getLazyInfoLanguage());
 
         return "admin/trailer_form";

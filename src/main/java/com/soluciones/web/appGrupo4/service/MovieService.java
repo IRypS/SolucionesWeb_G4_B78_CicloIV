@@ -2,10 +2,12 @@ package com.soluciones.web.appGrupo4.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.soluciones.web.appGrupo4.model.Response;
 import com.soluciones.web.appGrupo4.model.entities.E_Genre;
 import com.soluciones.web.appGrupo4.model.entities.E_Movie;
 import com.soluciones.web.appGrupo4.model.entities.E_Person;
@@ -40,12 +42,43 @@ public class MovieService implements IMovieService {
     };
 
     @Override
-    public List<V_Movie> getLazyInfoTrailer() {
-        return movie_modify.findAll();
+    public Response<V_Movie> getLazyInfoMovie() {
+
+        Response<V_Movie> response = new Response<>();
+
+		try {
+			response.setMessage("Datos peliculas obtenidos correctamente");
+			response.setState(true);
+			response.setListData( (List<V_Movie>)movie_modify.findAll() );
+
+		} catch (Exception e) {
+			response.setState(false);
+			response.setMessage("Hubo problemas para obtener los datos de las peliculas");
+			response.setErrorMessage(e.getStackTrace().toString());
+		}
+
+		return response;
     };
 
-    public E_Movie getMovieById(String id) {
-        return movie_entity.findById(id).get();
+    public Response<E_Movie> getMovieById(String id) {
+
+        Response<E_Movie> response = new Response<>();
+
+        try {
+            Optional<E_Movie> targetMovie = movie_entity.findById(id);
+
+            response.setState(true);
+			response.setData(targetMovie.get());
+			response.setMessage("Pelicula encontrada: " + targetMovie.get().getName());
+
+        } catch (Exception e) {
+            response.setState(false);
+			response.setMessage("Hubo problemas para encontrar la pelicula con el ID: " + id);
+			response.setErrorMessage(e.getStackTrace().toString());
+        }
+
+        return response;
+
     };
     
     @Override

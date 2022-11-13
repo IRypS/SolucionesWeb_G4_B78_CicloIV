@@ -60,7 +60,7 @@ public class UserPageController {
         if (trailerResponse.getState() && languageResponse.getState()) {
 			model.addAttribute("title", title + " | Trailers");
 			model.addAttribute("trailersList", trailerResponse.getListData());
-			model.addAttribute("responseT", trailerResponse.getMessage());
+			model.addAttribute("response", trailerResponse.getMessage());
             model.addAttribute("languagesList", languageResponse.getListData());
             model.addAttribute("genresList", genreResponse.getListData());
             model.addAttribute("countriesList", countryResponse.getListData());
@@ -91,25 +91,50 @@ public class UserPageController {
     @GetMapping("/trailer/view/{id}")
     public String trailerView(@PathVariable String id, Model model) {
 
-        E_Trailer targetTrailer = new E_Trailer();
-
-        try {
-            targetTrailer = trailerInterface.getTargetTrailer(id);
-        } catch (Exception e){
-            return "redirect:/";
-        }
-
-        model.addAttribute("title", "Trailer View | " + title);
+        // model.addAttribute("title", "Trailer View | " + title);
         model.addAttribute("activeSession", true);
 
-        model.addAttribute("trailer", targetTrailer);
-        model.addAttribute("relatedTrailers", trailerInterface.getRelatedTrailers(id));
-        model.addAttribute("userList", listsInterface.getAllLists());
+        Response<E_Trailer> trailerResponse = trailerInterface.getTargetTrailer(id);
+        Response<E_Trailer> relatedTrailersResponse = trailerInterface.getRelatedTrailers(id);
 
-        return "trailer_view";
+        if (trailerResponse.getState() && relatedTrailersResponse.getState()) {
+			model.addAttribute("title", title + " | " + trailerResponse.getData().getTitle());
+			model.addAttribute("trailer", trailerResponse.getData());
+            model.addAttribute("relatedTrailers", relatedTrailersResponse.getListData());
+			model.addAttribute("response", trailerResponse.getMessage());
+            // TemporallyData
+            model.addAttribute("userList", listsInterface.getAllLists());
+
+			return "trailer_view";
+		} else {
+
+            List<String> errorsHeader = Arrays.asList(
+                trailerResponse.getMessage(),
+                relatedTrailersResponse.getMessage()
+            );
+
+            List<String> errorsBody = Arrays.asList(
+                trailerResponse.getErrorMessage(),
+                relatedTrailersResponse.getErrorMessage()
+            );
+
+			model.addAttribute("title", title + " | Error al obtener el trailer");
+			model.addAttribute("errorsHeader", errorsHeader);
+			model.addAttribute("errorsBody", errorsBody);
+			return "errors";
+		}
+
+        // model.addAttribute("trailer", targetTrailer);
+        // model.addAttribute("relatedTrailers", trailerInterface.getRelatedTrailers(id));
+
+        // return "trailer_view";
     };
 
 
+
+
+
+    // Temporally function (whitout db) <=============================
     @PostMapping("/list/createNewList/{id}")
     public String createNewList(UserList usrList, @PathVariable String id) {
         System.out.println("*** ---> Lista creada");
