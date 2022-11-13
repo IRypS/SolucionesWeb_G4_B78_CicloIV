@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.soluciones.web.appGrupo4.model.Response;
 import com.soluciones.web.appGrupo4.model.entities.E_Trailer;
 import com.soluciones.web.appGrupo4.model.validators.V_Trailer;
 import com.soluciones.web.appGrupo4.repository.I_trailer_db;
@@ -22,8 +23,22 @@ public class TrailerService implements ITrailerService{
     private ITrailer trailer_modify;
 
     @Override
-    public List<E_Trailer> getAllTrailers() {
-        return (List<E_Trailer>)trailer_entity.findAll();
+    public Response<E_Trailer> getAllTrailers() {
+
+        Response<E_Trailer> response = new Response<>();
+
+		try {
+			response.setMessage("Lista de trailers");
+			response.setState(true);
+			response.setListData( (List<E_Trailer>)trailer_entity.findAll() );
+
+		} catch (Exception e) {
+			response.setState(false);
+			response.setMessage("Hubo problemas para obtener el listado de trailers");
+			response.setErrorMessage(e.getStackTrace().toString());
+		}
+
+		return response;
     };
 
     @Override

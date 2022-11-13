@@ -1,5 +1,8 @@
 package com.soluciones.web.appGrupo4.controller;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -9,7 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.soluciones.web.appGrupo4.model.Response;
 import com.soluciones.web.appGrupo4.model.UserList;
+import com.soluciones.web.appGrupo4.model.entities.E_Country;
+import com.soluciones.web.appGrupo4.model.entities.E_Genre;
+import com.soluciones.web.appGrupo4.model.entities.E_Language;
 import com.soluciones.web.appGrupo4.model.entities.E_Trailer;
 import com.soluciones.web.appGrupo4.service.IListService;
 import com.soluciones.web.appGrupo4.service.interfaces.ICountryService;
@@ -42,15 +49,43 @@ public class UserPageController {
     @GetMapping("/trailers")
     public String allTrailers(Model model) {
 
-        model.addAttribute("title", "Trailers | " + title);
+        // model.addAttribute("title", "Trailers | " + title);
         model.addAttribute("activeSession", true);
 
-        model.addAttribute("trailersList", trailerInterface.getAllTrailers());
-        model.addAttribute("languagesList", languageInterface.getAllLanguages());
-        model.addAttribute("genresList", genreInterface.getAllGenres());
-        model.addAttribute("countriesList", countriesInterface.getAllCountries());
- 
-        return "trailers";
+        Response<E_Trailer> trailerResponse = trailerInterface.getAllTrailers();
+        Response<E_Language> languageResponse = languageInterface.getAllTrailers();
+        Response<E_Genre> genreResponse = genreInterface.getAllGenres();
+        Response<E_Country> countryResponse = countriesInterface.getAllCountries();
+
+        if (trailerResponse.getState() && languageResponse.getState()) {
+			model.addAttribute("title", title + " | Trailers");
+			model.addAttribute("trailersList", trailerResponse.getListData());
+			model.addAttribute("responseT", trailerResponse.getMessage());
+            model.addAttribute("languagesList", languageResponse.getListData());
+            model.addAttribute("genresList", genreResponse.getListData());
+            model.addAttribute("countriesList", countryResponse.getListData());
+			return "trailers";
+		} else {
+
+            List<String> errorsHeader = Arrays.asList(
+                trailerResponse.getMessage(), 
+                languageResponse.getMessage(), 
+                genreResponse.getMessage(), 
+                countryResponse.getMessage()
+            );
+
+            List<String> errorsBody = Arrays.asList(
+                trailerResponse.getErrorMessage(), 
+                languageResponse.getErrorMessage(), 
+                genreResponse.getErrorMessage(), 
+                countryResponse.getErrorMessage()
+            );
+
+			model.addAttribute("title", title + " | Error al obtener trailers");
+			model.addAttribute("errorsHeader", errorsHeader);
+			model.addAttribute("errorsBody", errorsBody);
+			return "errors";
+		}
     };
 
     @GetMapping("/trailer/view/{id}")

@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.soluciones.web.appGrupo4.model.Response;
 import com.soluciones.web.appGrupo4.model.entities.E_Movie;
+import com.soluciones.web.appGrupo4.model.entities.E_Trailer;
 import com.soluciones.web.appGrupo4.model.validators.V_Trailer;
 import com.soluciones.web.appGrupo4.service.interfaces.IGenreService;
 import com.soluciones.web.appGrupo4.service.interfaces.ILanguageService;
@@ -64,11 +66,24 @@ public class AdminPageController {
     @GetMapping("/trailerList")
     public String getTrailerList(Model model) {
 
-        model.addAttribute("title", title);
+        // model.addAttribute("title", title);
         model.addAttribute("activeSession", true);
 
-        model.addAttribute("trailerList", trailerInterface.getAllTrailers());
-        return "admin/trailer";
+        Response<E_Trailer> response = trailerInterface.getAllTrailers();
+
+        if (response.getState()) {
+			model.addAttribute("title", title + " | (ADMIN) Listado de Trailers");
+			model.addAttribute("trailerList", response.getListData());
+			model.addAttribute("respuesta", response.getMessage());
+			return "admin/trailer";
+		} else {
+			model.addAttribute("title", title + " | Error al obtener trailers");
+			model.addAttribute("respuesta", response.getMessage());
+			model.addAttribute("errores", response.getErrorMessage());
+			return "admin/errors";
+		}
+        // model.addAttribute("trailerList", trailerInterface.getAllTrailers());
+        // return "admin/trailer";
     }
     
     @GetMapping("/insert/trailer")
@@ -99,7 +114,7 @@ public class AdminPageController {
 
         trailerInterface.createTrailer(trailer);
 
-        return "redirect:/app/administrator/dashboard";
+        return "redirect:/app/administrator/trailerList";
     }
 
     @GetMapping("/update/form/trailer/{id}")

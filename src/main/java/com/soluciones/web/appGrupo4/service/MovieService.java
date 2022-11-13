@@ -51,25 +51,11 @@ public class MovieService implements IMovieService {
     @Override
     public String createMovie(E_Movie movie, List<String> idDirectorList, List<String> idGenreList) {
 
-        List<E_Person> objectDirectorList = movie.getDirectorsList();
         List<E_Person> directorsToAdd = this.createDirectorObjectsIntoArray(idDirectorList);
+        movie.setDirectorsList(directorsToAdd);
 
-        if(objectDirectorList != null) {
-            objectDirectorList.addAll(directorsToAdd);
-            movie.setDirectorsList(objectDirectorList);
-        } else {
-            movie.setDirectorsList(directorsToAdd);
-        }
-
-        List<E_Genre> objectGenreList = movie.getGenreList();
         List<E_Genre> genresToAdd = this.createGenresObjectsIntoArray(idGenreList);
-
-        if (objectGenreList != null) {
-            objectGenreList.addAll(genresToAdd);
-            movie.setGenreList(objectGenreList);
-        } else {
-            movie.setGenreList(genresToAdd);
-        };
+        movie.setGenreList(genresToAdd);
 
         movie_entity.save(movie);
         System.out.println("Creado correctamente <-------------------------");
