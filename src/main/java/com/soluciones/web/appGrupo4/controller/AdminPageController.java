@@ -217,11 +217,23 @@ public class AdminPageController {
     @GetMapping("/movieList")
     public String getMovieList(Model model) {
 
-        model.addAttribute("title", title);
+        // model.addAttribute("title", title);
         model.addAttribute("activeSession", true);
 
-        model.addAttribute("movieList", movieinterface.getAllMovies());
-        return "admin/movie";
+        Response<E_Movie> response = movieinterface.getAllMovies();
+
+        if (response.getState()) {
+			model.addAttribute("title", title + " | (ADMIN) Listado de Peliculas");
+			model.addAttribute("movieList", response.getListData());
+			// model.addAttribute("response", response.getMessage());
+			return "admin/movie";
+		} else {
+			model.addAttribute("title", title + " | Error al obtener peliculas");
+			model.addAttribute("response", response.getMessage());
+			model.addAttribute("error", response.getErrorMessage());
+			return "admin/errors";
+		}
+        
     }
 
     @GetMapping("/insert/movie")

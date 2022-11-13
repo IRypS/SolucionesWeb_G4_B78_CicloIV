@@ -37,8 +37,22 @@ public class MovieService implements IMovieService {
 
 
     @Override
-    public List<E_Movie> getAllMovies() {
-        return movie_entity.findAll();
+    public Response<E_Movie> getAllMovies() {
+
+        Response<E_Movie> response = new Response<>();
+
+		try {
+			response.setMessage("Lista de Peliculas");
+			response.setState(true);
+			response.setListData( (List<E_Movie>)movie_entity.findAll() );
+
+		} catch (Exception e) {
+			response.setState(false);
+			response.setMessage("Hubo problemas para obtener el listado de peliculas");
+			response.setErrorMessage(e.getStackTrace().toString());
+		}
+
+		return response;
     };
 
     @Override
@@ -60,6 +74,7 @@ public class MovieService implements IMovieService {
 		return response;
     };
 
+    @Override
     public Response<E_Movie> getMovieById(String id) {
 
         Response<E_Movie> response = new Response<>();
