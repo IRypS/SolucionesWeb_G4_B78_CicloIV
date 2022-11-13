@@ -59,6 +59,12 @@
                     enctype="multipart/form-data" class="mt-3">
 
                     <div class="mb-3">
+                        <label for="idTitle" class="form-label">ID</label>
+                        <input type="text" class="form-control" name="idMovie" th:field="*{idMovie}"
+                            id="idTitle" readonly>
+                    </div>
+
+                    <div class="mb-3">
                         <label for="idTitle" class="form-label">
                             Titulo <span><b>*</b></span>
                         </label>
@@ -96,8 +102,8 @@
                                     <div onclick="deleteInputElement(this)" ><img src="/resources/icons/delete__icon.svg" alt=""></div>
                                 </div>
                                 <input th:id="*{directorsList[__${itemStat.index}__].idPerson}" name="idDirectors[]" 
-                                    th:value="{directorsList[__${itemStat.index}__].idPerson}" type="text" 
-                                    class="list-group-item list-group-item-action">>
+                                    th:value="*{directorsList[__${itemStat.index}__].idPerson}" type="text" 
+                                    class="list-group-item list-group-item-action">
                             </div>
                         </div>
                     </div>
@@ -123,8 +129,8 @@
                                     <div onclick="deleteInputElement(this)" ><img src="/resources/icons/delete__icon.svg" alt=""></div>
                                 </div>
                                 <input th:id="*{genreList[__${itemStat.index}__].getIdGenre}" name="idGenres[]" 
-                                    th:value="{genreList[__${itemStat.index}__].getIdGenre}" type="text" 
-                                    class="list-group-item list-group-item-action">>
+                                    th:value="*{genreList[__${itemStat.index}__].getIdGenre}" type="text" 
+                                    class="list-group-item list-group-item-action">
                             </div>
                         </div>
                     </div>

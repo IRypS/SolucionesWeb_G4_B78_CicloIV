@@ -112,6 +112,9 @@ $form-file-button-color:          $white;
 $form-file-button-bg:             $primary;
 $form-file-button-hover-bg:       shade-color($form-file-button-bg, 5%);
 
+$input-bg:                              $dark;
+$input-disabled-bg:                     $color-3-hover;
+
 
 
 @import "../../lib/bootstrap/scss/bootstrap.scss";

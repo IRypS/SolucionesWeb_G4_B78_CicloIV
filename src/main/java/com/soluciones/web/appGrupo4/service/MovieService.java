@@ -43,6 +43,10 @@ public class MovieService implements IMovieService {
     public List<V_Movie> getLazyInfoTrailer() {
         return movie_modify.findAll();
     };
+
+    public E_Movie getMovieById(String id) {
+        return movie_entity.findById(id).get();
+    };
     
     @Override
     public String createMovie(E_Movie movie, List<String> idDirectorList, List<String> idGenreList) {

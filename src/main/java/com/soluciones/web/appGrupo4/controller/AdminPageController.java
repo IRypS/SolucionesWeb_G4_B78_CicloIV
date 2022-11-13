@@ -153,7 +153,6 @@ public class AdminPageController {
             @RequestParam(value = "idGenres[]", required = false) List<String> idGenres,
             @RequestParam(value = "coverImage", required = false) MultipartFile coverImage) {
 
-
         // Verify errors
         if(br.hasErrors()) { 
             model.addAttribute("lazyPerson", personInterface.getLazyInfoPerson());
@@ -187,4 +186,17 @@ public class AdminPageController {
         movieinterface.deleteTrailerById(id);
         return "redirect:/app/administrator/movieList";
     }
+
+    @GetMapping("/update/form/movie/{id}")
+    public String movieUpdateForm(@PathVariable String id, Model model) {
+
+        model.addAttribute("title", title);
+        model.addAttribute("activeSession", true);
+
+        model.addAttribute("movie", movieinterface.getMovieById(id));
+        model.addAttribute("lazyPerson", personInterface.getLazyInfoPerson());
+        model.addAttribute("lazyGenre", genreService.getAllGenres());
+
+        return "admin/movie_form";
+    };
 }
