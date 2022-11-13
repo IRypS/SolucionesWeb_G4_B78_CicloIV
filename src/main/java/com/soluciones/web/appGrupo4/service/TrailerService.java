@@ -47,4 +47,10 @@ public class TrailerService implements ITrailerService{
 
         return "Creado correctamente <-------------------------";
     };
+
+    @Override
+    public String deleteTrailerById(String id) {
+        trailer_entity.deleteById(id);
+        return "YUPI";
+    };
 }

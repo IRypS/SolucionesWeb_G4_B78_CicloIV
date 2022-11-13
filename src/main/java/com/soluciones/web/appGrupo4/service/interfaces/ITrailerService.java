@@ -15,4 +15,6 @@ public interface ITrailerService {
 
     public String createTrailer(V_Trailer trailer);
 
+    public String deleteTrailerById(String id);
+
 }
