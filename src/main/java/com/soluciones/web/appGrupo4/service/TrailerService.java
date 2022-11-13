@@ -10,9 +10,7 @@ import com.soluciones.web.appGrupo4.model.Response;
 import com.soluciones.web.appGrupo4.model.entities.E_Language;
 import com.soluciones.web.appGrupo4.model.entities.E_Movie;
 import com.soluciones.web.appGrupo4.model.entities.E_Trailer;
-import com.soluciones.web.appGrupo4.model.validators.V_Trailer;
 import com.soluciones.web.appGrupo4.repository.I_trailer_db;
-import com.soluciones.web.appGrupo4.repository.manage.ITrailer;
 import com.soluciones.web.appGrupo4.service.interfaces.ILanguageService;
 import com.soluciones.web.appGrupo4.service.interfaces.IMovieService;
 import com.soluciones.web.appGrupo4.service.interfaces.ITrailerService;
@@ -22,9 +20,6 @@ public class TrailerService implements ITrailerService{
 
     @Autowired
     private I_trailer_db trailer_entity;
-    
-    @Autowired
-    private ITrailer trailer_modify;
 
     @Autowired
     private IMovieService movie_service;
@@ -99,7 +94,7 @@ public class TrailerService implements ITrailerService{
         Response<E_Trailer> response = new Response<>();
 
 		try {
-            
+
             Response<E_Movie> movie = movie_service.getMovieById(movieID);
             if (movie.getState()) { trailer.setMovie(movie.getData()); };
 
@@ -125,8 +120,25 @@ public class TrailerService implements ITrailerService{
     };
 
     @Override
-    public String deleteTrailerById(String id) {
-        trailer_entity.deleteById(id);
-        return "YUPI";
+    public Response<E_Trailer> deleteTrailerById(String id) {
+
+        Response<E_Trailer> response = new Response<>();
+
+        try {
+            Optional<E_Trailer> targetTrailer = trailer_entity.findById(id);
+            trailer_entity.deleteById(id);
+
+            response.setState(true);
+			response.setData(targetTrailer.get());
+            response.setListData((List<E_Trailer>) trailer_entity.findAll());
+			response.setMessage("Trailer eliminado exitósamente: [" + targetTrailer.get().getTitle() + "]");
+
+        } catch (Exception e) {
+            response.setState(false);
+			response.setMessage("Hubo problemas para elimar el trailer trailer con el ID: " + id);
+			response.setErrorMessage(e.getStackTrace().toString());
+        }
+
+        return response;
     };
 }

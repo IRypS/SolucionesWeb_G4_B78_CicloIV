@@ -197,8 +197,21 @@ public class AdminPageController {
     
     @GetMapping("/delete/trailer/{id}")
     public String deleteTrailer(@PathVariable String id, Model model) {
-        trailerInterface.deleteTrailerById(id);
-        return "redirect:/app/administrator/trailerList";
+
+        Response<E_Trailer> trailerDeleteResponse = trailerInterface.deleteTrailerById(id);
+
+        if (trailerDeleteResponse.getState()) {
+			model.addAttribute("title", title + " | (ADMIN) Listado de Trailers");
+			model.addAttribute("trailerList", trailerDeleteResponse.getListData());
+			model.addAttribute("response", trailerDeleteResponse.getMessage());
+			return "admin/trailer";
+		} else {
+			model.addAttribute("title", title + " | Error al eliminar trailer trailers");
+			model.addAttribute("response", trailerDeleteResponse.getMessage());
+			model.addAttribute("error", trailerDeleteResponse.getErrorMessage());
+			return "admin/errors";
+		}
+
     }
 
     @GetMapping("/movieList")

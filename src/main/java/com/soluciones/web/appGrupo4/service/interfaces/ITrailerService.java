@@ -20,6 +20,6 @@ public interface ITrailerService {
     // public String createTrailer(V_Trailer trailer);
     public Response<E_Trailer> createTrailer(E_Trailer trailer, String movieID, String languageID, String subtitleID );
 
-    public String deleteTrailerById(String id);
-
+    // public String deleteTrailerById(String id);
+    public Response<E_Trailer> deleteTrailerById(String id);
 }
