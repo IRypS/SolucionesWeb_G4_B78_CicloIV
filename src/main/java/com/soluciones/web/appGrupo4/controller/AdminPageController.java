@@ -216,7 +216,7 @@ public class AdminPageController {
 			model.addAttribute("response", trailerDeleteResponse.getMessage());
 			return "admin/trailer";
 		} else {
-			model.addAttribute("title", title + " | Error al eliminar trailer trailers");
+			model.addAttribute("title", title + " | Error al eliminar el trailer");
 			model.addAttribute("response", trailerDeleteResponse.getMessage());
 			model.addAttribute("error", trailerDeleteResponse.getErrorMessage());
 			return "admin/errors";

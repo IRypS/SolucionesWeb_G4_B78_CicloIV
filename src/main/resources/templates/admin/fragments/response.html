@@ -3,3 +3,9 @@
     <small><strong th:text="${response}"></strong></small>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
+
+<div th:fragment="bad-response"
+    th:if="${ response }"  class="alert alert-danger alert-dismissible fade show" role="alert">
+    <small><strong th:text="${response}"></strong></small>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>

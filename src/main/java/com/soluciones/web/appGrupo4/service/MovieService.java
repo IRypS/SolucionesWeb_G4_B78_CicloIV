@@ -140,8 +140,8 @@ public class MovieService implements IMovieService {
 
         } catch (Exception e) {
             response.setState(false);
-			response.setMessage("Hubo problemas para elimar el trailer trailer con el ID: " + id);
-			response.setErrorMessage(e.getStackTrace().toString());
+			response.setMessage("Hubo problemas para elimar el la pelicula con el ID: " + id);
+			response.setErrorMessage(e.getMessage().toString());
         }
 
         return response;
