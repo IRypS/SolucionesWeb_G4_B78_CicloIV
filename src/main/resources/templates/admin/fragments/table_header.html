@@ -1,0 +1,13 @@
+<div th:fragment="header_table (name, image, actionLink)"
+    class="d-flex justify-content-between mb-3">
+    <h2 th:text="${name}" class="p-0 m-0 text-nowrap">
+        <img th:src="@{${ '/resources/icons/' + image }}" alt="">
+    </h2>
+
+    <a th:href="@{${actionLink}}" class="text-nowrap text-decoration-none">
+        <div class="bg-dark rounded-pill px-3 py-1">
+            <img th:src="@{ /resources/icons/plus-circle.svg }" alt="" class="h-100">
+            <small>Insertar</small>
+        </div>
+    </a>
+</div>

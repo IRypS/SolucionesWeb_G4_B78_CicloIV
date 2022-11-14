@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- Meta tags -->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Meta tags && title && icon -->
+    <div th:replace="/fragments/template_basic_header :: base_header"></div>
 
     <!-- Bootstrap CSS (Temporally location)-->
-    <link type="text/css" rel="stylesheet" href="/styles/css/styles.css">
+    <div th:replace="/fragments/bootstrap_template :: bootstrap_css"></div>
 
     <!-- Datatables -->
     <link rel="stylesheet" href="/lib/DataTables/DataTables-1.12.1/css/dataTables.bootstrap5.min.css">
@@ -17,9 +16,6 @@
     <link type="text/css" rel="stylesheet" href="/styles/css/customize__sidebar.css">
     <link type="text/css" rel="stylesheet" href="/styles/css/customize__table.css">
 
-    <!-- Header styles -->
-    <link rel="icon" href="/resources/icons/main_icon.ico">
-    <title th:text="${title}">...</title>
 </head>
 <body class="vw-100 mw-100">
 
@@ -123,8 +119,7 @@
     
 
     <!-- Bootstrap JS -->
-    <script src="/utils/popper.min.js"></script>
-    <script src="/utils/bootstrap.js"></script>
+    <div th:replace="/fragments/bootstrap_template :: bootstrap_js-popper"></div>
 
 </body>
 </html>

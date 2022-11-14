@@ -1,26 +1,19 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- Meta tags -->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Meta tags && title && icon -->
+    <div th:replace="/fragments/template_basic_header :: base_header"></div>
 
     <!-- Bootstrap CSS (Temporally location)-->
-    <link type="text/css" rel="stylesheet" href="/styles/css/styles.css">
+    <div th:replace="/fragments/bootstrap_template :: bootstrap_css"></div>
 
     <!-- Datatables -->
-    <link rel="stylesheet" href="/lib/DataTables/DataTables-1.12.1/css/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" href="/lib/DataTables/Responsive-2.3.0/css/responsive.bootstrap5.min.css">
+    <div th:replace="/admin/fragments/template_datatable :: datatable_head"></div>
 
     <!-- Customize css -->    
     <link type="text/css" rel="stylesheet" href="/styles/css/customize__sidebar.css">
     <link type="text/css" rel="stylesheet" href="/styles/css/customize__table.css">
 
-
-    <!-- Header styles -->
-    <link rel="icon" href="/resources/icons/main_icon.ico">
-    <title th:text="${title}">...</title>
 </head>
 <body class="vw-100 mw-100">
 
@@ -46,24 +39,10 @@
         <!-- Content -->
         <div class="col-md-8 col-lg-9 col-xl-10 overflow-auto p-5 vh-100 text-light">
 
-            <div class="d-flex justify-content-between mb-3">
-                <h2 class="p-0 m-0 text-nowrap">
-                    Movie
-                    <img th:src="@{ /resources/icons/movie__icon.svg }" alt="">
-                </h2>
-
-                <a th:href="@{ /app/administrator/insert/movie }" class="text-nowrap text-decoration-none">
-                    <div class="bg-dark rounded-pill px-3 py-1">
-                        <img th:src="@{ /resources/icons/plus-circle.svg }" alt="" class="h-100">
-                        <small>Insertar</small>
-                    </div>
-                </a>
-            </div>
+            <div th:replace="/admin/fragments/table_header :: header_table( name='Pelicula', 
+                image='movie__icon.svg', actionLink='/app/administrator/insert/movie')"></div>
             
-            <div th:if="${ response }"  class="alert alert-warning alert-dismissible fade show" role="alert">
-                <small><strong th:text="${response}"></strong></small>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+            <div th:replace="/admin/fragments/response :: response"></div>
 
             <table id="dataTable" class="display wrap overflow-auto" cellspacing="0" style="width:100%">
                 <thead>
@@ -106,17 +85,10 @@
     
 
     <!-- Bootstrap JS -->
-    <script src="/utils/popper.min.js"></script>
-    <script src="/utils/bootstrap.js"></script>
+    <div th:replace="/fragments/bootstrap_template :: bootstrap_js-popper"></div>
 
-    <!-- Jquery -->
-    <script type="text/javascript" src="/lib/jquery/jquery-3.5.1.min.js"></script>    <!-- Datatables -->
-
-    <!-- Datatables  -->
-    <script type="text/javascript" src="/lib/DataTables/DataTables-1.12.1/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="/lib/DataTables/DataTables-1.12.1/js/dataTables.bootstrap5.min.js"></script>
-    <script type="text/javascript" src="/lib/DataTables/Responsive-2.3.0/js/dataTables.responsive.min.js"></script>
-    <script src="/lib/config/dataTableConfig.js"></script>
+    <!-- Datatables -->
+    <div th:replace="/admin/fragments/template_datatable :: datable_scripts"></div>
 
 </body>
 </html>
