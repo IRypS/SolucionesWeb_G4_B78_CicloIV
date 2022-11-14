@@ -321,12 +321,6 @@ public class AdminPageController {
 
     }
 
-    @GetMapping("/delete/movie/{id}")
-    public String deleteMovie(@PathVariable String id, Model model) {
-        movieinterface.deleteTrailerById(id);
-        return "redirect:/app/administrator/movieList";
-    }
-
     @GetMapping("/update/form/movie/{id}")
     public String movieUpdateForm(@PathVariable String id, Model model) {
 
@@ -339,6 +333,7 @@ public class AdminPageController {
 
         if (movieDataResponse.getState()) {
 			model.addAttribute("movie", movieDataResponse.getData());
+            model.addAttribute("response", movieDataResponse.getMessage());
 		} else {
 			model.addAttribute("title", title + " | Error en el formulario de pelicula");
 			model.addAttribute("response", movieDataResponse.getMessage());
@@ -364,6 +359,24 @@ public class AdminPageController {
 			model.addAttribute("error", genreDataResponse.getErrorMessage());
 			return "admin/errors";
 		}
-        
+
     };
+
+    @GetMapping("/delete/movie/{id}")
+    public String deleteMovie(@PathVariable String id, Model model) {
+
+        Response<E_Movie> movieDeleteResponse = movieinterface.deleteTrailerById(id);
+
+        if (movieDeleteResponse.getState()) {
+			model.addAttribute("title", title + " | (ADMIN) Listado de Peliculas");
+			model.addAttribute("movieList", movieDeleteResponse.getListData());
+			model.addAttribute("response", movieDeleteResponse.getMessage());
+			return "admin/movie";
+		} else {
+			model.addAttribute("title", title + " | Error al eliminar la pelicula");
+			model.addAttribute("response", movieDeleteResponse.getMessage());
+			model.addAttribute("error", movieDeleteResponse.getErrorMessage());
+			return "admin/errors";
+		}
+    }
 }

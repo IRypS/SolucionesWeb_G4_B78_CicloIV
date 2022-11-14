@@ -125,9 +125,26 @@ public class MovieService implements IMovieService {
 
 
     @Override
-    public String deleteTrailerById(String id) {
-        movie_entity.deleteById(id);
-        return "";
+    public Response<E_Movie> deleteTrailerById(String id) {
+
+        Response<E_Movie> response = new Response<>();
+
+        try {
+            Optional<E_Movie> targetMovie = movie_entity.findById(id);
+            movie_entity.deleteById(id);
+
+            response.setState(true);
+			response.setData(targetMovie.get());
+            response.setListData((List<E_Movie>) movie_entity.findAll());
+			response.setMessage("Pelicula eliminada exitósamente: [" + targetMovie.get().getName() + "]");
+
+        } catch (Exception e) {
+            response.setState(false);
+			response.setMessage("Hubo problemas para elimar el trailer trailer con el ID: " + id);
+			response.setErrorMessage(e.getStackTrace().toString());
+        }
+
+        return response;
     };
 
 

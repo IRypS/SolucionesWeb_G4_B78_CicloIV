@@ -20,6 +20,7 @@ public interface IMovieService {
     // public String createMovie(E_Movie movie, List<String> idDirectorList, List<String> idGenreList);
     public Response<E_Movie> createMovie(E_Movie movie, List<String> idDirectorList, List<String> idGenreList);
 
-    public String deleteTrailerById(String id);
+    // public String deleteTrailerById(String id);
+    public Response<E_Movie> deleteTrailerById(String id);
     
 }
