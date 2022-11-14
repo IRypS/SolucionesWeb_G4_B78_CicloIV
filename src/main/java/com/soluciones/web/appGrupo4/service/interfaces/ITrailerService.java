@@ -9,7 +9,7 @@ public interface ITrailerService {
     public Response<E_Trailer> getAllTrailers();
 
     // public E_Trailer getTargetTrailer(String id);
-    public Response<E_Trailer> getTargetTrailer(String id);
+    public Response<E_Trailer> getTrailerById(String id);
 
     // public List<E_Trailer> getRelatedTrailers(String id);
     public Response<E_Trailer> getRelatedTrailers(String id);

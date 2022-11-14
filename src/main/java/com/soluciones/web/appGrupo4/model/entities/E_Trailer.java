@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 
 @Entity
@@ -14,9 +15,11 @@ public class E_Trailer {
 
     @Id
     @Column(name = "id_trailer")
+    @NotEmpty(message = "El ID no debe estar vacío")
     private String id;
 
     @Column(name = "name_trailer")
+    @NotEmpty(message = "El titulo no debe estar vacío")
     private String title;
 
     @Column(name = "url_trailer")
@@ -43,17 +46,9 @@ public class E_Trailer {
     private E_Movie movie;
 
 
+
     // Constructor
-
     
-
-
-    // Getters & Setters
-
-    public String getId() {
-        return id;
-    }
-
     public E_Trailer() {
         this.id = "0";
         this.title = "";
@@ -65,6 +60,13 @@ public class E_Trailer {
         this.subtitle = new E_Language();
     }
 
+
+
+    // Getters & Setters
+
+    public String getId() {
+        return id;
+    }
 
     public void setId(String id) {
         this.id = id;
@@ -126,10 +128,4 @@ public class E_Trailer {
         this.movie = movie;
     }
 
-    
-    
-    
-
-
-   
 }

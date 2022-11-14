@@ -94,7 +94,7 @@ public class UserPageController {
         // model.addAttribute("title", "Trailer View | " + title);
         model.addAttribute("activeSession", true);
 
-        Response<E_Trailer> trailerResponse = trailerInterface.getTargetTrailer(id);
+        Response<E_Trailer> trailerResponse = trailerInterface.getTrailerById(id);
         Response<E_Trailer> relatedTrailersResponse = trailerInterface.getRelatedTrailers(id);
 
         if (trailerResponse.getState() && relatedTrailersResponse.getState()) {

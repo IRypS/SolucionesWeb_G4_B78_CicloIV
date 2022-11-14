@@ -39,6 +39,8 @@ public class V_Movie {
 
 
 
+    // constructor
+
     public V_Movie() {
         this.idMovie = "";
         this.coverUrl = "";
@@ -50,6 +52,8 @@ public class V_Movie {
     }
 
 
+    
+    // getters & setters 
 
     public String getIdMovie() {
         return idMovie;

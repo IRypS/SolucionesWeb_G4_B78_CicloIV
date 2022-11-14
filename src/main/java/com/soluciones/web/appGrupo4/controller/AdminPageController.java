@@ -51,7 +51,7 @@ public class AdminPageController {
     private IPersonService personInterface;
 
     @Autowired
-    private IGenreService genreService;
+    private IGenreService genderInterface;
 
     @Autowired
     private ILanguageService languageInterface;
@@ -164,7 +164,7 @@ public class AdminPageController {
         model.addAttribute("title", title);
         model.addAttribute("activeSession", true);
 
-        Response<E_Trailer> trailerResponse = trailerInterface.getTargetTrailer(id);
+        Response<E_Trailer> trailerResponse = trailerInterface.getTrailerById(id);
         Response<V_Movie> movieDataResponse = movieinterface.getLazyInfoMovie();
         Response<V_Language> languageDataResponse = languageInterface.getLazyInfoLanguage();
 
@@ -243,7 +243,7 @@ public class AdminPageController {
 
         E_Movie movie = new E_Movie();
         Response<V_Person> personDataResponse = personInterface.getLazyInfoPerson();
-        Response<E_Genre> genreDataResponse = genreService.getAllGenres();
+        Response<E_Genre> genreDataResponse = genderInterface.getAllGenres();
 
         // model.addAttribute("title", title);
         model.addAttribute("activeSession", true);
@@ -281,7 +281,7 @@ public class AdminPageController {
         // Verify errors
         if(br.hasErrors()) { 
             model.addAttribute("lazyPerson", personInterface.getLazyInfoPerson());
-            model.addAttribute("lazyGenre", genreService.getAllGenres());
+            model.addAttribute("lazyGenre", genderInterface.getAllGenres());
             return "admin/movie_form"; 
         };
 
@@ -329,7 +329,7 @@ public class AdminPageController {
 
         Response<E_Movie> movieDataResponse = movieinterface.getMovieById(id);
         Response<V_Person> personDataResponse = personInterface.getLazyInfoPerson();
-        Response<E_Genre> genreDataResponse = genreService.getAllGenres();
+        Response<E_Genre> genreDataResponse = genderInterface.getAllGenres();
 
         if (movieDataResponse.getState()) {
 			model.addAttribute("movie", movieDataResponse.getData());

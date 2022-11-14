@@ -47,7 +47,7 @@ public class TrailerService implements ITrailerService{
     };
 
     @Override
-    public Response<E_Trailer> getTargetTrailer(String id) {
+    public Response<E_Trailer> getTrailerById(String id) {
 
         Response<E_Trailer> response = new Response<>();
 

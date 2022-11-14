@@ -74,7 +74,7 @@
                     <div class="col-12 ">
                         <div class="row h-100 g-2">
 
-                            <!-- Repor video -->
+                            <!-- Report video -->
                             <div class="col-12 col-sm-6">
                                 <button type="button" class="btn btn-danger h-100 w-100" data-bs-toggle="modal" data-bs-target="#reportModal">
                                     <img src="/resources/icons/info.svg"> 
@@ -229,7 +229,8 @@
                 </div>
 
                 <!-- Info Movie -->
-                <div class="row g-0 my-4 my-md-5 c_movieInfo">
+                <div th:if="${trailer.getMovie.getIdMovie != '0'}" 
+                    class="row g-0 my-4 my-md-5 c_movieInfo">
 
                     <!-- Cover Movie -->
                     <div class="col-6 col-md-4 col-xxl-3 mb-3 mx-auto">

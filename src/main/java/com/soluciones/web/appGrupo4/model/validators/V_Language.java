@@ -20,6 +20,17 @@ public class V_Language {
     private String iconLanguage;
 
 
+
+    // constructor
+
+    public V_Language() {
+        this.idLanguage = "";
+        this.nameLanguage = "";
+        this.iconLanguage = "";
+    }
+
+    
+
     // Getters & Setters
 
     public String getIdLanguage() {

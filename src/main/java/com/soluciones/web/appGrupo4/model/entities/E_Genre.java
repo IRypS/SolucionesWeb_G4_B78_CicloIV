@@ -22,8 +22,18 @@ public class E_Genre {
     private String nameGenre;
 
 
-    // getters & setters
+    
+    // constructor
 
+    public E_Genre() {
+        this.idGenre = "";
+        this.nameGenre = "";
+    }
+
+
+
+    // getters & setters
+    
     public String getIdGenre() {
         return idGenre;
     }
@@ -40,6 +50,4 @@ public class E_Genre {
         this.nameGenre = nameGenre;
     }
 
-
-    
 }

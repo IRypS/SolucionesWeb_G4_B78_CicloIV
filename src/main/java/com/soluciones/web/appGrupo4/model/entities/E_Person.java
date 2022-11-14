@@ -1,5 +1,6 @@
 package com.soluciones.web.appGrupo4.model.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -42,6 +43,20 @@ public class E_Person {
     @ManyToOne
     @JoinColumn(name = "country_id")
     private E_Country country;
+
+
+
+    // constructor
+
+    public E_Person() {
+        this.idPerson = "";
+        this.name = "";
+        this.lastname = "";
+        this.birthday = "";
+        this.activitiesList = new ArrayList<E_Activity>();
+        this.country = new E_Country();
+    }
+
 
 
     // getters & setters

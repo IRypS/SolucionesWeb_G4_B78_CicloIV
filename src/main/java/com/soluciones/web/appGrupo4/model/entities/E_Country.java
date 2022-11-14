@@ -25,6 +25,17 @@ public class E_Country {
     private String iconCountry;
 
 
+    
+    // constructor 
+
+    public E_Country() {
+        this.idCountry = "";
+        this.nameCoutnry = "";
+        this.iconCountry = "";
+    }
+
+
+
     // getters & setters
 
     public String getIdCountry() {
@@ -50,7 +61,5 @@ public class E_Country {
     public void setIconCountry(String iconCountry) {
         this.iconCountry = iconCountry;
     }
-    
-
     
 }

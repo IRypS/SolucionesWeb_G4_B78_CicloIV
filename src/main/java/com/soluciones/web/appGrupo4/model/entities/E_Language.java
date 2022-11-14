@@ -25,6 +25,17 @@ public class E_Language {
     private String iconLanguage;
 
 
+
+    // Constructor
+
+    public E_Language() {
+        this.idLanguage = "";
+        this.nameLanguage = "";
+        this.iconLanguage = "";
+    }
+
+
+    
     // Getters & Setters
 
     public String getIdLanguage() {

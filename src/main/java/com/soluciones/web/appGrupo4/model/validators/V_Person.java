@@ -32,6 +32,7 @@ public class V_Person {
 
 
 
+    // constructor
 
     public V_Person() {
         this.idPerson = "";
@@ -43,7 +44,8 @@ public class V_Person {
 
 
 
-
+    // getters & setters
+    
     public String getIdPerson() {
         return idPerson;
     }

@@ -1,5 +1,6 @@
 package com.soluciones.web.appGrupo4.model.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -56,6 +57,9 @@ public class E_Movie {
     private List<E_Person> directorsList;
 
 
+
+    // constructor
+
     public E_Movie() {
         this.idMovie = "0";
         this.coverUrl = "";
@@ -64,10 +68,14 @@ public class E_Movie {
         this.synopsis = "";
         this.releaseDate = "";
         this.rate = 0.0;
+        this.genreList = new ArrayList<E_Genre>();
+        this.directorsList = new ArrayList<E_Person>();
     }
 
 
+
     // getters & setters
+    
     public String getIdMovie() {
         return idMovie;
     }

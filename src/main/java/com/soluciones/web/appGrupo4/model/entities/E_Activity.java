@@ -22,6 +22,15 @@ public class E_Activity {
     private String nameActivity;
 
 
+
+    // constructor
+
+    public E_Activity() {
+        this.idActivity = "";
+        this.nameActivity = "";
+    }
+
+
     // getters & setters
 
     public String getIdActivity() {
