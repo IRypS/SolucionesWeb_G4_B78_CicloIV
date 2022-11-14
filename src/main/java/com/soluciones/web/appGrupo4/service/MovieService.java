@@ -13,10 +13,10 @@ import com.soluciones.web.appGrupo4.model.entities.E_Movie;
 import com.soluciones.web.appGrupo4.model.entities.E_Person;
 import com.soluciones.web.appGrupo4.model.validators.V_Movie;
 import com.soluciones.web.appGrupo4.repository.I_movie_db;
+import com.soluciones.web.appGrupo4.repository.I_person_db;
 import com.soluciones.web.appGrupo4.repository.manage.IMovie;
 import com.soluciones.web.appGrupo4.service.interfaces.IGenreService;
 import com.soluciones.web.appGrupo4.service.interfaces.IMovieService;
-import com.soluciones.web.appGrupo4.service.interfaces.IPersonService;
 
 @Service
 public class MovieService implements IMovieService {
@@ -29,7 +29,7 @@ public class MovieService implements IMovieService {
     private IMovie movie_modify;
 
     @Autowired
-    private IPersonService person_service;
+    private I_person_db person_entity;
 
     @Autowired
     private IGenreService genre_service;
@@ -137,7 +137,7 @@ public class MovieService implements IMovieService {
 
         if(idDirectorList != null) {
             idDirectorList.forEach( (idDirector) -> {
-                E_Person person = person_service.getPersonById(idDirector);
+                E_Person person = person_entity.findById(idDirector).get();
                 objectPersonList.add(person);
             } );
         } 

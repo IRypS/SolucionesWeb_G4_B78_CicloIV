@@ -13,6 +13,7 @@ public interface IPersonService {
     // public List<V_Person> getLazyInfoPerson();
     public Response<V_Person> getLazyInfoPerson();
 
-    public E_Person getPersonById(String id);
+    // public E_Person getPersonById(String id);
+    public Response<E_Person> getPersonById(String id);
 
 }

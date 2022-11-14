@@ -1,6 +1,7 @@
 package com.soluciones.web.appGrupo4.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,8 +48,24 @@ public class PersonService implements IPersonService {
     };
 
     @Override
-    public E_Person getPersonById(String id) {
-        return person_entity.findById(id).get();
+    public Response<E_Person> getPersonById(String id) {
+
+        Response<E_Person> response = new Response<>();
+
+        try {
+            Optional<E_Person> targetPerson = person_entity.findById(id);
+
+            response.setState(true);
+			response.setData(targetPerson.get());
+			response.setMessage("Persona encontrada: " + targetPerson.get().getName());
+
+        } catch (Exception e) {
+            response.setState(false);
+			response.setMessage("Hubo problemas para encontrar a la persona con el ID: " + id);
+			response.setErrorMessage(e.getStackTrace().toString());
+        }
+
+        return response;
     };
     
 }

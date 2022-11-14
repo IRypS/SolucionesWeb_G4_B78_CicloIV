@@ -333,10 +333,37 @@ public class AdminPageController {
         model.addAttribute("title", title);
         model.addAttribute("activeSession", true);
 
-        model.addAttribute("movie", movieinterface.getMovieById(id));
-        model.addAttribute("lazyPerson", personInterface.getLazyInfoPerson());
-        model.addAttribute("lazyGenre", genreService.getAllGenres());
+        Response<E_Movie> movieDataResponse = movieinterface.getMovieById(id);
+        Response<V_Person> personDataResponse = personInterface.getLazyInfoPerson();
+        Response<E_Genre> genreDataResponse = genreService.getAllGenres();
 
-        return "admin/movie_form";
+        if (movieDataResponse.getState()) {
+			model.addAttribute("movie", movieDataResponse.getData());
+		} else {
+			model.addAttribute("title", title + " | Error en el formulario de pelicula");
+			model.addAttribute("response", movieDataResponse.getMessage());
+			model.addAttribute("error", movieDataResponse.getErrorMessage());
+			return "admin/errors";
+		}
+
+        if (personDataResponse.getState()) {
+			model.addAttribute("lazyPerson", personDataResponse.getListData());
+		} else {
+			model.addAttribute("title", title + " | Error en el formulario de pelicula");
+			model.addAttribute("response", personDataResponse.getMessage());
+			model.addAttribute("error", personDataResponse.getErrorMessage());
+			return "admin/errors";
+		}
+
+        if (genreDataResponse.getState()) {
+			model.addAttribute("lazyGenre", genreDataResponse.getListData());
+			return "admin/movie_form";
+		} else {
+			model.addAttribute("title", title + " | Error en el formulario de pelicula");
+			model.addAttribute("response", genreDataResponse.getMessage());
+			model.addAttribute("error", genreDataResponse.getErrorMessage());
+			return "admin/errors";
+		}
+        
     };
 }
