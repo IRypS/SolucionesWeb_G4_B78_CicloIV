@@ -141,6 +141,8 @@ public class AdminPageController {
             return "admin/trailer_form"; 
         };
 
+        model.addAttribute("activeSession", true);
+
         Response<E_Trailer> createTrailerResponse = trailerInterface
             .createTrailer(trailer, movieID, languageID, subtitleID);
 
@@ -200,6 +202,8 @@ public class AdminPageController {
     @GetMapping("/delete/trailer/{id}")
     public String deleteTrailer(@PathVariable String id, Model model) {
 
+        model.addAttribute("activeSession", true);
+        
         Response<E_Trailer> trailerDeleteResponse = trailerInterface.deleteTrailerById(id);
 
         if (trailerDeleteResponse.getState()) {
@@ -285,6 +289,8 @@ public class AdminPageController {
             return "admin/movie_form"; 
         };
 
+        model.addAttribute("activeSession", true);
+
         if (!coverImage.isEmpty()) {
 			Path pathImage = Paths.get("src//main//resources//static//resources//upload//movie//cover");
 			String pathGeneric = pathImage.toFile().getAbsolutePath();
@@ -365,6 +371,8 @@ public class AdminPageController {
     @GetMapping("/delete/movie/{id}")
     public String deleteMovie(@PathVariable String id, Model model) {
 
+        model.addAttribute("activeSession", true);
+        
         Response<E_Movie> movieDeleteResponse = movieinterface.deleteTrailerById(id);
 
         if (movieDeleteResponse.getState()) {

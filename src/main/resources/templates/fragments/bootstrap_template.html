@@ -1,0 +1,21 @@
+  
+<!-- CSS -->
+<head th:fragment="bootstrap_css">
+    <link type="text/css" rel="stylesheet" href="/styles/css/styles.css">
+</head>
+
+
+
+<!-- JS -->
+<div th:fragment="bootstrap_js-basic">
+    <!-- Bootstrap JS -->
+    <script src="/utils/bootstrap.js"></script>
+</div>
+
+<div th:fragment="bootstrap_js-popper">
+    <!-- Bootstrap JS -->
+    <script src="/utils/popper.min.js"></script>
+    <script src="/utils/bootstrap.js"></script>
+    <!-- Enable tooltips -->
+    <script src="/utils/enablePopovers.js"></script>
+</div>
