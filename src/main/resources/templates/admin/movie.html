@@ -60,6 +60,11 @@
                 </a>
             </div>
             
+            <div th:if="${ response }"  class="alert alert-warning alert-dismissible fade show" role="alert">
+                <small><strong th:text="${response}"></strong></small>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
             <table id="dataTable" class="display wrap overflow-auto" cellspacing="0" style="width:100%">
                 <thead>
                     <tr>

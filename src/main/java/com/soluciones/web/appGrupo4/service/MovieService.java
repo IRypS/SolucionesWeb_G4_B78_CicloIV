@@ -97,17 +97,30 @@ public class MovieService implements IMovieService {
     };
     
     @Override
-    public String createMovie(E_Movie movie, List<String> idDirectorList, List<String> idGenreList) {
+    public Response<E_Movie> createMovie(E_Movie movie, List<String> idDirectorList, List<String> idGenreList) {
 
-        List<E_Person> directorsToAdd = this.createDirectorObjectsIntoArray(idDirectorList);
-        movie.setDirectorsList(directorsToAdd);
+        Response<E_Movie> response = new Response<>();
 
-        List<E_Genre> genresToAdd = this.createGenresObjectsIntoArray(idGenreList);
-        movie.setGenreList(genresToAdd);
+        try {
+            List<E_Person> directorsToAdd = this.createDirectorObjectsIntoArray(idDirectorList);
+            movie.setDirectorsList(directorsToAdd);
 
-        movie_entity.save(movie);
-        System.out.println("Creado correctamente <-------------------------");
-        return "Creado correctamente <-------------------------";
+            List<E_Genre> genresToAdd = this.createGenresObjectsIntoArray(idGenreList);
+            movie.setGenreList(genresToAdd);
+
+            E_Movie createMovie = movie_entity.save(movie);
+
+			response.setState(true);
+			response.setData(createMovie);
+			response.setListData((List<E_Movie>) movie_entity.findAll());
+			response.setMessage("Se creó/editó correctamente la pelicula " + createMovie.getName());
+        } catch (Exception e) {
+            response.setState(false);
+			response.setMessage("Ocurrió un error al guardar/actualizar la pelicula");
+			response.setErrorMessage(e.getStackTrace().toString());
+        }
+
+        return response;
     };
 
 

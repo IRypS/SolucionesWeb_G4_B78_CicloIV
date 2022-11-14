@@ -45,10 +45,7 @@ public class E_Trailer {
 
     // Constructor
 
-    public E_Trailer() {
-        this.url = "https://www.youtube.com/watch?v=" + this.id;
-        this.imageUrl = "https://img.youtube.com/vi/" + this.id + "/hqdefault.jpg";
-    }
+    
 
 
     // Getters & Setters
@@ -56,6 +53,18 @@ public class E_Trailer {
     public String getId() {
         return id;
     }
+
+    public E_Trailer() {
+        this.id = "0";
+        this.title = "";
+        this.url = "";
+        this.imageUrl = "";
+        this.views = 0;
+        this.movie = new E_Movie();
+        this.language = new E_Language();
+        this.subtitle = new E_Language();
+    }
+
 
     public void setId(String id) {
         this.id = id;

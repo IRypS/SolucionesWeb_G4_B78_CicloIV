@@ -20,10 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.soluciones.web.appGrupo4.model.Response;
+import com.soluciones.web.appGrupo4.model.entities.E_Genre;
 import com.soluciones.web.appGrupo4.model.entities.E_Movie;
 import com.soluciones.web.appGrupo4.model.entities.E_Trailer;
 import com.soluciones.web.appGrupo4.model.validators.V_Language;
 import com.soluciones.web.appGrupo4.model.validators.V_Movie;
+import com.soluciones.web.appGrupo4.model.validators.V_Person;
 import com.soluciones.web.appGrupo4.service.interfaces.IGenreService;
 import com.soluciones.web.appGrupo4.service.interfaces.ILanguageService;
 import com.soluciones.web.appGrupo4.service.interfaces.IMovieService;
@@ -233,21 +235,39 @@ public class AdminPageController {
 			model.addAttribute("error", response.getErrorMessage());
 			return "admin/errors";
 		}
-        
+
     }
 
     @GetMapping("/insert/movie")
     public String movieAux(Model model) {
 
         E_Movie movie = new E_Movie();
+        Response<V_Person> personDataResponse = personInterface.getLazyInfoPerson();
+        Response<E_Genre> genreDataResponse = genreService.getAllGenres();
 
-        model.addAttribute("title", title);
+        // model.addAttribute("title", title);
         model.addAttribute("activeSession", true);
-
+        model.addAttribute("title", title + " | Crear Pelicula");
         model.addAttribute("movie", movie);
-        model.addAttribute("lazyPerson", personInterface.getLazyInfoPerson());
-        model.addAttribute("lazyGenre", genreService.getAllGenres());
-        return "admin/movie_form";
+
+        if (personDataResponse.getState()) {
+			model.addAttribute("lazyPerson", personDataResponse.getListData());
+		} else {
+			model.addAttribute("title", title + " | Error en el formulario de trailer");
+			model.addAttribute("response", personDataResponse.getMessage());
+			model.addAttribute("error", personDataResponse.getErrorMessage());
+			return "admin/errors";
+		}
+
+        if (genreDataResponse.getState()) {
+			model.addAttribute("lazyGenre", genreDataResponse.getListData());
+			return "admin/movie_form";
+		} else {
+			model.addAttribute("title", title + " | Error en el formulario de trailer");
+			model.addAttribute("response", genreDataResponse.getMessage());
+			model.addAttribute("error", genreDataResponse.getErrorMessage());
+            return "admin/errors";
+        }
     }
 
     @PostMapping("/create/movie")
@@ -273,17 +293,32 @@ public class AdminPageController {
 				byte[] bytesCoverImg = coverImage.getBytes();
 				Path completePath = Paths.get(pathGeneric + "//" + coverImage.getOriginalFilename());
 				Files.write(completePath, bytesCoverImg);
-
 				movie.setCoverUrl(coverImage.getOriginalFilename());
+
 			} catch (Exception e) {
-
+                model.addAttribute("title", title + " | Error insertando imagen imagen");
+				model.addAttribute("response", "Ocurrió un error al procesar el archivo");
+				model.addAttribute("error", e.getStackTrace());
+				return "admin/errors";
 			}
-
 		}
 
-        movieinterface.createMovie(movie, idDirectors, idGenres);
+        model.addAttribute("title", title);
 
-        return "redirect:/app/administrator/movieList";
+        Response<E_Movie> createTrailerResponse = movieinterface.createMovie(movie, idDirectors, idGenres);
+
+        if (createTrailerResponse.getState()) {
+			model.addAttribute("title", title + " | (ADMIN) Listado de Peliculas");
+			model.addAttribute("movieList", createTrailerResponse.getListData());
+			model.addAttribute("response", createTrailerResponse.getMessage());
+			return "admin/movie";
+		} else {
+			model.addAttribute("title", title + " | Error al crear/editar la pelicula");
+			model.addAttribute("response", createTrailerResponse.getMessage());
+			model.addAttribute("error", createTrailerResponse.getErrorMessage());
+			return "admin/errors";
+		}
+
     }
 
     @GetMapping("/delete/movie/{id}")

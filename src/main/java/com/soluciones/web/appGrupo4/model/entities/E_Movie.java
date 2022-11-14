@@ -56,8 +56,18 @@ public class E_Movie {
     private List<E_Person> directorsList;
 
 
-    // getters & setters
+    public E_Movie() {
+        this.idMovie = "0";
+        this.coverUrl = "";
+        this.name = "";
+        this.duration = 0;
+        this.synopsis = "";
+        this.releaseDate = "";
+        this.rate = 0.0;
+    }
 
+
+    // getters & setters
     public String getIdMovie() {
         return idMovie;
     }

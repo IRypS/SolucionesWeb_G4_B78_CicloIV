@@ -17,7 +17,8 @@ public interface IMovieService {
     // public E_Movie getMovieById(String id);
     public Response<E_Movie> getMovieById(String id);
 
-    public String createMovie(E_Movie movie, List<String> idDirectorList, List<String> idGenreList);
+    // public String createMovie(E_Movie movie, List<String> idDirectorList, List<String> idGenreList);
+    public Response<E_Movie> createMovie(E_Movie movie, List<String> idDirectorList, List<String> idGenreList);
 
     public String deleteTrailerById(String id);
     

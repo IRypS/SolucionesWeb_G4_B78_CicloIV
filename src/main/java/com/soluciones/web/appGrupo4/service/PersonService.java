@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.soluciones.web.appGrupo4.model.Response;
 import com.soluciones.web.appGrupo4.model.entities.E_Person;
 import com.soluciones.web.appGrupo4.model.validators.V_Person;
 import com.soluciones.web.appGrupo4.repository.I_person_db;
@@ -27,8 +28,22 @@ public class PersonService implements IPersonService {
     };
 
     @Override
-    public List<V_Person> getLazyInfoPerson() {
-        return person_modify.findAll();
+    public Response<V_Person> getLazyInfoPerson() {
+
+        Response<V_Person> response = new Response<>();
+
+		try {
+			response.setMessage("Datos de personas obtenidos correctamente");
+			response.setState(true);
+			response.setListData( (List<V_Person>)person_modify.findAll() );
+
+		} catch (Exception e) {
+			response.setState(false);
+			response.setMessage("Hubo problemas para obtener los datos de las personas");
+			response.setErrorMessage(e.getStackTrace().toString());
+		}
+
+		return response;
     };
 
     @Override
