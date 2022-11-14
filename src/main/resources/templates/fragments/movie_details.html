@@ -4,7 +4,7 @@
 
     <!-- Cover Movie -->
     <div class="col-6 col-md-4 col-xxl-3 mb-3 mx-auto">
-        <img th:src="@{${ __${object}__.getMovie.getCoverUrl }}" 
+        <img th:src="@{${ '/resources/upload/movie/cover/' + __${object}__.getMovie.getCoverUrl }}" 
             th:alt="${ 'Portada de ' + __${object}__.getMovie.getName }" 
             class="c_coverMovieImg">
     </div>
