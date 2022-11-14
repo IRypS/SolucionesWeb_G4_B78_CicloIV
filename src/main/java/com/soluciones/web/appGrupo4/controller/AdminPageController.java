@@ -134,10 +134,14 @@ public class AdminPageController {
             @RequestParam(value = "languageID", required = false) String languageID,
             @RequestParam(value = "subtitleID", required = false) String subtitleID) {
 
+        
+        Response<V_Movie> movieDataResponse = movieinterface.getLazyInfoMovie();
+        Response<V_Language> languageDataResponse = languageInterface.getLazyInfoLanguage();
+
         // Verify errors
         if(br.hasErrors()) { 
-            model.addAttribute("lazyMovie", movieinterface.getLazyInfoMovie());
-            model.addAttribute("lazyLanguage", languageInterface.getLazyInfoLanguage());
+            model.addAttribute("lazyMovie", movieDataResponse.getListData());
+            model.addAttribute("lazyLanguage", languageDataResponse.getListData());
             return "admin/trailer_form"; 
         };
 
@@ -282,10 +286,14 @@ public class AdminPageController {
             @RequestParam(value = "idGenres[]", required = false) List<String> idGenres,
             @RequestParam(value = "coverImage", required = false) MultipartFile coverImage) {
 
+
+        Response<V_Person> personDataResponse = personInterface.getLazyInfoPerson();
+        Response<E_Genre> genreDataResponse = genderInterface.getAllGenres();
+
         // Verify errors
         if(br.hasErrors()) { 
-            model.addAttribute("lazyPerson", personInterface.getLazyInfoPerson());
-            model.addAttribute("lazyGenre", genderInterface.getAllGenres());
+            model.addAttribute("lazyPerson", personDataResponse.getListData());
+            model.addAttribute("lazyGenre", genreDataResponse.getListData());
             return "admin/movie_form"; 
         };
 
