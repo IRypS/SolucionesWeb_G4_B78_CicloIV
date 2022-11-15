@@ -51,6 +51,9 @@
                     </h2>
                 </div>
 
+                <div th:if="${ response }"
+                    th:replace="/admin/fragments/response :: bad-response"></div>
+
                 <form th:action="@{/app/administrator/create/movie}" th:object="${movie}" method="post" 
                     enctype="multipart/form-data" class="mt-3">
 

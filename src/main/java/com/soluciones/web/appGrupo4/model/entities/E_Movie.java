@@ -61,7 +61,6 @@ public class E_Movie {
     // constructor
 
     public E_Movie() {
-        this.idMovie = "0";
         this.coverUrl = "";
         this.name = "";
         this.duration = 0;

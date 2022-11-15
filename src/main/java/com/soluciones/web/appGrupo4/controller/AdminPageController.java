@@ -299,27 +299,28 @@ public class AdminPageController {
 
         model.addAttribute("activeSession", true);
 
-        if (!coverImage.isEmpty()) {
-			Path pathImage = Paths.get("src//main//resources//static//resources//upload//movie//cover");
-			String pathGeneric = pathImage.toFile().getAbsolutePath();
+        Response<E_Movie> movieResponse = movieinterface.getMovieById(movie.getIdMovie());
+        if (movieResponse.getState()) {
+            movie.setCoverUrl(movieResponse.getData().getCoverUrl());
+            movie.setDirectorsList(movieResponse.getData().getDirectorsList());
+            movie.setGenreList(movieResponse.getData().getGenreList());
+            // PROBAR A ELIMINAR A VER SI RECIOBE TODA LA DATA
+        } else {
+            movie.setCoverUrl(movie.getCoverUrl() + "");
+        }
+        
 
-			try {
-				byte[] bytesCoverImg = coverImage.getBytes();
-				Path completePath = Paths.get(pathGeneric + "//" + coverImage.getOriginalFilename());
-				Files.write(completePath, bytesCoverImg);
-				movie.setCoverUrl(coverImage.getOriginalFilename());
-
-			} catch (Exception e) {
-                model.addAttribute("title", title + " | Error insertando imagen imagen");
-				model.addAttribute("response", "Ocurrió un error al procesar el archivo");
-				model.addAttribute("error", e.getStackTrace());
-				return "admin/errors";
-			}
-		}
+        if(coverImage.isEmpty() && movie.getCoverUrl().length() == 0) {
+            model.addAttribute("title", title + " | Image not found");
+            model.addAttribute("response", "La pelicula requiere una imagen");
+            model.addAttribute("lazyPerson", personDataResponse.getListData());
+            model.addAttribute("lazyGenre", genreDataResponse.getListData());
+            return "admin/movie_form";
+        }
 
         model.addAttribute("title", title);
 
-        Response<E_Movie> createTrailerResponse = movieinterface.createMovie(movie, idDirectors, idGenres);
+        Response<E_Movie> createTrailerResponse = movieinterface.createMovie(movie, coverImage, idDirectors, idGenres);
 
         if (createTrailerResponse.getState()) {
 			model.addAttribute("title", title + " | (ADMIN) Listado de Peliculas");
@@ -327,12 +328,20 @@ public class AdminPageController {
 			model.addAttribute("response", createTrailerResponse.getMessage());
 			return "admin/movie";
 		} else {
-			model.addAttribute("title", title + " | Error al crear/editar la pelicula");
-			model.addAttribute("response", createTrailerResponse.getMessage());
-			model.addAttribute("error", createTrailerResponse.getErrorMessage());
-			return "admin/errors";
-		}
 
+            if (createTrailerResponse.getMessage().equals("IMG-ERROR")) {
+                model.addAttribute("response", createTrailerResponse.getMessage());
+                model.addAttribute("error", createTrailerResponse.getErrorMessage());
+				return "admin/movie_form";
+
+			} else {
+				model.addAttribute("title", title + " | Error al crear/editar la pelicula");
+                model.addAttribute("response", createTrailerResponse.getMessage());
+                model.addAttribute("error", createTrailerResponse.getErrorMessage());
+                return "admin/errors";
+			}
+		}
+        
     }
 
     @GetMapping("/update/form/movie/{id}")

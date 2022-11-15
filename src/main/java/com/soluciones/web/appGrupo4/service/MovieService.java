@@ -1,11 +1,17 @@
 package com.soluciones.web.appGrupo4.service;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.soluciones.web.appGrupo4.model.Response;
 import com.soluciones.web.appGrupo4.model.entities.E_Genre;
@@ -97,11 +103,58 @@ public class MovieService implements IMovieService {
     };
     
     @Override
-    public Response<E_Movie> createMovie(E_Movie movie, List<String> idDirectorList, List<String> idGenreList) {
+    public Response<E_Movie> createMovie(E_Movie movie, MultipartFile fileM, List<String> idDirectorList, List<String> idGenreList) {
 
         Response<E_Movie> response = new Response<>();
 
         try {
+            
+            System.out.println("RESULTADOS DEL SERVICE");
+            System.out.println(movie.getIdMovie());
+            System.out.println(movie.getName());
+            System.out.println(movie.getDuration());
+            System.out.println(movie.getSynopsis());
+            System.out.println(movie.getCoverUrl());
+            System.out.println(movie.getDirectorsList().size());
+            System.out.println(movie.getGenreList().size());
+
+            if( (fileM.isEmpty()) ) {
+                System.out.println("NO SE ENVIÓ NADA");
+            }
+            if( !(fileM.isEmpty()) ) {
+                System.out.println("TENEMOS DATA !!!!");
+
+                try {
+                    if (movie.getCoverUrl().equals("")) { movie.setCoverUrl(null); };
+
+                    if (movie.getCoverUrl() != null) {
+                        Path pathImage = Paths.get("src//main//resources//static//resources//upload//movie//cover");
+                        Path pathDeleteFile = Paths.get(pathImage + "//" + movie.getCoverUrl());
+                        File fileToDelete = pathDeleteFile.toFile();
+                        if (fileToDelete.exists()) {
+							fileToDelete.delete();
+						}
+                    } 
+
+                    String newNameFile = UUID.randomUUID().toString();
+					String extesionFile = org.springframework.util.StringUtils.getFilenameExtension(fileM.getOriginalFilename());
+
+                    byte[] bytesCoverImg = fileM.getBytes();
+                    Path pathImage = Paths.get("src//main//resources//static//resources//upload//movie//cover");
+                    Path completePath = Paths.get(pathImage + "//" + newNameFile + "." + extesionFile);
+                    Files.write(completePath, bytesCoverImg);
+                    movie.setCoverUrl(newNameFile + "." + extesionFile);
+
+                } catch (Exception e) {
+                    response.setState(false);
+					response.setMessage("IMG-ERROR");
+					response.setErrorMessage(e.getStackTrace().toString());
+					return response;
+                }
+            }
+
+
+
             List<E_Person> directorsToAdd = this.createDirectorObjectsIntoArray(idDirectorList);
             movie.setDirectorsList(directorsToAdd);
 
@@ -131,6 +184,18 @@ public class MovieService implements IMovieService {
 
         try {
             Optional<E_Movie> targetMovie = movie_entity.findById(id);
+
+            if (targetMovie.get().getCoverUrl().equals("")) { targetMovie.get().setCoverUrl(null); };
+
+            if (targetMovie.get().getCoverUrl() != null) {
+                Path pathImage = Paths.get("src//main//resources//static//resources//upload//movie//cover");
+                Path pathDeleteFile = Paths.get(pathImage + "//" + targetMovie.get().getCoverUrl());
+                File fileToDelete = pathDeleteFile.toFile();
+                if (fileToDelete.exists()) {
+                    fileToDelete.delete();
+                } 
+            } 
+
             movie_entity.deleteById(id);
 
             response.setState(true);
