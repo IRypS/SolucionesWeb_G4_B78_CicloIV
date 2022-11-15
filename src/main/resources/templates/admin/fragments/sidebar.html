@@ -1,7 +1,7 @@
 
 
 <!-- Side Bar -->
-<div th:fragment="sidebar" 
+<div th:fragment="sidebar (active)" 
     class="d-flex flex-column flex-shrink-0 vh-100 w-100 p-3 text-white bg-dark">
 
     <!-- Header -->
@@ -23,13 +23,15 @@
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
             <a th:href="@{ /app/administrator/dashboard }"
-                class="nav-link active d-flex" aria-current="page">
+                th:classappend="${ active eq 'home' } ? active : ''"
+                class="nav-link d-flex" aria-current="page">
                 <img th:src="@{ /resources/icons/home__icon.svg }" alt="Icono de inicio" >
                 &nbsp; Home
             </a>
         </li>
         <li class="nav-item">
             <a th:href="@{ /app/administrator/trailerList }"
+                th:classappend="${ active eq 'trailer' } ? active : ''"
                 class="nav-link d-flex" aria-current="page">
                 <img th:src="@{ /resources/icons/trailer__icon.svg }" alt="Icono de inicio" >
                 &nbsp; Trailers
@@ -37,6 +39,7 @@
         </li>
         <li class="nav-item">
             <a th:href="@{ /app/administrator/movieList }"
+                th:classappend="${ active eq 'movie' } ? active : ''"
                 class="nav-link d-flex" aria-current="page">
                 <img th:src="@{ /resources/icons/movie__icon.svg }" alt="Icono de inicio" >
                 &nbsp; Movie

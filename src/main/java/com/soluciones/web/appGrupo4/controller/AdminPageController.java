@@ -301,10 +301,7 @@ public class AdminPageController {
 
         Response<E_Movie> movieResponse = movieinterface.getMovieById(movie.getIdMovie());
         if (movieResponse.getState()) {
-            movie.setCoverUrl(movieResponse.getData().getCoverUrl());
-            movie.setDirectorsList(movieResponse.getData().getDirectorsList());
-            movie.setGenreList(movieResponse.getData().getGenreList());
-            // PROBAR A ELIMINAR A VER SI RECIOBE TODA LA DATA
+            movie = movieResponse.getData();
         } else {
             movie.setCoverUrl(movie.getCoverUrl() + "");
         }
@@ -341,7 +338,7 @@ public class AdminPageController {
                 return "admin/errors";
 			}
 		}
-        
+
     }
 
     @GetMapping("/update/form/movie/{id}")
@@ -356,7 +353,7 @@ public class AdminPageController {
 
         if (movieDataResponse.getState()) {
 			model.addAttribute("movie", movieDataResponse.getData());
-            model.addAttribute("response", movieDataResponse.getMessage());
+            // model.addAttribute("response", movieDataResponse.getMessage());
 		} else {
 			model.addAttribute("title", title + " | Error en el formulario de pelicula");
 			model.addAttribute("response", movieDataResponse.getMessage());

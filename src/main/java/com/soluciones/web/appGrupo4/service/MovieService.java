@@ -185,6 +185,8 @@ public class MovieService implements IMovieService {
         try {
             Optional<E_Movie> targetMovie = movie_entity.findById(id);
 
+            movie_entity.deleteById(id);
+
             if (targetMovie.get().getCoverUrl().equals("")) { targetMovie.get().setCoverUrl(null); };
 
             if (targetMovie.get().getCoverUrl() != null) {
@@ -195,8 +197,6 @@ public class MovieService implements IMovieService {
                     fileToDelete.delete();
                 } 
             } 
-
-            movie_entity.deleteById(id);
 
             response.setState(true);
 			response.setData(targetMovie.get());
