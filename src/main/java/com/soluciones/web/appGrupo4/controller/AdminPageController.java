@@ -290,6 +290,15 @@ public class AdminPageController {
         Response<V_Person> personDataResponse = personInterface.getLazyInfoPerson();
         Response<E_Genre> genreDataResponse = genderInterface.getAllGenres();
 
+        Response<E_Movie> movieResponse = movieinterface.getMovieById(movie.getIdMovie());
+        if (movieResponse.getState()) {
+            movie.setCoverUrl(movieResponse.getData().getCoverUrl());
+            movie.setDirectorsList(movieResponse.getData().getDirectorsList());
+            movie.setGenreList(movieResponse.getData().getGenreList());
+        } else {
+            movie.setCoverUrl(movie.getCoverUrl() + "");
+        }
+
         // Verify errors
         if(br.hasErrors()) { 
             model.addAttribute("lazyPerson", personDataResponse.getListData());
@@ -298,13 +307,6 @@ public class AdminPageController {
         };
 
         model.addAttribute("activeSession", true);
-
-        Response<E_Movie> movieResponse = movieinterface.getMovieById(movie.getIdMovie());
-        if (movieResponse.getState()) {
-            movie = movieResponse.getData();
-        } else {
-            movie.setCoverUrl(movie.getCoverUrl() + "");
-        }
         
 
         if(coverImage.isEmpty() && movie.getCoverUrl().length() == 0) {
