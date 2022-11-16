@@ -1,5 +1,6 @@
 package com.soluciones.web.appGrupo4.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -66,19 +67,25 @@ public class UserPageController {
 			return "trailers";
 		} else {
 
-            List<String> errorsHeader = Arrays.asList(
-                trailerResponse.getMessage(), 
-                languageResponse.getMessage(), 
-                genreResponse.getMessage(), 
-                countryResponse.getMessage()
-            );
+            List<String> errorsHeader = new ArrayList<>();
+            List<String> errorsBody = new ArrayList<>();
 
-            List<String> errorsBody = Arrays.asList(
-                trailerResponse.getErrorMessage(), 
-                languageResponse.getErrorMessage(), 
-                genreResponse.getErrorMessage(), 
-                countryResponse.getErrorMessage()
-            );
+            if (trailerResponse.getErrorMessage() != "") {
+                errorsHeader.add(trailerResponse.getMessage());
+                errorsBody.add(trailerResponse.getErrorMessage());
+            }
+            if (languageResponse.getErrorMessage() != "") {
+                errorsHeader.add(languageResponse.getMessage());
+                errorsBody.add(languageResponse.getErrorMessage());
+            }
+            if (genreResponse.getErrorMessage() != "") {
+                errorsHeader.add(genreResponse.getMessage());
+                errorsBody.add(genreResponse.getErrorMessage());
+            }
+            if (countryResponse.getErrorMessage() != "") {
+                errorsHeader.add(countryResponse.getMessage());
+                errorsBody.add(countryResponse.getErrorMessage());
+            }
 
 			model.addAttribute("title", title + " | Error al obtener trailers");
 			model.addAttribute("errorsHeader", errorsHeader);
@@ -104,17 +111,20 @@ public class UserPageController {
             model.addAttribute("userList", listsInterface.getAllLists());
 
 			return "trailer_view";
+
 		} else {
 
-            List<String> errorsHeader = Arrays.asList(
-                trailerResponse.getMessage(),
-                relatedTrailersResponse.getMessage()
-            );
+            List<String> errorsHeader = new ArrayList<>();
+            List<String> errorsBody = new ArrayList<>();
 
-            List<String> errorsBody = Arrays.asList(
-                trailerResponse.getErrorMessage(),
-                relatedTrailersResponse.getErrorMessage()
-            );
+            if (trailerResponse.getErrorMessage() != "") {
+                errorsHeader.add(trailerResponse.getMessage());
+                errorsBody.add(trailerResponse.getErrorMessage());
+            }
+            if (relatedTrailersResponse.getErrorMessage() != "") {
+                errorsHeader.add(relatedTrailersResponse.getMessage());
+                errorsBody.add(relatedTrailersResponse.getErrorMessage());
+            }
 
 			model.addAttribute("title", title + " | Error al obtener el trailer");
 			model.addAttribute("errorsHeader", errorsHeader);
