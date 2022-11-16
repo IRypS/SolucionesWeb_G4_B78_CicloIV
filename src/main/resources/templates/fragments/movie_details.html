@@ -1,0 +1,52 @@
+<div th:fragment="movieDetails (object)"
+    th:if="${__${object}__.getMovie.getIdMovie != '0'}" 
+    class="row g-0 my-4 my-md-5 c_movieInfo">
+
+    <!-- Cover Movie -->
+    <div class="col-6 col-md-4 col-xxl-3 mb-3 mx-auto">
+        <img th:src="@{${ '/resources/upload/movie/cover/' + __${object}__.getMovie.getCoverUrl }}" 
+            th:alt="${ 'Portada de ' + __${object}__.getMovie.getName }" 
+            class="c_coverMovieImg">
+    </div>
+
+    <!-- Details Movie -->
+    <div class="col-12 col-md-8 col-xxl-9 px-4">
+
+        <!-- Title Movie -->
+        <a href="#">
+            <p th:text="${ __${object}__.getMovie.getName }"
+                class="h5 text-center text-md-start"></p>
+        </a>
+
+        <!-- Categories Movie -->
+        <div class="row my-3 my-md-2 justify-content-center justify-content-md-start">
+            <div th:each="genre : ${ __${object}__.getMovie.getGenreList }"
+                class="col-auto bg-secondary text-light rounded-pill m-1">
+
+                <small th:text="${ genre.getNameGenre }"></small>
+            </div>
+
+        </div>
+
+        <!-- Persons Movie -->
+        <div class="my-2">
+            <span>
+                <b>Director(es):</b> 
+                <span th:each="director : ${ __${object}__.getMovie.getDirectorsList }">
+                    <!-- Director's Full Name -->
+                    <span th:text="${director.getName + ' ' + director.getLastname}"></span>
+                    <!-- DOT OR COMMA -->
+                    <span th:if="${directorStat.index != __${object}__.getMovie.getDirectorsList.size()-1}">, </span>
+                    <span th:if="${directorStat.index == __${object}__.getMovie.getDirectorsList.size()-1}">.</span>
+                </span>
+            </span>
+        </div>
+
+        <!-- Sinopsis -->
+        <div>
+            <b>Sinopsis:</b>
+            <span th:text="${ trailer.getMovie.getSynopsis }"></span>
+        </div>
+    </div>
+
+</div>

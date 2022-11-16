@@ -1,20 +1,14 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- Meta tags -->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Meta tags && title && icon -->
+    <div th:replace="/fragments/template_basic_header :: base_header"></div>
 
     <!-- Bootstrap CSS (Temporally location)-->
-    <link type="text/css" rel="stylesheet" href="/styles/css/styles.css">
-
+    <div th:replace="/fragments/bootstrap_template :: bootstrap_css"></div>
     <!-- Customize css -->
     <link type="text/css" rel="stylesheet" href="/styles/css/customize__form-user.css">
-
-    <!-- Header styles -->
-    <link rel="icon" href="/resources/icons/main_icon.ico">
-    <title th:text="${title}">...</title>
 
 </head>
 <body class="c_body-bg-sign-up">
@@ -99,6 +93,6 @@
     </main>
 
     <!-- Bootstrap JS -->
-    <script src="/utils/bootstrap.js"></script>
+    <div th:replace="/fragments/bootstrap_template :: bootstrap_js-basic"></div>
 </body>
 </html>

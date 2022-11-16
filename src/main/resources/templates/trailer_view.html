@@ -1,106 +1,22 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- Meta tags -->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Meta tags && title && icon -->
+    <div th:replace="/fragments/template_basic_header :: base_header"></div>
 
     <!-- Bootstrap CSS (Temporally location)-->
-    <link type="text/css" rel="stylesheet" href="/styles/css/styles.css">
+    <div th:replace="/fragments/bootstrap_template :: bootstrap_css"></div>
 
     <!-- Customize css -->
     <link type="text/css" rel="stylesheet" href="/styles/css/customize__navbar.css">
     <link type="text/css" rel="stylesheet" href="/styles/css/customize__trailer-preview.css">
 
-    <!-- Header styles -->
-    <link rel="icon" href="/resources/icons/main_icon.ico">
-    <title th:text="${title}">...</title>
 </head>
 <body>
 
     <!-- Nav header -->
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
-            <div class="container-fluid">
-
-                <!-- Hamburguer Menu -->
-                <button class="navbar-toggler" type="button" 
-                        data-bs-toggle="collapse" data-bs-target="#navbarPage" 
-                        aria-controls="navbarPage" aria-expanded="false" 
-                        aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- Logo -->
-                <a class="navbar-brand" href="/">
-                    <img src="/resources/icons/main_icon.ico" alt="Logotipo de la pagina web">
-                </a>
-
-                <!-- Nav Menu Container  -->
-                <div class="collapse navbar-collapse" id="navbarPage">
-                    <!-- Links -->
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-center">
-
-                        <!-- User Profile Button -->
-                        <li th:if="${activeSession == true}"
-                            class="nav-item dropdown mt-3 mt-lg-0 ms-lg-3 order-lg-1">
-
-                            <!-- Button Dropdown -->
-                            <button class="nav-link dropdown-toggle w-100 me-auto py-1 px-2 
-                                    btn btn-primary c_btn-user-profile" 
-                                    data-bs-toggle="dropdown" 
-                                    role="button" 
-                                    aria-expanded="false">
-                                <img src="https://i.ytimg.com/vi/fykmLCRzlwc/mqdefault.jpg" alt="Avatar de perfil de usuario" width="100%">
-                                <span class="ms-2 ms-lg-1 tex-truncate">IRypS</span>
-                            </button>
-
-                            <!-- Dropdown Menu  -->
-                            <ul class="dropdown-menu dropdown-menu-dark">
-                                <li><a class="dropdown-item" href="#">Perfil de usuario</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li>
-                                    <a class="dropdown-item" href="/">
-                                        <img src="/resources/icons/log-out__icon.svg" alt="Icono de cerrar sesión">
-                                        Cerrar sesión
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <!-- Register button -->
-                        <li th:if="${activeSession == false}"
-                            class="nav-item me-lg-2">
-                            <a href="/account/login"
-                                class="nav-link mt-3 mt-lg-0 ms-auto py-2 px-3 
-                                btn btn-cta c_btn-user-profile" role="button">
-                                <span class="ms-2 ms-lg-0 tex-wrap text-light">Iniciar Sesion</span>
-                            </a>
-                        </li>
-                        
-                        <!-- Nav Links -->
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/app/trailers">Trailers</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link bg-primary" href="/index.html">Ir al chatbox (Temporal)</a>
-                        </li>
-                    </ul>
-
-                    <!-- Search bar -->
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" 
-                                placeholder="Buscar" aria-label="Buscar">
-                        <button class="btn btn-primary" type="submit">Buscar</button>
-                    </form>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <header th:replace="/fragments/navbar :: navbar_header( active = 'trailers' )"></header>
 
     <main class="container my-4 my-lg-5 overflow-hidden">
         <div class="row text-light">
@@ -125,233 +41,34 @@
                     </div>
                 </div>
                 
-                <div class="row g-0">
+                <!-- Info Trailer & Actions -->
+                <div th:replace="/fragments/trailer_info :: trailer_info"></div>
 
-                    <!-- Trailer title -->
-                    <div class="col-12 my-3">
-                        <span th:text="${trailer.getTitle}" class="h6">Video Trailer</span>
-                    </div>
-
-                    <!-- Action Buttons -->
-                    <div class="col-12 ">
-                        <div class="row h-100 g-2">
-
-                            <!-- Repor video -->
-                            <div class="col-12 col-sm-6">
-                                <button type="button" class="btn btn-danger h-100 w-100" data-bs-toggle="modal" data-bs-target="#reportModal">
-                                    <img src="/resources/icons/info.svg"> 
-                                    Reportar problema
-                                </button>
-
-                                <!-- List Modal -->
-                                <div class="modal fade" 
-                                    id="reportModal" 
-                                    tabindex="-1" 
-                                    aria-labelledby="reportModalLabel" 
-                                    aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                        <div class="modal-content w-auto mx-auto">
-                                            <div class="modal-body overflow-hidden">
-                                                <!-- List header -->
-                                                <div class="d-flex justify-content-between mb-1">
-                                                    <div class="h5">¿Cual es el problema?</div>
-                                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-
-                                                <form action="">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="reproduction" value="reproduction" id="reproductionId">
-                                                        <label class="form-check-label" for="flexRadioDefault1">
-                                                            El video no se reproduce
-                                                        </label>
-                                                    </div>
-
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="videoSize" value="videoSize" id="videoSizeId">
-                                                        <label class="form-check-label" for="flexRadioDefault1">
-                                                            El video luce descolocado o se pasa de la pantalla
-                                                        </label>
-                                                    </div>
-
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="audio" value="audio" id="audioId">
-                                                        <label class="form-check-label" for="flexRadioDefault1">
-                                                            El video no se escucha
-                                                        </label>
-                                                    </div>
-
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="other" value="other" id="otherId">
-                                                        <label class="form-check-label" for="flexRadioDefault1">
-                                                            Otro
-                                                        </label>
-                                                    </div>
-
-                                                    <button type="submit" class="btn btn-danger mx-auto mt-2 w-100" data-bs-dismiss="modal"
-                                                        onclick="event.preventDefault()">
-                                                        <img src="/resources/icons/info.svg"> 
-                                                        Reportar video
-                                                    </button>
-                                                </form>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Save Playlist -->
-                            <div class="col-12 col-sm-6">
-                                <button type="button" class="btn btn-dark h-100 w-100" data-bs-toggle="modal" data-bs-target="#listModal">
-                                    <img src="/resources/icons/add.svg"> 
-                                    Guardar
-                                </button>
-                                
-                                <!-- List Modal -->
-                                <div class="modal fade" 
-                                    id="listModal" 
-                                    tabindex="-1" 
-                                    aria-labelledby="exampleModalLabel" 
-                                    aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                        <div class="modal-content w-auto mx-auto">
-                                            <div class="modal-body overflow-hidden">
-                                                <!-- List header -->
-                                                <div class="d-flex justify-content-between">
-                                                    <div class="h5">Guardar en:</div>
-                                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-
-                                                <!-- List each -->
-                                                <div class="container">
-                                                    <div class="form-check">
-                                                        <input value="favourites" id="favourites"
-                                                            class="form-check-input" type="checkbox">
-                                                        <label for="favourites"
-                                                            class="form-check-label text-truncate">Favoritos
-                                                        </label>
-                                                    </div>
-
-                                                    <div class="form-check" th:each="list : ${userList}">
-                                                        <input th:value="${list.getName.toLowerCase()}"
-                                                            th:id="check- + ${list.getId}"
-                                                            class="form-check-input" type="checkbox">
-                                                        <label th:text="${list.getName}"
-                                                            th:for="check- + ${list.getId}"
-                                                            class="form-check-label text-truncate">
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- List Footer -->
-                                            <div class="modal-footer ">
-                                                <button type="button" class="btn btn-secondary mx-auto" 
-                                                    data-bs-toggle="modal" data-bs-target="#createListModal">
-                                                    <img src="/resources/icons/list-plus.svg"> Crear nueva playlist
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Create List Modal -->
-                                <div class="modal fade" 
-                                    id="createListModal" 
-                                    tabindex="-1" 
-                                    aria-labelledby="createListModalLabel" 
-                                    aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                        <div class="modal-content w-auto mx-auto">
-                                            <div class="modal-body overflow-hidden">
-                                                <!-- List header -->
-                                                <div class="d-flex justify-content-end">
-                                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-
-                                                <!-- Form Body -->
-                                                <form th:action="@{/app/list/createNewList/{id}(id=${trailer.getId}) }" th:object="${userList}" method="post">
-
-                                                    <label for="inputNameList">Inserte Nombre: </label>
-                                                    <input type="text" class="bg-primary form-control" name="name" id="inputNameList">
-                                                    
-                                                    <button type="submit" class="btn btn-secondary w-100 mt-3" data-bs-dismiss="modal"
-                                                        onclick="">
-                                                        <img src="/resources/icons/list-check.svg">
-                                                        Crear lista
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- Info Movie -->
+                <div th:replace="/fragments/movie_details :: movieDetails( object='trailer' )"></div>
             </div>
 
             <!-- Related videos -->
             <div class="col-lg-3 mt-3 mt-lg-0">
-                <p class="h4">Video Relacionados</p>
-
-                <div th:each="related : ${relatedTrailers}"
-                    class="my-2 w-100 c_link-video-container">
-                    <a th:href="@{/app/trailer/view/{id}(id=${related.getId}) }">
-                        <img th:src="@{${ related.getImageUrl }}" 
-                            th:alt="${related.getTitle}" class="w-100 c_img-video">
-                        <p th:text="${related.getTitle}"
-                            class="text-truncate">...</p>
-                    </a>
-                </div>
+                <p class="h4 mb-4">Videos Relacionados</p>
+                <!-- Trailers Divs-->
+                <div th:replace="/fragments/trailer_link :: trailer_link( object='relatedTrailers' )"></div>
             </div>
             
         </div>
     </main>
 
     <!-- Footer -->
-    <footer class="mt-5 pb-5 text-light text-center ">
-        Copyright &copy; Trailers web 2022
-        <div class="mt-1">
-            <a href="#" style="text-decoration: none;">
-                <img src="/resources/icons/facebook.svg" alt="Link a facebook">
-            </a>
-            <a href="#" style="text-decoration: none;">
-                <img src="/resources/icons/twitter.svg" alt="Link a twitter">
-            </a>
-            <a href="#" style="text-decoration: none;">
-                <img src="/resources/icons/instagram.svg" alt="Link a instagram">
-            </a>
-        </div>
-    </footer>
+    <div th:replace="/fragments/footer :: basic_footer"></div>
 
     <!-- Insert Trailer Document -->
-    <script th:inline="javascript">
-        /*[+
-        let getIdVideo  = [[${trailer.id}]];
-        +]*/
-        const trailerDocument = `
-            <style>
-                * { padding: 0; margin: 0; overflow: hidden; }
-                body, html { heigth: 100%; }
-                img, svg { position: absolute; width: 100%; top: 0; bottom: 0; margin: auto; }
-                svg { filter: drop-shadow(1px 1px 10px hsl(206.5, 70.7%, 8%)); transition: all 250ms ease-in-out; }
-                body:hover svg { filter: drop-shadow(1px 1px 10px hsl(206.5, 0%, 10%)); transform: scale(1.2); }
-            </style>
-            <a href = https://www.youtube.com/embed/` + getIdVideo + `?autoplay=1&color=white>
-                <img src='https://img.youtube.com/vi/` + getIdVideo + `/sddefault.jpg' alt='VideoTrailer'>
-                <svg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 24 24' fill='none' stroke='#ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-play-circle'><circle cx='12' cy='12' r='10'></circle><polygon points='10 8 16 12 10 16 10 8'></polygon></svg>
-            </a>
-        `;
-        const trailerBox = document.querySelector("#trailerBox");
-        trailerBox.srcdoc = trailerDocument;
-    </script>
+    <div th:replace="/fragments/scripts/lazy_view :: lazy_trailer"></div>
 
     <!-- Bootstrap JS -->
-    <script src="/utils/bootstrap.js"></script>
+    <div th:replace="/fragments/bootstrap_template :: bootstrap_js-popper"></div>
 
     <!-- Customm Js -->
-    <script src="/utils/autoadjust__video-proportions.js"></script>
-
+    <script src="/utils/autoadjust_16-9__video-proportions.js"></script>
+    <script src="/utils/autoadjust_10-14__video-proportions.js"></script>
 </body>
 </html>

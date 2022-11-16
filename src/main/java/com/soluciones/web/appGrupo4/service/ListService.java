@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.soluciones.web.appGrupo4.model.UserList;
 import com.soluciones.web.appGrupo4.repository.IListRepository;
 
+// -------------> Temporally Service <-------------
+
 @Service
 public class ListService implements IListService {
 

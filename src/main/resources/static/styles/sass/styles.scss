@@ -7,6 +7,7 @@ $secondary: $color-3;
 $info:      $color-1-opacity;
 $dark:      $color-1;
 $danger:    $color-4;
+$warning:   $color-5;
 
 @import "../../lib/bootstrap/scss/functions";
 @import "../../lib/bootstrap/scss/variables";
@@ -57,7 +58,18 @@ $accordion-button-icon:         url("data:image/svg+xml,<svg xmlns='http://www.w
 $accordion-button-active-icon:  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$white}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>");
 
 
+// Popover
+$popover-font-size:                   0.7rem;
+$popover-bg:                          $color-1-opacity-90;
 
+$popover-header-bg:                   $dark;
+$popover-header-color:                $white;
+
+$popover-arrow-color:                 $color-1-opacity-90;
+
+// $popover-arrow-outer-color:         fade-in($popover-border-color, .05);
+
+// Modal
 $modal-content-color:               null;
 $modal-content-bg:                  $dark;  
 $modal-content-border-color:        rgba($black, .2);
@@ -67,6 +79,44 @@ $modal-content-inner-border-radius: subtract($modal-content-border-radius, $moda
 $modal-content-box-shadow-xs:       $box-shadow-sm;
 $modal-content-box-shadow-sm-up:    $box-shadow;
 
+
+$list-group-bg:                     $color-2;
+$list-group-color:                  $white;
+$list-group-hover-bg:               $color-1;
+$list-group-action-hover-color:     $white;
+
+
+$form-select-color:                 $white;
+$form-select-bg:                    $dark;
+$form-select-border-color:          $dark;
+
+
+$pagination-color:                  $white;
+$pagination-bg:                     $color-1;
+$pagination-border-color:           $color-2;
+
+$pagination-hover-color:            $white;
+$pagination-hover-bg:               $color-2;
+$pagination-hover-border-color:     $dark;
+
+$pagination-active-color:           $white;
+$pagination-active-bg:              $color-2;
+$pagination-active-border-color:    $dark;
+
+$pagination-disabled-color:         $gray-500;
+$pagination-disabled-bg:            $color-3;
+$pagination-disabled-border-color:  $gray-900;
+
+
+$form-file-button-color:          $white;
+$form-file-button-bg:             $primary;
+$form-file-button-hover-bg:       shade-color($form-file-button-bg, 5%);
+
+$input-bg:                              $dark;
+$input-disabled-bg:                     $color-3-hover;
+
+
+
 @import "../../lib/bootstrap/scss/bootstrap.scss";
 
 
@@ -75,7 +125,7 @@ $modal-content-box-shadow-sm-up:    $box-shadow;
 // *********************
 
 body {
-    background-image: $gradient-background
+  background-image: $gradient-background
 }
 
 .form-check {

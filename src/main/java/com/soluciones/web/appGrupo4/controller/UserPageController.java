@@ -1,6 +1,8 @@
 package com.soluciones.web.appGrupo4.controller;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,12 +13,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.soluciones.web.appGrupo4.model.Trailer;
+import com.soluciones.web.appGrupo4.model.Response;
 import com.soluciones.web.appGrupo4.model.UserList;
-import com.soluciones.web.appGrupo4.service.ICategoriesService;
-import com.soluciones.web.appGrupo4.service.ICountryService;
+import com.soluciones.web.appGrupo4.model.entities.E_Country;
+import com.soluciones.web.appGrupo4.model.entities.E_Genre;
+import com.soluciones.web.appGrupo4.model.entities.E_Language;
+import com.soluciones.web.appGrupo4.model.entities.E_Trailer;
 import com.soluciones.web.appGrupo4.service.IListService;
-import com.soluciones.web.appGrupo4.service.ITrailerService;
+import com.soluciones.web.appGrupo4.service.interfaces.ICountryService;
+import com.soluciones.web.appGrupo4.service.interfaces.IGenreService;
+import com.soluciones.web.appGrupo4.service.interfaces.ILanguageService;
+import com.soluciones.web.appGrupo4.service.interfaces.ITrailerService;
 
 @Controller
 @RequestMapping("/app")
@@ -29,7 +36,10 @@ public class UserPageController {
     private ITrailerService trailerInterface;
 
     @Autowired
-    private ICategoriesService categoriesInterface;
+    private ILanguageService languageInterface;
+
+    @Autowired
+    private IGenreService genreInterface;
 
     @Autowired
     private ICountryService countriesInterface;
@@ -40,39 +50,94 @@ public class UserPageController {
     @GetMapping("/trailers")
     public String allTrailers(Model model) {
 
-        model.addAttribute("title", "Trailers | " + title);
         model.addAttribute("activeSession", true);
 
-        model.addAttribute("trailersList", trailerInterface.getAllTrailers());
-        model.addAttribute("categoriesList", categoriesInterface.getAllCategories());
-        model.addAttribute("countriesList", countriesInterface.getAllCountries());
- 
-        return "trailers";
+        Response<E_Trailer> trailerResponse = trailerInterface.getAllTrailers();
+        Response<E_Language> languageResponse = languageInterface.getAllLanguages();
+        Response<E_Genre> genreResponse = genreInterface.getAllGenres();
+        Response<E_Country> countryResponse = countriesInterface.getAllCountries();
+
+        if (trailerResponse.getState() && languageResponse.getState()) {
+			model.addAttribute("title", title + " | Trailers");
+			model.addAttribute("trailersList", trailerResponse.getListData());
+			model.addAttribute("response", trailerResponse.getMessage());
+            model.addAttribute("languagesList", languageResponse.getListData());
+            model.addAttribute("genresList", genreResponse.getListData());
+            model.addAttribute("countriesList", countryResponse.getListData());
+			return "trailers";
+		} else {
+
+            List<String> errorsHeader = new ArrayList<>();
+            List<String> errorsBody = new ArrayList<>();
+
+            if (trailerResponse.getErrorMessage() != "") {
+                errorsHeader.add(trailerResponse.getMessage());
+                errorsBody.add(trailerResponse.getErrorMessage());
+            }
+            if (languageResponse.getErrorMessage() != "") {
+                errorsHeader.add(languageResponse.getMessage());
+                errorsBody.add(languageResponse.getErrorMessage());
+            }
+            if (genreResponse.getErrorMessage() != "") {
+                errorsHeader.add(genreResponse.getMessage());
+                errorsBody.add(genreResponse.getErrorMessage());
+            }
+            if (countryResponse.getErrorMessage() != "") {
+                errorsHeader.add(countryResponse.getMessage());
+                errorsBody.add(countryResponse.getErrorMessage());
+            }
+
+			model.addAttribute("title", title + " | Error al obtener trailers");
+			model.addAttribute("errorsHeader", errorsHeader);
+			model.addAttribute("errorsBody", errorsBody);
+			return "errors";
+		}
     };
 
     @GetMapping("/trailer/view/{id}")
     public String trailerView(@PathVariable String id, Model model) {
 
-        Map<String, Trailer> mapaTrailers = trailerInterface.getTrailersMap();
-        Trailer targetTrailer = mapaTrailers.get(id);
-
-        // Redirect when id from link is invalid
-        if (targetTrailer == null) {
-            return "redirect:/";
-        }
-
-        model.addAttribute("title", "Trailer View | " + title);
         model.addAttribute("activeSession", true);
 
-        model.addAttribute("trailer", targetTrailer);
-        model.addAttribute("relatedTrailers", trailerInterface.getRelatedTrailers(id));
-        model.addAttribute("userList", listsInterface.getAllLists());
+        Response<E_Trailer> trailerResponse = trailerInterface.getTrailerById(id);
+        Response<E_Trailer> relatedTrailersResponse = trailerInterface.getRelatedTrailers(id);
 
- 
-        return "trailer_view";
+        if (trailerResponse.getState() && relatedTrailersResponse.getState()) {
+			model.addAttribute("title", title + " | " + trailerResponse.getData().getTitle());
+			model.addAttribute("trailer", trailerResponse.getData());
+            model.addAttribute("relatedTrailers", relatedTrailersResponse.getListData());
+			model.addAttribute("response", trailerResponse.getMessage());
+            // TemporallyData
+            model.addAttribute("userList", listsInterface.getAllLists());
+
+			return "trailer_view";
+
+		} else {
+
+            List<String> errorsHeader = new ArrayList<>();
+            List<String> errorsBody = new ArrayList<>();
+
+            if (trailerResponse.getErrorMessage() != "") {
+                errorsHeader.add(trailerResponse.getMessage());
+                errorsBody.add(trailerResponse.getErrorMessage());
+            }
+            if (relatedTrailersResponse.getErrorMessage() != "") {
+                errorsHeader.add(relatedTrailersResponse.getMessage());
+                errorsBody.add(relatedTrailersResponse.getErrorMessage());
+            }
+
+			model.addAttribute("title", title + " | Error al obtener el trailer");
+			model.addAttribute("errorsHeader", errorsHeader);
+			model.addAttribute("errorsBody", errorsBody);
+			return "errors";
+		}
     };
 
 
+
+
+
+    // Temporally function (whitout db) <=============================
     @PostMapping("/list/createNewList/{id}")
     public String createNewList(UserList usrList, @PathVariable String id) {
         System.out.println("*** ---> Lista creada");

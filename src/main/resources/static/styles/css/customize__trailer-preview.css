@@ -1,7 +1,29 @@
+.c_link-video-container {
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.c_link-video-container:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
 .c_link-video-container a {
   text-decoration: none;
 }
 .c_link-video-container a img {
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.c_languageInfo {
+  background-color: rgba(15, 12, 41, 0.7333333333);
+  height: 32px;
+}
+
+.c_movieInfo div img {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.c_movieInfo div a {
+  text-decoration: none;
 }/*# sourceMappingURL=customize__trailer-preview.css.map */

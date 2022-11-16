@@ -1,0 +1,20 @@
+.dropdown-toggle {
+  color: #FFF;
+}
+.dropdown-toggle img {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.dropdown-toggle:hover {
+  color: #888;
+}
+
+.nav-item a {
+  color: #FFF;
+}
+.nav-item a:hover {
+  color: #888;
+}/*# sourceMappingURL=customize__sidebar.css.map */

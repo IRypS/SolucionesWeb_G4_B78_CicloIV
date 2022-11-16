@@ -56,6 +56,7 @@ public class AccountController {
         // Verify errors
         if(br.hasErrors()) {
             model.addAttribute("user", usr);
+            
 			return "sign_in";
 		}
         

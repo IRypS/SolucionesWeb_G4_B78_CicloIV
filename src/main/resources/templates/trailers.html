@@ -1,107 +1,22 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- Meta tags -->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Meta tags && title && icon -->
+    <div th:replace="/fragments/template_basic_header :: base_header"></div>
 
     <!-- Bootstrap CSS (Temporally location)-->
-    <link type="text/css" rel="stylesheet" href="/styles/css/styles.css">
+    <div th:replace="/fragments/bootstrap_template :: bootstrap_css"></div>
 
     <!-- Customize css -->
     <link type="text/css" rel="stylesheet" href="/styles/css/customize__navbar.css">
     <link type="text/css" rel="stylesheet" href="/styles/css/customize__trailer-preview.css">
 
-    <!-- Header styles -->
-    <link rel="icon" href="/resources/icons/main_icon.ico">
-    <title th:text="${title}">...</title>
-
 </head>
 <body>
 
     <!-- Nav header -->
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
-            <div class="container-fluid">
-
-                <!-- Hamburguer Menu -->
-                <button class="navbar-toggler" type="button" 
-                        data-bs-toggle="collapse" data-bs-target="#navbarPage" 
-                        aria-controls="navbarPage" aria-expanded="false" 
-                        aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- Logo -->
-                <a class="navbar-brand" href="/">
-                    <img src="/resources/icons/main_icon.ico" alt="Logotipo de la pagina web">
-                </a>
-
-                <!-- Nav Menu Container  -->
-                <div class="collapse navbar-collapse" id="navbarPage">
-                    <!-- Links -->
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-center">
-
-                        <!-- User Profile Button -->
-                        <li th:if="${activeSession == true}"
-                            class="nav-item dropdown mt-3 mt-lg-0 ms-lg-3 order-lg-1">
-
-                            <!-- Button Dropdown -->
-                            <button class="nav-link dropdown-toggle w-100 me-auto py-1 px-2 
-                                    btn btn-primary c_btn-user-profile" 
-                                    data-bs-toggle="dropdown" 
-                                    role="button" 
-                                    aria-expanded="false">
-                                <img src="https://i.ytimg.com/vi/fykmLCRzlwc/mqdefault.jpg" alt="Avatar de perfil de usuario" width="100%">
-                                <span class="ms-2 ms-lg-1 tex-truncate">IRypS</span>
-                            </button>
-
-                            <!-- Dropdown Menu  -->
-                            <ul class="dropdown-menu dropdown-menu-dark">
-                                <li><a class="dropdown-item" href="#">Perfil de usuario</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li>
-                                    <a class="dropdown-item" href="/">
-                                        <img src="/resources/icons/log-out__icon.svg" alt="Icono de cerrar sesión">
-                                        Cerrar sesión
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <!-- Register button -->
-                        <li th:if="${activeSession == false}"
-                            class="nav-item me-lg-2">
-                            <a href="/account/login"
-                                class="nav-link mt-3 mt-lg-0 ms-auto py-2 px-3 
-                                btn btn-cta c_btn-user-profile" role="button">
-                                <span class="ms-2 ms-lg-0 tex-wrap text-light">Iniciar Sesion</span>
-                            </a>
-                        </li>
-                        
-                        <!-- Nav Links -->
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="/app/trailers">Trailers</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link bg-primary" href="/index.html">Ir al chatbox (Temporal)</a>
-                        </li>
-                    </ul>
-
-                    <!-- Search bar -->
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" 
-                                placeholder="Buscar" aria-label="Buscar">
-                        <button class="btn btn-primary" type="submit">Buscar</button>
-                    </form>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <header th:replace="/fragments/navbar :: navbar_header( active = 'trailers' )"></header>
 
     <main class="container mt-4 mt-lg-5 overflow-hidden">
         <div class="row gy-3 gx-5">
@@ -117,82 +32,32 @@
                     </div>
 
                     <!-- Genre Filter -->
-                    <div class="accordion-item">
-                        <!-- Header -->
-                        <h2 class="accordion-header" id="flush-genres">
-                            <button class="accordion-button collapsed" type="button" 
-                                    data-bs-toggle="collapse" data-bs-target="#flush-collapseGenres" 
-                                    aria-expanded="false" aria-controls="flush-collapseGenres">
-                                Por Género
-                            </button>
-                        </h2>
-                        <!-- Collapse -->
-                        <div id="flush-collapseGenres" class="accordion-collapse collapse" 
-                            aria-labelledby="flush-genres" data-bs-parent="#accordionFlushFilter">
-                            <div class="accordion-body">
-
-                                <!-- Genres Each  -->
-                                <div th:each=" category : ${categoriesList}"
-                                    class="form-check">
-                                    <input th:value="${category.getName.toLowerCase()}" 
-                                        th:id="check + ${category.getName}"
-                                        class="form-check-input" type="checkbox" >
-                                    <label th:text="${category.getName}"
-                                        th:for="check + ${category.getName}"
-                                        class="form-check-label" >
-                                    </label>
-                                </div>
-
-                            </div>
-                        </div>
+                    <div>
+                        <div th:replace="/fragments/filter :: filter_section( parent='accordionFlushFilter', id='flush-genres', 
+                        idCollapse='flush-collapseGenres', title='Por Género', object='genresList', 
+                        getLabelMethod='getNameGenre', getIdMethod='getIdGenre')">
                     </div>
 
-                    <!-- Country Filter -->
-                    <div class="accordion-item">
-                        <!-- Header -->
-                        <h2 class="accordion-header" id="flush-country">
-                            <button class="accordion-button collapsed" type="button" 
-                                    data-bs-toggle="collapse" data-bs-target="#flush-collapseCountries" 
-                                    aria-expanded="false" aria-controls="flush-collapseCountries">
-                                Por País
-                            </button>
-                        </h2>
-                        <!-- Collapse -->
-                        <div id="flush-collapseCountries" class="accordion-collapse collapse" 
-                            aria-labelledby="flush-country" data-bs-parent="#accordionFlushFilter">
-                            <div class="accordion-body">
-                                <!-- Countries Each -->
-                                <div th:each=" country : ${countriesList}"
-                                    class="form-check">
-                                    <input th:value="${country.getCountryname.toLowerCase()}" 
-                                        th:id="check + ${country.getCountryname}"
-                                        class="form-check-input" type="checkbox">
-                                    <label th:text="${country.getCountryname}"
-                                        th:for="check + ${country.getCountryname}"
-                                        class="form-check-label">
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+                    <!-- Audio Filter -->
+                    <div>
+                        <div th:replace="/fragments/filter :: filter_section( parent='accordionFlushFilter', id='flush-audio', 
+                        idCollapse='flush-collpaseAudio', title='Por Audio', object='languagesList', 
+                        getLabelMethod='getNameLanguage', getIdMethod='getIdLanguage')">
+                    </div>
+
+                    <!-- Subtitle Filter -->
+                    <div>
+                        <div th:replace="/fragments/filter :: filter_section( parent='accordionFlushFilter', id='flush-subtitle', 
+                        idCollapse='flush-collapseSubtitle', title='Por Subtitulos', object='languagesList', 
+                        getLabelMethod='getNameLanguage', getIdMethod='getIdLanguage')">
                     </div>
                 </div>
             </aside>
 
             <!-- Trailers -->
             <div class="col-lg-9">
-                <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 row-cols-xxl-5">
-
-                    <!-- Trailers Divs-->
-                    <div th:each="trailer : ${trailersList}" 
-                        class="col px-3 py-1 c_link-video-container">
-
-                        <a th:href="@{/app/trailer/view/{id}(id=${trailer.getId}) }">
-                            <img th:src="@{${ trailer.getImageUrl }}" 
-                                th:alt="${trailer.getTitle}" class="w-100 c_img-video">
-                            <p th:text="${ trailer.getTitle }"
-                                class="text-truncate">Trailer</p>
-                        </a>
-                    </div>
+                <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 row-cols-xxl-5 pt-1">
+                    <div th:replace="/fragments/trailer_link :: trailer_link( object='trailersList' )">
                 </div>
             </div>
             
@@ -200,25 +65,12 @@
     </main>
 
     <!-- Footer -->
-    <footer class="mt-5 pb-5 text-light text-center ">
-        Copyright &copy; Trailers web 2022
-        <div class="mt-1">
-            <a href="#" style="text-decoration: none;">
-                <img src="/resources/icons/facebook.svg" alt="Link a facebook">
-            </a>
-            <a href="#" style="text-decoration: none;">
-                <img src="/resources/icons/twitter.svg" alt="Link a twitter">
-            </a>
-            <a href="#" style="text-decoration: none;">
-                <img src="/resources/icons/instagram.svg" alt="Link a instagram">
-            </a>
-        </div>
-    </footer>
+    <div th:replace="/fragments/footer :: basic_footer"></div>
 
     <!-- Bootstrap JS -->
-    <script src="/utils/bootstrap.js"></script>
+    <div th:replace="/fragments/bootstrap_template :: bootstrap_js-popper"></div>
 
     <!-- Customm Js -->
-    <script src="/utils/autoadjust__video-proportions.js"></script>
+    <script src="/utils/autoadjust_16-9__video-proportions.js"></script>
 </body>
 </html>

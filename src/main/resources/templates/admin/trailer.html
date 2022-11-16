@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Meta tags && title && icon -->
+    <div th:replace="/fragments/template_basic_header :: base_header"></div>
+
+    <!-- Bootstrap CSS (Temporally location)-->
+    <div th:replace="/fragments/bootstrap_template :: bootstrap_css"></div>
+
+    <!-- Datatables -->
+    <div th:replace="/admin/fragments/template_datatable :: datatable_head"></div>
+
+    <!-- Customize css -->    
+    <link type="text/css" rel="stylesheet" href="/styles/css/customize__sidebar.css">
+    <link type="text/css" rel="stylesheet" href="/styles/css/customize__table.css">
+
+</head>
+<body class="vw-100 mw-100">
+
+    <header th:replace="/admin/fragments/header :: headerAdmin" class="d-md-none"></header>
+
+    <main class="row w-100 m-0">
+
+        <!-- offcanvas Menu Side bar -->
+        <div class="d-md-none offcanvas offcanvas-start w-75 bg-dark p-0" tabindex="-1" id="sideBar" aria-labelledby="sideBarLabel">
+            <div class="offcanvas-body p-0">
+                <div th:insert="/admin/fragments/sidebar :: sidebar( active = 'trailer')"
+                    class="bg-primary">
+                </div>
+            </div>
+        </div> <!-- End offcanvas Menu Side bar -->
+
+        <!-- Menu Side bar -->
+        <div th:insert="/admin/fragments/sidebar :: sidebar( active = 'trailer')"
+            class="col-md-4 col-lg-3 col-xl-2 d-none d-md-flex p-0 m-0 bg-primary">
+        </div>
+
+
+        <!-- Content -->
+        <div class="col-md-8 col-lg-9 col-xl-10 overflow-auto p-5 vh-100 text-light">
+
+            <!-- Title & buttons -->
+            <div th:replace="/admin/fragments/table_header :: header_table( name='Trailer', 
+                image='trailer__icon.svg', actionLink='/app/administrator/insert/trailer')"></div>
+            
+            <!-- Response  -->
+            <div th:replace="/admin/fragments/response :: response"></div>
+
+            <!-- Table  -->
+            <table id="dataTable" class="display wrap overflow-auto" cellspacing="0" style="width:100%">
+                <thead>
+                    <tr>
+                        <td>Imagen</td>
+                        <td>Acciones</td>
+                        <td>ID</td>
+                        <td>Titulo</td>
+                        <td>Audio</td>
+                        <td>Subtitulos</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Each data  -->
+                    <tr th:each="trailer : ${ trailerList }">
+
+                        <!-- Image  -->
+                        <td style="width: 100px; height: 100%;" class="text-nowrap">
+                            <img th:src="@{${ 'http://i.ytimg.com/vi/' + trailer.getId + '/mqdefault.jpg' }}" alt="" style="width: 65%;">
+                            <a th:href="@{${ '/app/trailer/view/' + trailer.getId }}" 
+                                target="_blank" class="ms-3">
+                                <img th:src="@{ /resources/icons/eye__icon.svg }" alt="">
+                            </a>
+                        </td>
+                        <!-- Actions buttons  -->
+                        <td class="text-nowrap">
+                            <!-- Update  -->
+                            <a th:href="@{${ '/app/administrator/update/form/trailer/' + trailer.getId }}" class="btn btn-sm btn-info">
+                                <img th:src="@{ /resources/icons/edit__icon.svg }" alt="">
+                            </a>
+                            <!-- Delete  -->
+							<a th:href="@{${ '/app/administrator/delete/trailer/' + trailer.getId }}" class="btn btn-sm btn-danger">
+                                <img th:src="@{ /resources/icons/trash__icon.svg }" alt="">
+                            </a>
+                        </td>
+                        <!-- Id  -->
+                        <td th:text="${ trailer.getId }"></td>
+                        <!-- Title  -->
+                        <td th:text="${ trailer.getTitle }"></td>
+                        <!-- Language -->
+                        <td class="text-nowrap">
+                            <!-- Icon  -->
+                            <img th:if="${ trailer.getLanguage.getIdLanguage != '0' }"
+                                th:src="@{${ trailer.getLanguage.getIconLanguage }}" 
+                                alt="" width="20px">
+                            <!-- Name language  -->
+                            <span>
+                                <small th:text="${ trailer.getLanguage.getIdLanguage != '0' } ? 
+                                    ${trailer.getLanguage.getNameLanguage} : '' "></small>
+                            </span>
+                        </td>
+                        <!-- Subtitle  -->
+                        <td class="text-nowrap">
+                            <!-- Icon  -->
+                            <img th:if="${ trailer.getSubtitle.getIdLanguage != '0' }"
+                                th:src="@{ ${ trailer.getSubtitle.getIconLanguage }}" 
+                                alt="" width="20px">
+                            <!-- Name subtitle  -->
+                            <span>
+                                <small th:text="${ trailer.getSubtitle.getIdLanguage != '0' } ? 
+                                    ${trailer.getSubtitle.getNameLanguage} : '' "></small>
+                            </span>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+
+        </div>
+    </main>
+
+
+    <!-- Bootstrap JS -->
+    <div th:replace="/fragments/bootstrap_template :: bootstrap_js-popper"></div>
+
+    <!-- Datatables -->
+    <div th:replace="/admin/fragments/template_datatable :: datable_scripts"></div>
+
+</body>
+</html>
