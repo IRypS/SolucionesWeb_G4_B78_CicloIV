@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import com.soluciones.web.appGrupo4.model.UserList;
 
+// -------------> Temporally class <-------------
+
 @Repository
 public class ListRepository implements IListRepository {
     

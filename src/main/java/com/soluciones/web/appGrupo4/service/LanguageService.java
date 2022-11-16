@@ -23,7 +23,7 @@ public class LanguageService implements ILanguageService {
     private ILanguage language_modify;
 
     @Override
-    public Response<E_Language> getAllTrailers() {
+    public Response<E_Language> getAllLanguages() {
 
         Response<E_Language> response = new Response<>();
 

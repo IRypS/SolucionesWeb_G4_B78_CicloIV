@@ -51,18 +51,22 @@
                     </h2>
                 </div>
 
+                <!-- Response  -->
                 <div th:if="${ response }"
                     th:replace="/admin/fragments/response :: bad-response"></div>
 
+                <!-- Form  -->
                 <form th:action="@{/app/administrator/create/movie}" th:object="${movie}" method="post" 
                     enctype="multipart/form-data" class="mt-3">
 
+                    <!-- Input  -->
                     <div class="mb-3">
                         <label for="idTitle" class="form-label">ID</label>
                         <input type="text" class="form-control" name="idMovie" th:field="*{idMovie}"
                             id="idTitle" readonly>
                     </div>
 
+                    <!-- Input  -->
                     <div class="mb-3">
                         <label for="idTitle" class="form-label">
                             Titulo <span><b>*</b></span>
@@ -74,13 +78,16 @@
                             class="d-block bg-danger text-light py-1 px-3" role="alert"></small>
                     </div>
 
+                    <!-- File Input  -->
                     <div class="mb-3">
                         <label for="idCover" class="form-label">Imagen</label>
                         <input type="file" class="form-control" name="coverImage" 
                             id="idCover" placeholder="">
                     </div>
 
+                    <!-- Input  -->
                     <div class="mb-3">
+                        <!-- Label and select -->
                         <label for="idDirectors" class="form-label">Directores</label>
                         <div class="d-flex">
                             <div id="addDirectorBtn" class="btn btn-success btn-sm" onclick="addInputToDom('#idDirectors', '#selectPerson', 'idDirectors');">
@@ -92,6 +99,7 @@
                             </select>
                         </div>
 
+                        <!-- Inputs to send  -->
                         <div id="idDirectors" class="list-group px-4 mt-3" >
                             <div th:each="director, itemStat  : *{directorsList}" class="mt-3">
                                 <div class="d-flex justify-content-between">
@@ -107,7 +115,10 @@
                         </div>
                     </div>
 
+                    <!-- Input  -->
                     <div class="mb-3">
+
+                        <!-- Label and select  -->
                         <label for="idGenres" class="form-label">Generos</label>
                         <div class="d-flex">
                             <div id="addGenresBtn" class="btn btn-success btn-sm" onclick="addInputToDom('#idGenres', '#selectGenre', 'idGenres');">
@@ -119,6 +130,7 @@
                             </select>
                         </div>
 
+                        <!-- Inputs to send  -->
                         <div id="idGenres" class="list-group px-4 mt-3" >
                             <div th:each="director, itemStat  : *{genreList}" class="mt-3">
                                 <div class="d-flex justify-content-between">
@@ -134,6 +146,7 @@
                         </div>
                     </div>
 
+                    <!-- Input  -->
                     <div class="mb-3">
                         <label for="idDuration" class="form-label"> Duracion (minutos)</label>
                         <input th:classappend="${#fields.hasErrors('duration')} ? 'is-invalid' : ''"
@@ -143,6 +156,7 @@
                             class="d-block bg-danger text-light py-1 px-3" role="alert"></small>
                     </div>
 
+                    <!-- Input  -->
                     <div class="mb-3">
                         <label for="idRelease" class="form-label"> Fecha estreno (yyyy-mm-dd)</label>
                         <input th:classappend="${#fields.hasErrors('releaseDate')} ? 'is-invalid' : ''"
@@ -152,6 +166,7 @@
                             class="d-block bg-danger text-light py-1 px-3" role="alert"></small>
                     </div>
 
+                    <!-- Input  -->
                     <div class="mb-3">
                         <label for="idSynopsis" class="form-label"> Sinopsis</label>
                         <textarea th:classappend="${#fields.hasErrors('synopsis')} ? 'is-invalid' : ''"

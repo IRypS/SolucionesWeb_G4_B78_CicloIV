@@ -1,8 +1,5 @@
 package com.soluciones.web.appGrupo4.controller;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +57,7 @@ public class AdminPageController {
     @GetMapping("/dashboard")
     public String dashboardHome(Model model){
 
-        model.addAttribute("title", title);
+        model.addAttribute("title", title + " | Dashboard");
         model.addAttribute("activeSession", true);
         
         return "admin/dashboard";
@@ -69,7 +66,6 @@ public class AdminPageController {
     @GetMapping("/trailerList")
     public String getTrailerList(Model model) {
 
-        // model.addAttribute("title", title);
         model.addAttribute("activeSession", true);
 
         Response<E_Trailer> response = trailerInterface.getAllTrailers();
@@ -77,7 +73,6 @@ public class AdminPageController {
         if (response.getState()) {
 			model.addAttribute("title", title + " | (ADMIN) Listado de Trailers");
 			model.addAttribute("trailerList", response.getListData());
-			// model.addAttribute("response", response.getMessage());
 			return "admin/trailer";
 		} else {
 			model.addAttribute("title", title + " | Error al obtener trailers");
@@ -85,8 +80,6 @@ public class AdminPageController {
 			model.addAttribute("error", response.getErrorMessage());
 			return "admin/errors";
 		}
-        // model.addAttribute("trailerList", trailerInterface.getAllTrailers());
-        // return "admin/trailer";
     }
     
     @GetMapping("/insert/trailer")
@@ -96,7 +89,6 @@ public class AdminPageController {
         Response<V_Movie> movieDataResponse = movieinterface.getLazyInfoMovie();
         Response<V_Language> languageDataResponse = languageInterface.getLazyInfoLanguage();
 
-        // model.addAttribute("title", title);
         model.addAttribute("activeSession", true);
         model.addAttribute("title", title + " | Crear Trailer");
         model.addAttribute("trailer", trailer);
@@ -119,11 +111,6 @@ public class AdminPageController {
 			model.addAttribute("error", languageDataResponse.getErrorMessage());
 			return "admin/errors";
 		}
-
-        // model.addAttribute("trailer", trailer);
-        // model.addAttribute("lazyMovie", movieinterface.getLazyInfoMovie());
-        // model.addAttribute("lazyLanguage", languageInterface.getLazyInfoLanguage());
-        // return "admin/trailer_form";
     }
 
     @PostMapping("/create/trailer")
@@ -227,7 +214,6 @@ public class AdminPageController {
     @GetMapping("/movieList")
     public String getMovieList(Model model) {
 
-        // model.addAttribute("title", title);
         model.addAttribute("activeSession", true);
 
         Response<E_Movie> response = movieinterface.getAllMovies();
@@ -235,7 +221,6 @@ public class AdminPageController {
         if (response.getState()) {
 			model.addAttribute("title", title + " | (ADMIN) Listado de Peliculas");
 			model.addAttribute("movieList", response.getListData());
-			// model.addAttribute("response", response.getMessage());
 			return "admin/movie";
 		} else {
 			model.addAttribute("title", title + " | Error al obtener peliculas");
@@ -253,7 +238,6 @@ public class AdminPageController {
         Response<V_Person> personDataResponse = personInterface.getLazyInfoPerson();
         Response<E_Genre> genreDataResponse = genderInterface.getAllGenres();
 
-        // model.addAttribute("title", title);
         model.addAttribute("activeSession", true);
         model.addAttribute("title", title + " | Crear Pelicula");
         model.addAttribute("movie", movie);
@@ -355,7 +339,6 @@ public class AdminPageController {
 
         if (movieDataResponse.getState()) {
 			model.addAttribute("movie", movieDataResponse.getData());
-            // model.addAttribute("response", movieDataResponse.getMessage());
 		} else {
 			model.addAttribute("title", title + " | Error en el formulario de pelicula");
 			model.addAttribute("response", movieDataResponse.getMessage());

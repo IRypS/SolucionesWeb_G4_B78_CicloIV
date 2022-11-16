@@ -2,6 +2,8 @@ package com.soluciones.web.appGrupo4.model;
 
 import java.util.List;
 
+// -------------> Temporally class <-------------
+
 public class UserList {
     
     private String id;

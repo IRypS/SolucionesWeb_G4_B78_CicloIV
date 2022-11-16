@@ -6,6 +6,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+// -------------> Temporally class <-------------
+
 public class User {
 
     private String id;

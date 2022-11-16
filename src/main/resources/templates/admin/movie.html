@@ -39,11 +39,14 @@
         <!-- Content -->
         <div class="col-md-8 col-lg-9 col-xl-10 overflow-auto p-5 vh-100 text-light">
 
+            <!-- Title & buttons  -->
             <div th:replace="/admin/fragments/table_header :: header_table( name='Pelicula', 
                 image='movie__icon.svg', actionLink='/app/administrator/insert/movie')"></div>
             
+            <!-- Response  -->
             <div th:replace="/admin/fragments/response :: response"></div>
 
+            <!-- Table  -->
             <table id="dataTable" class="display wrap overflow-auto" cellspacing="0" style="width:100%">
                 <thead>
                     <tr>
@@ -56,14 +59,19 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- Each data  -->
                     <tr th:each="movie : ${ movieList }" th:if="${ !movie.getIdMovie.equals('0') }">
+                        <!-- Image  -->
                         <td style="height: 50px;" class="text-nowrap d-flex justify-content-center">
                             <img th:src="@{${ '/resources/upload/movie/cover/' + movie.getCoverUrl }}" alt="" style="height: 100%;">
                         </td>
+                        <!-- Actions buttons  -->
                         <td class="text-nowrap">
+                            <!-- Update  -->
                             <a th:href="@{${ '/app/administrator/update/form/movie/' + movie.getIdMovie }}" class="btn btn-sm btn-info">
                                 <img th:src="@{ /resources/icons/edit__icon.svg }" alt="">
                             </a>
+                            <!-- Delete  -->
 							<a th:href="@{${ '/app/administrator/delete/movie/' + movie.getIdMovie }}" class="btn btn-sm btn-danger">
                                 <img th:src="@{ /resources/icons/trash__icon.svg }" alt="">
                             </a>

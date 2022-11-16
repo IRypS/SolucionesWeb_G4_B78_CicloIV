@@ -8,12 +8,13 @@ import com.soluciones.web.appGrupo4.model.validators.V_Person;
 
 public interface IPersonService {
     
+    // -------------> Temporally Method <-------------
     public List<E_Person> getAllPeople();
 
-    // public List<V_Person> getLazyInfoPerson();
+
+    
     public Response<V_Person> getLazyInfoPerson();
 
-    // public E_Person getPersonById(String id);
     public Response<E_Person> getPersonById(String id);
 
 }

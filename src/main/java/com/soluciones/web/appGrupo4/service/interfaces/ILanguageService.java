@@ -6,12 +6,13 @@ import com.soluciones.web.appGrupo4.model.validators.V_Language;
 
 public interface ILanguageService {
 
-    // public List<E_Language> getAllLanguages();
-    public Response<E_Language> getAllTrailers();
+    public Response<E_Language> getAllLanguages();
 
-    // public List<V_Language> getLazyInfoLanguage();
     public Response<V_Language> getLazyInfoLanguage();
 
+
+
+    // -------------> Temporally Method <-------------
     public Response<E_Language> getLanguageById( String id );
 
 }

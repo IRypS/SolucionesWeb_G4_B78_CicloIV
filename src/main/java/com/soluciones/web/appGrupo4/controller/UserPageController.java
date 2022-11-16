@@ -49,11 +49,10 @@ public class UserPageController {
     @GetMapping("/trailers")
     public String allTrailers(Model model) {
 
-        // model.addAttribute("title", "Trailers | " + title);
         model.addAttribute("activeSession", true);
 
         Response<E_Trailer> trailerResponse = trailerInterface.getAllTrailers();
-        Response<E_Language> languageResponse = languageInterface.getAllTrailers();
+        Response<E_Language> languageResponse = languageInterface.getAllLanguages();
         Response<E_Genre> genreResponse = genreInterface.getAllGenres();
         Response<E_Country> countryResponse = countriesInterface.getAllCountries();
 
@@ -91,7 +90,6 @@ public class UserPageController {
     @GetMapping("/trailer/view/{id}")
     public String trailerView(@PathVariable String id, Model model) {
 
-        // model.addAttribute("title", "Trailer View | " + title);
         model.addAttribute("activeSession", true);
 
         Response<E_Trailer> trailerResponse = trailerInterface.getTrailerById(id);
@@ -123,11 +121,6 @@ public class UserPageController {
 			model.addAttribute("errorsBody", errorsBody);
 			return "errors";
 		}
-
-        // model.addAttribute("trailer", targetTrailer);
-        // model.addAttribute("relatedTrailers", trailerInterface.getRelatedTrailers(id));
-
-        // return "trailer_view";
     };
 
 

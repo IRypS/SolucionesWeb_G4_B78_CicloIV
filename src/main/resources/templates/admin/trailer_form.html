@@ -51,9 +51,11 @@
                     </h2>
                 </div>
 
+                <!-- Form  -->
                 <form th:action="@{/app/administrator/create/trailer}" th:object="${trailer}" method="post"
                     class="mt-3">
 
+                    <!-- Input  -->
                     <div class="mb-3">
                         <label for="idTrailer" class="form-label">
                             ID video <span><b>*</b></span>
@@ -65,6 +67,7 @@
                             class="d-block bg-danger text-light py-1 px-3" role="alert"></small>
                     </div>
 
+                    <!-- Input  -->
                     <div class="mb-3">
                         <label for="titleTrailer" class="form-label">
                             Titulo <span><b>*</b></span> 
@@ -76,12 +79,7 @@
                             class="d-block bg-danger text-light py-1 px-3" role="alert"></small>
                     </div>
 
-                    <!-- <div class="mb-3">
-                        <label for="movieID" class="form-label">Pelicula perteneciente</label>
-                        <input type="text" class="form-control" name="movieId" th:field="*{movieId}"
-                            id="movieID" placeholder="">
-                    </div> -->
-
+                    <!-- Input  -->
                     <div class="mb-3">
                         <label for="movieID" class="form-label">Pelicula perteneciente</label>
                         <select id="movieID" class="form-select" name="movieID" >
@@ -90,6 +88,7 @@
                         </select>
                     </div>
 
+                    <!-- Input  -->
                     <div class="mb-3">
                         <label for="languageID" class="form-label">Audio</label>
                         <select id="languageID" class="form-select" name="languageID" >
@@ -98,6 +97,7 @@
                         </select>
                     </div>
 
+                    <!-- Input  -->
                     <div class="mb-3">
                         <label for="subtitleID" class="form-label">Subtitulo</label>
                         <select id="subtitleID" class="form-select" name="subtitleID" >
@@ -106,6 +106,7 @@
                         </select>
                     </div>
 
+                    <!-- Button  -->
                     <button type="submit" class="btn btn-cta px-5 mt-3">Enviar</button>
 
                 </form>
