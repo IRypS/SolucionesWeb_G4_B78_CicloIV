@@ -81,8 +81,8 @@
                     <!-- File Input  -->
                     <div class="mb-3">
                         <label for="idCover" class="form-label">Imagen</label>
-                        <input type="file" class="form-control" name="coverImage" 
-                            id="idCover" placeholder="">
+                        <input th:classappend="${response eq 'La pelicula requiere una imagen'} ? 'is-invalid' : ''"
+                            type="file" class="form-control" name="coverImage" id="idCover">
                     </div>
 
                     <!-- Input  -->
