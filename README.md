@@ -4,7 +4,14 @@ Proyecto realizado para cubrir las evidencias correspondientes a las 4 unidades 
 para Plataformas Web en el instituto CERTUS.    
 
 > Estado:    
-> `Vistas casi funcionales (Sin base de datos)`
+> `Módulos de peliculas y trailers implementado (Con una conexion a la base de datos)`
+
+## ¡¡¡ IMPORTANTE !!!
+Debido a la falta de algunos módulos se tienen que ingresar algunos datos manualmente para que lo trailers y peliculas puedan funcionar.
+
+Los queries para ingresar estos datos se encuentran en: [INSERT_DATA.sql](https://github.com/IRypS/SolucionesWeb_G4_B78_CicloIV/blob/master/temp/sql/INSERT_DATA.sql "Archivo sql dentro del repositorio")
+
+
 ## Integrantes    
 
 - [Andy Imanol Manchego Montes](https://github.com/isd-andymanchego "Perfil de Andy en GitHub")    
@@ -27,7 +34,8 @@ para Plataformas Web en el instituto CERTUS.
 > - Sass [scss] (Personalizacion de Bootstrap)
 > - Javascript    
 > - Thymeleaf (motor de plantillas)
->
+> - DataTables + jquery
+> 
 > Tecnologias back end    
 > 
 > - Java 18 (jdk-18.0.2.1)    
