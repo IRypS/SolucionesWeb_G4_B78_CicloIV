@@ -63,7 +63,7 @@
                     <tr th:each="movie : ${ movieList }" th:if="${ !movie.getIdMovie.equals('0') }">
                         <!-- Image  -->
                         <td style="height: 50px;" class="text-nowrap d-flex justify-content-center">
-                            <img th:src="@{${ '/resources/upload/movie/cover/' + movie.getCoverUrl }}" alt="" style="height: 100%;">
+                            <img th:src="@{${ movieImagePath + movie.getCoverUrl }}" alt="" style="height: 100%;">
                         </td>
                         <!-- Actions buttons  -->
                         <td class="text-nowrap">

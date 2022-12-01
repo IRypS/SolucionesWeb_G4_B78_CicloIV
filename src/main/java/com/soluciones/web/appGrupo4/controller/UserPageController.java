@@ -1,7 +1,6 @@
 package com.soluciones.web.appGrupo4.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +30,9 @@ public class UserPageController {
 
     @Value("${web.title}")
     private String title;
+
+    @Value("${image.resource.path.general}" + "${image.folder.movie.name}" + "/")
+    private String movieImagePath;
 
     @Autowired
     private ITrailerService trailerInterface;
@@ -106,6 +108,7 @@ public class UserPageController {
 			model.addAttribute("title", title + " | " + trailerResponse.getData().getTitle());
 			model.addAttribute("trailer", trailerResponse.getData());
             model.addAttribute("relatedTrailers", relatedTrailersResponse.getListData());
+            model.addAttribute("movieImagePath", movieImagePath);
 			model.addAttribute("response", trailerResponse.getMessage());
             // TemporallyData
             model.addAttribute("userList", listsInterface.getAllLists());

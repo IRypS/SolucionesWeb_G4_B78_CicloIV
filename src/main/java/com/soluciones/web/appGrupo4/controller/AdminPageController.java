@@ -53,6 +53,9 @@ public class AdminPageController {
     @Autowired
     private ILanguageService languageInterface;
 
+    @Value("${image.resource.path.general}" + "${image.folder.movie.name}" + "/")
+    private String movieImagePath;
+
 
     @GetMapping("/dashboard")
     public String dashboardHome(Model model){
@@ -221,6 +224,7 @@ public class AdminPageController {
         if (response.getState()) {
 			model.addAttribute("title", title + " | (ADMIN) Listado de Peliculas");
 			model.addAttribute("movieList", response.getListData());
+            model.addAttribute("movieImagePath", movieImagePath);
 			return "admin/movie";
 		} else {
 			model.addAttribute("title", title + " | Error al obtener peliculas");
@@ -308,6 +312,7 @@ public class AdminPageController {
         if (createTrailerResponse.getState()) {
 			model.addAttribute("title", title + " | (ADMIN) Listado de Peliculas");
 			model.addAttribute("movieList", createTrailerResponse.getListData());
+            model.addAttribute("movieImagePath", movieImagePath);
 			model.addAttribute("response", createTrailerResponse.getMessage());
 			return "admin/movie";
 		} else {
@@ -377,6 +382,7 @@ public class AdminPageController {
         if (movieDeleteResponse.getState()) {
 			model.addAttribute("title", title + " | (ADMIN) Listado de Peliculas");
 			model.addAttribute("movieList", movieDeleteResponse.getListData());
+            model.addAttribute("movieImagePath", movieImagePath);
 			model.addAttribute("response", movieDeleteResponse.getMessage());
 			return "admin/movie";
 		} else {

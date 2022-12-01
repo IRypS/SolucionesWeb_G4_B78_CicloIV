@@ -1,19 +1,16 @@
 package com.soluciones.web.appGrupo4.service;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.soluciones.web.appGrupo4.model.Response;
+import com.soluciones.web.appGrupo4.model.ResponseFile;
 import com.soluciones.web.appGrupo4.model.entities.E_Genre;
 import com.soluciones.web.appGrupo4.model.entities.E_Movie;
 import com.soluciones.web.appGrupo4.model.entities.E_Person;
@@ -23,6 +20,7 @@ import com.soluciones.web.appGrupo4.repository.I_person_db;
 import com.soluciones.web.appGrupo4.repository.manage.IMovie;
 import com.soluciones.web.appGrupo4.service.interfaces.IGenreService;
 import com.soluciones.web.appGrupo4.service.interfaces.IMovieService;
+import com.soluciones.web.appGrupo4.utils.interfaces.IImageLocalHandler;
 
 @Service
 public class MovieService implements IMovieService {
@@ -39,6 +37,12 @@ public class MovieService implements IMovieService {
 
     @Autowired
     private IGenreService genre_service;
+
+    @Autowired
+    private IImageLocalHandler imageHandler;
+
+    @Value("${image.folder.path.general}" + "${image.folder.movie.name}")
+    private String pathMovie;
     
 
 
@@ -106,59 +110,34 @@ public class MovieService implements IMovieService {
     public Response<E_Movie> createMovie(E_Movie movie, MultipartFile fileM, List<String> idDirectorList, List<String> idGenreList) {
 
         Response<E_Movie> response = new Response<>();
+        ResponseFile responseFile = new ResponseFile();
 
         try {
-            
-            System.out.println("RESULTADOS DEL SERVICE");
-            System.out.println(movie.getIdMovie());
-            System.out.println(movie.getName());
-            System.out.println(movie.getDuration());
-            System.out.println(movie.getSynopsis());
-            System.out.println(movie.getCoverUrl());
-            System.out.println(movie.getDirectorsList().size());
-            System.out.println(movie.getGenreList().size());
 
-            if( (fileM.isEmpty()) ) {
-                System.out.println("NO SE ENVIÓ NADA");
-            }
             if( !(fileM.isEmpty()) ) {
-                System.out.println("TENEMOS DATA !!!!");
 
-                try {
-                    if (movie.getCoverUrl().equals("")) { movie.setCoverUrl(null); };
+                if (movie.getCoverUrl().equals("")) { movie.setCoverUrl(null);; }
+                if (movie.getCoverUrl() != null) {
+                    imageHandler.deleteImageLocal(movie.getCoverUrl(), pathMovie);
+                } 
 
-                    if (movie.getCoverUrl() != null) {
-                        Path pathImage = Paths.get("src//main//resources//static//resources//upload//movie//cover");
-                        Path pathDeleteFile = Paths.get(pathImage + "//" + movie.getCoverUrl());
-                        File fileToDelete = pathDeleteFile.toFile();
-                        if (fileToDelete.exists()) {
-							fileToDelete.delete();
-						}
-                    } 
+                responseFile = imageHandler.saveImageInLocal(fileM, pathMovie);
 
-                    String newNameFile = UUID.randomUUID().toString();
-					String extesionFile = org.springframework.util.StringUtils.getFilenameExtension(fileM.getOriginalFilename());
+                if(responseFile.getState()) {
+                    movie.setCoverUrl(responseFile.getFileName());
 
-                    byte[] bytesCoverImg = fileM.getBytes();
-                    Path pathImage = Paths.get("src//main//resources//static//resources//upload//movie//cover");
-                    Path completePath = Paths.get(pathImage + "//" + newNameFile + "." + extesionFile);
-                    Files.write(completePath, bytesCoverImg);
-                    movie.setCoverUrl(newNameFile + "." + extesionFile);
-
-                } catch (Exception e) {
-                    response.setState(false);
-					response.setMessage("IMG-ERROR");
-					response.setErrorMessage(e.getStackTrace().toString());
-					return response;
+                } else {
+                    response.setState(responseFile.getState());
+                    response.setMessage("IMG-ERROR | Ocurrió un error al crear el archivo");
+                    response.setErrorMessage(responseFile.getErrorMessage());
+                    return response;
                 }
             }
 
 
-
             List<E_Person> directorsToAdd = this.createDirectorObjectsIntoArray(idDirectorList);
-            movie.setDirectorsList(directorsToAdd);
-
             List<E_Genre> genresToAdd = this.createGenresObjectsIntoArray(idGenreList);
+            movie.setDirectorsList(directorsToAdd);
             movie.setGenreList(genresToAdd);
 
             E_Movie createMovie = movie_entity.save(movie);
@@ -188,14 +167,8 @@ public class MovieService implements IMovieService {
             movie_entity.deleteById(id);
 
             if (targetMovie.get().getCoverUrl().equals("")) { targetMovie.get().setCoverUrl(null); };
-
             if (targetMovie.get().getCoverUrl() != null) {
-                Path pathImage = Paths.get("src//main//resources//static//resources//upload//movie//cover");
-                Path pathDeleteFile = Paths.get(pathImage + "//" + targetMovie.get().getCoverUrl());
-                File fileToDelete = pathDeleteFile.toFile();
-                if (fileToDelete.exists()) {
-                    fileToDelete.delete();
-                } 
+                imageHandler.deleteImageLocal(targetMovie.get().getCoverUrl(), pathMovie);
             } 
 
             response.setState(true);
@@ -213,6 +186,8 @@ public class MovieService implements IMovieService {
     };
 
 
+
+
     public List<E_Person> createDirectorObjectsIntoArray(List<String> idDirectorList) {
 
         List<E_Person> objectPersonList = new ArrayList<>();
@@ -226,6 +201,7 @@ public class MovieService implements IMovieService {
 
         return objectPersonList;
     };
+
 
     public List<E_Genre> createGenresObjectsIntoArray(List<String> idGenreList) {
 
