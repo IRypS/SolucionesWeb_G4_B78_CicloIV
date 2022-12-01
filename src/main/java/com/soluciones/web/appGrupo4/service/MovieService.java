@@ -125,7 +125,6 @@ public class MovieService implements IMovieService {
 
                 if(responseFile.getState()) {
                     movie.setCoverUrl(responseFile.getFileName());
-
                 } else {
                     response.setState(responseFile.getState());
                     response.setMessage("IMG-ERROR | Ocurrió un error al crear el archivo");
@@ -133,7 +132,6 @@ public class MovieService implements IMovieService {
                     return response;
                 }
             }
-
 
             List<E_Person> directorsToAdd = this.createDirectorObjectsIntoArray(idDirectorList);
             List<E_Genre> genresToAdd = this.createGenresObjectsIntoArray(idGenreList);

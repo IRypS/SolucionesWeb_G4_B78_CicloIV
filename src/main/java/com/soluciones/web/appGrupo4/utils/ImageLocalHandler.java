@@ -16,7 +16,7 @@ import com.soluciones.web.appGrupo4.utils.interfaces.IImageLocalHandler;
 @Component
 public class ImageLocalHandler implements IImageLocalHandler {
     
-    @Value("${image.folder.path.main}")
+    @Value("${image.folder.path.general}")
     public String mainFolderPath;
 
 
@@ -53,7 +53,6 @@ public class ImageLocalHandler implements IImageLocalHandler {
     public void deleteImageLocal(String fileNameImage, String folderPath) {
 
         Path pathDeleteFile = Paths.get(folderPath + "//" + fileNameImage);
-        System.out.println(pathDeleteFile.toString());
         File fileToDelete = pathDeleteFile.toFile();
 
         if (fileToDelete.exists()) {
