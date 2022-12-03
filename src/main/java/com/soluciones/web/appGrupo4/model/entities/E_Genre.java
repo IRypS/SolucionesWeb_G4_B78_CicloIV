@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -19,6 +20,7 @@ public class E_Genre {
     private String idGenre;
 
     @Column(name = "name_genre")
+    @NotEmpty(message = "Ingrese un nombre")
     private String nameGenre;
 
 

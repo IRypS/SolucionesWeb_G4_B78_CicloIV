@@ -206,9 +206,13 @@ public class MovieService implements IMovieService {
         List<E_Genre> objectGenderList = new ArrayList<>();
 
         if(idGenreList != null) {
+
             idGenreList.forEach( (idGenre) -> {
-                E_Genre genre = genre_service.getGenreById(idGenre);
-                objectGenderList.add(genre);
+                Response<E_Genre> genreResponse = genre_service.getGenreById(idGenre);
+
+                if (genreResponse.getState()) {
+                    objectGenderList.add(genreResponse.getData());
+                }
             } );
         } 
 

@@ -1,5 +1,3 @@
-
-
 <!-- Side Bar -->
 <div th:fragment="sidebar (active)" 
     class="d-flex flex-column flex-shrink-0 vh-100 w-100 p-3 text-white bg-dark">
@@ -43,6 +41,14 @@
                 class="nav-link d-flex" aria-current="page">
                 <img th:src="@{ /resources/icons/movie__icon.svg }" alt="Icono de inicio" >
                 &nbsp; Movie
+            </a>
+        </li>
+        <li class="nav-item">
+            <a th:href="@{ /app/administrator/genreList }"
+                th:classappend="${ active eq 'genre' } ? active : ''"
+                class="nav-link d-flex" aria-current="page">
+                <img th:src="@{ /resources/icons/category__icon.svg }" alt="Icono de generos" >
+                &nbsp; Genres
             </a>
         </li>
     </ul> <!-- End Side bar links -->

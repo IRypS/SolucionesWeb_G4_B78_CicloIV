@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Meta tags && title && icon -->
+    <div th:replace="/fragments/template_basic_header :: base_header"></div>
+
+    <!-- Bootstrap CSS (Temporally location)-->
+    <div th:replace="/fragments/bootstrap_template :: bootstrap_css"></div>
+
+    <!-- Datatables -->
+    <div th:replace="/admin/fragments/template_datatable :: datatable_head"></div>
+
+    <!-- Customize css -->    
+    <link type="text/css" rel="stylesheet" href="/styles/css/customize__sidebar.css">
+    <link type="text/css" rel="stylesheet" href="/styles/css/customize__table.css">
+
+</head>
+<body class="vw-100 mw-100">
+
+    <header th:replace="/admin/fragments/header :: headerAdmin" class="d-md-none"></header>
+
+    <main class="row w-100 m-0">
+
+        <!-- offcanvas Menu Side bar -->
+        <div class="d-md-none offcanvas offcanvas-start w-75 bg-dark p-0" tabindex="-1" id="sideBar" aria-labelledby="sideBarLabel">
+            <div class="offcanvas-body p-0">
+                <div th:insert="/admin/fragments/sidebar :: sidebar( active = 'genre')"
+                    class="bg-primary">
+                </div>
+            </div>
+        </div> <!-- End offcanvas Menu Side bar -->
+
+        <!-- Menu Side bar -->
+        <div th:insert="/admin/fragments/sidebar :: sidebar( active = 'genre')"
+            class="col-md-4 col-lg-3 col-xl-2 d-none d-md-flex p-0 m-0 bg-primary">
+        </div>
+
+
+        <!-- Content -->
+        <div class="col-md-8 col-lg-9 col-xl-10 overflow-auto p-5 vh-100 text-light">
+
+            <!-- Title & buttons -->
+            <div th:replace="/admin/fragments/table_header :: header_table( name='Genre', 
+                image='category__icon.svg', actionLink='/app/administrator/insert/genre')"></div>
+            
+            <!-- Response  -->
+            <div th:replace="/admin/fragments/response :: response"></div>
+
+            <!-- Table  -->
+            <table id="dataTable" class="display wrap overflow-auto" cellspacing="0" style="width:100%">
+                <thead>
+                    <tr>
+                        <td>Name</td>
+                        <td>Actions</td>
+                        <td>ID</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Each data  -->
+                    <tr th:each="genre : ${ genreList }">
+                        <!-- Name  -->
+                        <td th:text="${ genre.getNameGenre }"></td>
+                        <!-- Actions buttons  -->
+                        <td class="text-nowrap">
+                            <!-- Update  -->
+                            <a th:href="@{${ '/app/administrator/update/form/genre/' + genre.getIdGenre }}" class="btn btn-sm btn-info">
+                                <img th:src="@{ /resources/icons/edit__icon.svg }" alt="">
+                            </a>
+                            <!-- Delete  -->
+							<a th:href="@{${ '/app/administrator/delete/genre/' + genre.getIdGenre }}" class="btn btn-sm btn-danger">
+                                <img th:src="@{ /resources/icons/trash__icon.svg }" alt="">
+                            </a>
+                        </td>
+                        <!-- Id  -->
+                        <td th:text="${ genre.getIdGenre }"></td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+
+        </div>
+    </main>
+
+
+    <!-- Bootstrap JS -->
+    <div th:replace="/fragments/bootstrap_template :: bootstrap_js-popper"></div>
+
+    <!-- Datatables -->
+    <div th:replace="/admin/fragments/template_datatable :: datable_scripts"></div>
+
+</body>
+</html>

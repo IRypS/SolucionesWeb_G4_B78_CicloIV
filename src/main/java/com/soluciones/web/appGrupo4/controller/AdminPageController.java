@@ -392,4 +392,104 @@ public class AdminPageController {
 			return "admin/errors";
 		}
     }
+
+
+    @GetMapping("/genreList")
+    public String getGenreList(Model model) {
+
+        model.addAttribute("activeSession", true);
+
+        Response<E_Genre> response = genderInterface.getAllGenres();
+
+        if (response.getState()) {
+			model.addAttribute("title", title + " | (ADMIN) Listado de Generos");
+			model.addAttribute("genreList", response.getListData());
+			return "admin/genre";
+		} else {
+			model.addAttribute("title", title + " | Error al obtener generos");
+			model.addAttribute("response", response.getMessage());
+			model.addAttribute("error", response.getErrorMessage());
+			return "admin/errors";
+		}
+    }
+
+    @GetMapping("/insert/genre")
+    public String genreForm(Model model) {
+
+        E_Genre genre = new E_Genre();
+
+        model.addAttribute("activeSession", true);
+        model.addAttribute("title", title + " | Crear Genero");
+        model.addAttribute("genre", genre);
+
+        return "admin/genre_form";
+    }
+
+    @PostMapping("/create/genre")
+    public String createGenre( 
+        @Validated @ModelAttribute("genre") E_Genre genre,
+        BindingResult br, Model model) {
+
+        // Verify errors
+        if(br.hasErrors()) { 
+            return "admin/genre_form"; 
+        };
+
+        model.addAttribute("activeSession", true);
+
+        Response<E_Genre> createGenreResponse = genderInterface.createGenre(genre);
+
+        if (createGenreResponse.getState()) {
+            model.addAttribute("title", title + " | (ADMIN) Listado de Géneros");
+			model.addAttribute("genreList", createGenreResponse.getListData());
+			model.addAttribute("response", createGenreResponse.getMessage());
+            return "admin/genre";
+        } else {
+            model.addAttribute("title", title + " | Error en el formulario de generos");
+            model.addAttribute("response", createGenreResponse.getMessage());
+            model.addAttribute("error", createGenreResponse.getErrorMessage());
+            return "admin/errors";
+        }
+
+    }
+
+    @GetMapping("/update/form/genre/{id}")
+    public String genreUpdateForm(@PathVariable String id, Model model) {
+
+        model.addAttribute("title", title);
+        model.addAttribute("activeSession", true);
+
+        Response<E_Genre> genreResponse = genderInterface.getGenreById(id);
+
+        if (genreResponse.getState()) {
+            model.addAttribute("genre", genreResponse.getData());
+            return "admin/genre_form";
+        } else {
+            model.addAttribute("title", title + " | Error en el formulario de genero");
+            model.addAttribute("response", genreResponse.getMessage());
+            model.addAttribute("error", genreResponse.getErrorMessage());
+            return "admin/errors";
+        }
+
+    };
+
+        @GetMapping("/delete/genre/{id}")
+        public String deleteGenre(@PathVariable String id, Model model) {
+
+            model.addAttribute("activeSession", true);
+            
+            Response<E_Genre> genreDeleteResponse = genderInterface.deleteGenderById(id);
+
+            if (genreDeleteResponse.getState()) {
+                model.addAttribute("title", title + " | (ADMIN) Listado de Peliculas");
+                model.addAttribute("genreList", genreDeleteResponse.getListData());
+                model.addAttribute("response", genreDeleteResponse.getMessage());
+                return "admin/genre";
+            } else {
+                model.addAttribute("title", title + " | Error al eliminar la pelicula");
+                model.addAttribute("response", genreDeleteResponse.getMessage());
+                model.addAttribute("error", genreDeleteResponse.getErrorMessage());
+                return "admin/errors";
+            }
+        }
 }

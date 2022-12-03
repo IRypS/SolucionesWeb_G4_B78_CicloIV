@@ -1,6 +1,7 @@
 <div th:fragment="header_table (name, image, actionLink)"
     class="d-flex justify-content-between mb-3">
-    <h2 th:text="${name}" class="p-0 m-0 text-nowrap">
+    <h2 class="p-0 m-0 text-nowrap">
+        <span th:text="${name}"></span>
         <img th:src="@{${ '/resources/icons/' + image }}" alt="">
     </h2>
 
