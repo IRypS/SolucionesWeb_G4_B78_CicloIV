@@ -33,23 +33,23 @@
 
                     <!-- Genre Filter -->
                     <div>
-                        <div th:replace="/fragments/filter :: filter_section( parent='accordionFlushFilter', id='flush-genres', 
-                        idCollapse='flush-collapseGenres', title='Por Género', object='genresList', 
-                        getLabelMethod='getNameGenre', getIdMethod='getIdGenre')">
+                        <div th:replace="/fragments/filter :: filter_section( parent='accordionFlushFilter', 
+                        id='flush-genres', idCollapse='flush-collapseGenres', title='Por Género',
+                        object='genresList', getLabelMethod='getNameGenre', getIdMethod='getIdGenre')">
                     </div>
 
                     <!-- Audio Filter -->
                     <div>
-                        <div th:replace="/fragments/filter :: filter_section( parent='accordionFlushFilter', id='flush-audio', 
-                        idCollapse='flush-collpaseAudio', title='Por Audio', object='languagesList', 
-                        getLabelMethod='getNameLanguage', getIdMethod='getIdLanguage')">
+                        <div th:replace="/fragments/filter :: filter_section( parent='accordionFlushFilter', 
+                        id='flush-audio', idCollapse='flush-collpaseAudio', title='Por Audio', 
+                        object='languagesList', getLabelMethod='getNameLanguage', getIdMethod='getIdLanguage')">
                     </div>
 
                     <!-- Subtitle Filter -->
                     <div>
-                        <div th:replace="/fragments/filter :: filter_section( parent='accordionFlushFilter', id='flush-subtitle', 
-                        idCollapse='flush-collapseSubtitle', title='Por Subtitulos', object='languagesList', 
-                        getLabelMethod='getNameLanguage', getIdMethod='getIdLanguage')">
+                        <div th:replace="/fragments/filter :: filter_section( parent='accordionFlushFilter', 
+                        id='flush-subtitle', idCollapse='flush-collapseSubtitle', title='Por Subtitulos', 
+                        object='languagesList', getLabelMethod='getNameLanguage', getIdMethod='getIdLanguage')">
                     </div>
                 </div>
             </aside>
@@ -61,6 +61,33 @@
                 </div>
             </div>
             
+            <!-- TrailerPaginationNav -->
+            <div class="row" th:if="${!pages.isEmpty()}">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <nav aria-label="Pagination">
+                        <ul class="pagination justify-content-center">
+                            <!-- Prev -->
+                            <li class="page-item" th:classappend="${prev == 0} ? 'disabled' : ''">
+                                <a class="page-link" th:href="@{|/app/trailersPaginated/?page=${prev}|}" aria-label="Previous">
+                                  <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <!-- N Pages -->
+                            <li class="page-item" th:each="page : ${pages}" th:classappend="${page == current} ? 'active' : ''">
+                                <a class="page-link" th:href="@{|/app/trailersPaginated/?page=${page}|}" th:text="${page}"></a>
+                            </li>
+                            <!-- Next -->
+                            <li class="page-item" th:classappend="${current == last} ? 'disabled' : ''">
+                                <a class="page-link" th:href="@{|/app/trailersPaginated/?page=${next}|}" aria-label="Next">
+                                  <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
         </div>
     </main>
 

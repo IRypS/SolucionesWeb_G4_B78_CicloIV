@@ -2,11 +2,14 @@ package com.soluciones.web.appGrupo4.model;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 public class Response<T> {
 	private Boolean state;
 	private String message;
 	private String errorMessage;
 	private T data;
+	private Page<T> paginatedData;
 	private List<T> listData;
 
 	public Response() {
@@ -47,6 +50,14 @@ public class Response<T> {
 		this.data = data;
 	}
 
+	public Page<T> getPaginatedData() {
+		return paginatedData;
+	}
+
+	public void setPaginatedData(Page<T> paginatedData) {
+		this.paginatedData = paginatedData;
+	}
+
 	public List<T> getListData() {
 		return listData;
 	}
@@ -54,6 +65,11 @@ public class Response<T> {
 	public void setListData(List<T> listData) {
 		this.listData = listData;
 	}
+	
+
+	
+
+	
 
 	
 	

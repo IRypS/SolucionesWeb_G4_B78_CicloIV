@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.soluciones.web.appGrupo4.model.Response;
@@ -45,6 +46,24 @@ public class TrailerService implements ITrailerService{
 
 		return response;
     };
+
+    @Override
+    public Response<E_Trailer> getPaginatedTrailers(Pageable pageable) {
+        Response<E_Trailer> response = new Response<>();
+
+		try {
+			response.setMessage("Lista de trailers");
+			response.setState(true);
+			response.setPaginatedData(trailer_entity.findAll(pageable));
+
+		} catch (Exception e) {
+			response.setState(false);
+			response.setMessage("Hubo problemas para obtener el listado paginado de trailers");
+			response.setErrorMessage(e.getStackTrace().toString());
+		}
+
+		return response;
+    }
 
     @Override
     public Response<E_Trailer> getTrailerById(String id) {
@@ -141,4 +160,5 @@ public class TrailerService implements ITrailerService{
 
         return response;
     };
+
 }
