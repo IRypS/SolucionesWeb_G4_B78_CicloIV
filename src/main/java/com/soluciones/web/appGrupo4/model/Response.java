@@ -1,6 +1,7 @@
 package com.soluciones.web.appGrupo4.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Page;
 
@@ -9,14 +10,18 @@ public class Response<T> {
 	private String message;
 	private String errorMessage;
 	private T data;
-	private Page<T> paginatedData;
 	private List<T> listData;
+	private Page<T> paginatedData;
+	private Map<String, Integer> pagesInformation;
+	private List<Integer> totalPagesList;
+
 
 	public Response() {
 		this.state = false;
 		this.message = "";
 		this.errorMessage = "";
 	}
+
 
 	public Boolean getState() {
 		return state;
@@ -50,6 +55,14 @@ public class Response<T> {
 		this.data = data;
 	}
 
+	public List<T> getListData() {
+		return listData;
+	}
+
+	public void setListData(List<T> listData) {
+		this.listData = listData;
+	}
+
 	public Page<T> getPaginatedData() {
 		return paginatedData;
 	}
@@ -58,22 +71,20 @@ public class Response<T> {
 		this.paginatedData = paginatedData;
 	}
 
-	public List<T> getListData() {
-		return listData;
+	public Map<String, Integer> getPagesInformation() {
+		return pagesInformation;
 	}
 
-	public void setListData(List<T> listData) {
-		this.listData = listData;
+	public void setPagesInformation(Map<String, Integer> pagesInformation) {
+		this.pagesInformation = pagesInformation;
 	}
-	
 
-	
+	public List<Integer> getTotalPagesList() {
+		return totalPagesList;
+	}
 
-	
-
-	
-	
-	
-	
+	public void setTotalPagesList(List<Integer> totalPagesList) {
+		this.totalPagesList = totalPagesList;
+	}
 	
 }

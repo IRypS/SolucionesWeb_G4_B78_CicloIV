@@ -62,32 +62,15 @@
             </div>
             
             <!-- TrailerPaginationNav -->
-            <div class="row" th:if="${!pages.isEmpty()}">
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
-                    <nav aria-label="Pagination">
-                        <ul class="pagination justify-content-center">
-                            <!-- Prev -->
-                            <li class="page-item" th:classappend="${prev == 0} ? 'disabled' : ''">
-                                <a class="page-link" th:href="@{|/app/trailersPaginated/?page=${prev}|}" aria-label="Previous">
-                                  <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <!-- N Pages -->
-                            <li class="page-item" th:each="page : ${pages}" th:classappend="${page == current} ? 'active' : ''">
-                                <a class="page-link" th:href="@{|/app/trailersPaginated/?page=${page}|}" th:text="${page}"></a>
-                            </li>
-                            <!-- Next -->
-                            <li class="page-item" th:classappend="${current == last} ? 'disabled' : ''">
-                                <a class="page-link" th:href="@{|/app/trailersPaginated/?page=${next}|}" aria-label="Next">
-                                  <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
+            <div th:if="${!pages.isEmpty()}">
+
+                <div th:replace="/fragments/pagination_nav :: pagination_nav( generalPath='/app/trailers', 
+                    pageList='pages', prev=${pagesInfo.get('prev')}, current=${pagesInfo.get('current')},
+                    next=${pagesInfo.get('next')}, last=${pagesInfo.get('last')}, )">
+
                 </div>
-                <div class="col-md-2"></div>
             </div>
+            
         </div>
     </main>
 

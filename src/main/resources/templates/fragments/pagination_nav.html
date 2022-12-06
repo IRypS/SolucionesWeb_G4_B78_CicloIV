@@ -1,0 +1,36 @@
+
+<div tH:fragment="pagination_nav (generalPath, pageList, prev, current, next, last)">
+    <div class="row">
+        <div class="col-12 bg-dark text-light" th:text="${rand}">a</div>
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <!-- Pagination Nav -->
+            <nav aria-label="Pagination">
+
+                <ul class="pagination justify-content-center">
+
+                    <!-- Prev -->
+                    <li class="page-item" th:classappend="${ prev == 0 } ? 'disabled' : ''">
+                        <a class="page-link" th:href="@{${ generalPath + '/?page=' + prev}}" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+
+                    <!-- N Pages -->
+                    <li class="page-item" th:each="page : ${__${pageList}__}" th:classappend="${page == current} ? 'active' : ''">
+                        <a class="page-link" th:href="@{${ generalPath + '/?page=' + page}}" th:text="${page}"></a>
+                    </li>
+
+                    <!-- Next -->
+                    <li class="page-item" th:classappend="${current == last} ? 'disabled' : ''">
+                        <a class="page-link" th:href="@{${ generalPath + '/?page=' + next }}" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+
+            </nav>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>

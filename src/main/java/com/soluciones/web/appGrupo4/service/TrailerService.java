@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.soluciones.web.appGrupo4.helper.IPaginationHelper;
 import com.soluciones.web.appGrupo4.model.Response;
 import com.soluciones.web.appGrupo4.model.entities.E_Language;
 import com.soluciones.web.appGrupo4.model.entities.E_Movie;
@@ -28,6 +30,9 @@ public class TrailerService implements ITrailerService{
     @Autowired
     private ILanguageService language_service;
 
+	@Autowired
+	private IPaginationHelper pagination;
+
     @Override
     public Response<E_Trailer> getAllTrailers() {
 
@@ -48,13 +53,28 @@ public class TrailerService implements ITrailerService{
     };
 
     @Override
-    public Response<E_Trailer> getPaginatedTrailers(Pageable pageable) {
+    public Response<E_Trailer> getPaginatedTrailers(int pageIndexNumber, int elementsPerPage) {
         Response<E_Trailer> response = new Response<>();
 
 		try {
+            
+            PageRequest pageRequest = PageRequest.of(pageIndexNumber, elementsPerPage);
+			Page<E_Trailer> pageData = trailer_entity.findAll(pageRequest);
+			Integer totalPages = pageData.getTotalPages();
+
+			if (pageIndexNumber > totalPages ) {
+				response.setState(false);
+				response.setMessage("Bad Page Request");
+				response.setErrorMessage("Este número de paginación no existe");
+
+				return response;
+			}
+
 			response.setMessage("Lista de trailers");
 			response.setState(true);
-			response.setPaginatedData(trailer_entity.findAll(pageable));
+			response.setPaginatedData(pageData);
+			response.setTotalPagesList(pagination.pageNumberListGenerator(totalPages));
+			response.setPagesInformation(pagination.pageInfoGnerator(totalPages, pageIndexNumber));
 
 		} catch (Exception e) {
 			response.setState(false);

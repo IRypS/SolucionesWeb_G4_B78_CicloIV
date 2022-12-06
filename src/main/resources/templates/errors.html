@@ -18,17 +18,15 @@
     <header th:replace="/fragments/navbar :: navbar_header( active = '' )"></header>
 
     <main class="container mt-5">
-        <div th:each="response : ${errorsHeader}">
-            <div th:if="${ response }"  class="alert alert-danger alert-dismissible fade show" role="alert">
-                <small><strong th:text="${response}"></strong></small>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+        <div th:if="${ errorHeader }"  class="alert alert-danger alert-dismissible fade show" role="alert">
+            <small><strong th:text="${ errorHeader }"></strong></small>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
 
         <div class="text-light">
-            <ul>
-                <li th:each="error : ${errorsBody}" th:if="${ error != ''}" th:text="${error}"></li>
-            </ul>
+            <div th:if="${ errorBody }">
+                <div th:text="${ errorBody }"></div>
+            </div>
         </div>
     </main>
 
