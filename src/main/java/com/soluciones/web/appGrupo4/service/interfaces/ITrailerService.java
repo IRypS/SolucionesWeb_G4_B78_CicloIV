@@ -17,4 +17,6 @@ public interface ITrailerService {
 
     public Response<E_Trailer> deleteTrailerById(String id);
 
+    public Response<E_Trailer> getTrailersByTitle(String title);
+
 }

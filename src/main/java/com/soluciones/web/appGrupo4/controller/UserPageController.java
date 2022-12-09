@@ -147,6 +147,61 @@ public class UserPageController {
     };
 
 
+    // @GetMapping("/search/trailer/{tl}")
+    // public String searchTrailerByTitle(@PathVariable String tl, Model model) {
+
+    //     System.out.println(tl);
+
+    //     model.addAttribute("activeSession", true);
+    //     model.addAttribute("title", title + " | Búsqueda");
+
+    //     // if (tl != null) {
+    //     //     Response<E_Trailer> searchTrailer = trailerInterface.getAllTrailers();
+    //     //     // Response<E_Trailer> searchTrailer = trailerInterface.getTrailersByTitle(tl);
+
+    //     //     if (searchTrailer.getState()) {
+    //     //         model.addAttribute("trailersList", searchTrailer);
+    //     //         model.addAttribute("response", searchTrailer.getMessage());
+    //     //         return "searchPage";
+
+    //     //     } else {
+    //     //         model.addAttribute("title", title + " | Error al realizar la búsqueda");
+    //     //         model.addAttribute("errorHeader", searchTrailer.getMessage());
+    //     //         model.addAttribute("errorBody", searchTrailer.getErrorMessage());
+    //     //         return "errors";
+    //     //     }
+
+    //     // }
+
+    //     return "searchPage";
+    // }
+
+    @GetMapping("/search/trailer")
+    public String searchTrailerByTitle(Model model,
+        @RequestParam(value = "tl", required = false) String tl) {
+
+        model.addAttribute("activeSession", true);
+
+        if (tl != null) {
+            Response<E_Trailer> searchTrailer = trailerInterface.getTrailersByTitle(tl);
+
+            if (searchTrailer.getState()) {
+                model.addAttribute("title", title + " | Búsqueda: " + tl);
+                model.addAttribute("trailersList", searchTrailer.getListData());
+                model.addAttribute("response", searchTrailer.getMessage());
+                return "searchPage";
+
+            } else {
+                model.addAttribute("title", title + " | Error al realizar la búsqueda");
+                model.addAttribute("errorHeader", searchTrailer.getMessage());
+                model.addAttribute("errorBody", searchTrailer.getErrorMessage());
+                return "errors";
+            }
+
+        }
+
+        return "searchPage";
+    }
 
 
 
