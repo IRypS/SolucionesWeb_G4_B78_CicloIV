@@ -1,5 +1,5 @@
-<div th:fragment="filter_section (parent, id, idCollapse, title, object, getLabelMethod, getIdMethod)"
-    class="accordion-item">
+<div th:fragment="filter_section (parent, id, idCollapse, title, 
+    object, getLabelMethod, getIdMethod, paramName)" class="accordion-item">
     <!-- Header -->
     <h2 class="accordion-header" th:id="${id}">
         <button th:text="${title}" class="accordion-button collapsed" type="button" 
@@ -12,16 +12,10 @@
         <div class="accordion-body">
 
             <!-- Object Each  -->
-            <div th:each=" data : ${__${object}__}"
-                    th:if="${ data.__${getIdMethod}__ != '0' }"
-                    class="form-check">
-                <input th:value="${data.__${getIdMethod}__.toLowerCase()}" 
-                        th:id="check + ${data.__${getIdMethod}__}"
-                        class="form-check-input" type="checkbox" >
-                <label th:text="${data.__${getLabelMethod}__}"
-                        th:for="check + ${data.__${getIdMethod}__}"
-                        class="form-check-label" >
-                </label>
+            <div class="list-group">
+                <a th:each=" data : ${__${object}__}" class="list-group-item list-group-item-action"
+                    th:href="@{${ '/app/filter/trailer/?' + paramName + '=' + data.__${getLabelMethod}__.toLowerCase() }}"
+                    th:text="${ data.__${getLabelMethod}__ }"></a>
             </div>
 
         </div>

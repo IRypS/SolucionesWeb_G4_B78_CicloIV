@@ -202,4 +202,24 @@ public class TrailerService implements ITrailerService{
         return response;
 	};
 
+	@Override
+	public Response<E_Trailer> getTrailersByGenre(String genre) {
+		Response<E_Trailer> response = new Response<>();
+
+		try {
+            List<E_Trailer> trailers = trailer_entity.getTrailersByGenre(genre);
+
+            response.setState(true);
+			response.setListData(trailers);
+			response.setMessage("Trailers encontrados por Genero");
+
+        } catch (Exception e) {
+            response.setState(false);
+			response.setMessage("Hubo problemas para encontrar los trailers");
+			response.setErrorMessage(e.getMessage());
+        }
+
+        return response;
+	};
+
 }

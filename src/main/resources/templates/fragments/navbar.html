@@ -85,7 +85,7 @@
                 <!-- End Links -->
 
                 <!-- Search bar -->
-                <form class="d-flex" role="search" th:action="@{/app/search/trailer/}">
+                <form th:if="${active != 'home'}" class="d-flex" role="search" th:action="@{/app/search/trailer/}">
                     <input class="form-control me-2" type="search" 
                             placeholder="Buscar" aria-label="Buscar" name="tl">
                     <button class="btn btn-primary" type="submit">Buscar</button>

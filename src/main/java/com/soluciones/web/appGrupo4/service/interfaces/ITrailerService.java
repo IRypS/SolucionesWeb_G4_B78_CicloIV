@@ -19,4 +19,6 @@ public interface ITrailerService {
 
     public Response<E_Trailer> getTrailersByTitle(String title);
 
+    public Response<E_Trailer> getTrailersByGenre(String genre);
+
 }

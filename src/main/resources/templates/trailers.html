@@ -28,28 +28,31 @@
 
                     <!-- Header Filter -->
                     <div class="bg-secondary rounded">
-                        <p class="h4 p-3 text-center" style="height: 100%;">Filter</p>
+                        <p class="h4 p-3 text-center" style="height: 100%;">Filtro</p>
                     </div>
 
                     <!-- Genre Filter -->
                     <div>
                         <div th:replace="/fragments/filter :: filter_section( parent='accordionFlushFilter', 
                         id='flush-genres', idCollapse='flush-collapseGenres', title='Por Género',
-                        object='genresList', getLabelMethod='getNameGenre', getIdMethod='getIdGenre')">
+                        object='genresList', getLabelMethod='getNameGenre', getIdMethod='getIdGenre',
+                        paramName='gre')">
                     </div>
 
                     <!-- Audio Filter -->
                     <div>
                         <div th:replace="/fragments/filter :: filter_section( parent='accordionFlushFilter', 
                         id='flush-audio', idCollapse='flush-collpaseAudio', title='Por Audio', 
-                        object='languagesList', getLabelMethod='getNameLanguage', getIdMethod='getIdLanguage')">
+                        object='languagesList', getLabelMethod='getNameLanguage', getIdMethod='getIdLanguage',
+                        paramName='lang')">
                     </div>
 
                     <!-- Subtitle Filter -->
                     <div>
                         <div th:replace="/fragments/filter :: filter_section( parent='accordionFlushFilter', 
                         id='flush-subtitle', idCollapse='flush-collapseSubtitle', title='Por Subtitulos', 
-                        object='languagesList', getLabelMethod='getNameLanguage', getIdMethod='getIdLanguage')">
+                        object='languagesList', getLabelMethod='getNameLanguage', getIdMethod='getIdLanguage',
+                        paramName='sttl')">
                     </div>
                 </div>
             </aside>
