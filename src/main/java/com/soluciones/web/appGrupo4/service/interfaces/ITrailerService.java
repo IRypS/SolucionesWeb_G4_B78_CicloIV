@@ -21,4 +21,6 @@ public interface ITrailerService {
 
     public Response<E_Trailer> getTrailersByGenre(String genre);
 
+    public Response<E_Trailer> getTrailersByLanguage(String language, boolean audio);
+
 }

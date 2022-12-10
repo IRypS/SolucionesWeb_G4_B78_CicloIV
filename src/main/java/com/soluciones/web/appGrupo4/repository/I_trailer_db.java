@@ -16,17 +16,17 @@ public interface I_trailer_db extends JpaRepository<E_Trailer, String> {
     List<E_Trailer> getLimitedTrailers(String id);
     
     List<E_Trailer> findByTitleContainsIgnoreCase(String title);
-    
-
-    String queryByGenre = "SELECT trailer.* "
-        .concat("FROM trailer, movie_genre, movie, genre ")
-        .concat("WHERE trailer.movie_id = movie.id_movie ")
-        .concat("AND movie_genre.genre_id = genre.id_genre ")
-        .concat("AND movie_genre.movie_id = movie.id_movie ")
-        .concat("AND genre.name_genre = ");
 
     @Query(nativeQuery = true, 
         value = "SELECT trailer.* FROM trailer, movie_genre, movie, genre WHERE trailer.movie_id = movie.id_movie AND movie_genre.genre_id = genre.id_genre AND movie_genre.movie_id = movie.id_movie AND genre.name_genre = (?1)")
     List<E_Trailer> getTrailersByGenre(String genre);
+
+    @Query(nativeQuery = true, 
+        value = "SELECT trailer.* FROM trailer, language WHERE trailer.language_id = language.id_language AND language.name_language = (?1) ORDER BY trailer.name_trailer ASC;")
+    List<E_Trailer> getTrailersByAudioLanguage(String lang);
+
+    @Query(nativeQuery = true, 
+        value = "SELECT trailer.* FROM trailer, language WHERE trailer.subtitle_id = language.id_language AND language.name_language = (?1) ORDER BY trailer.name_trailer ASC;")
+    List<E_Trailer> getTrailersBySubtitleLanguage(String lang);
 
 }

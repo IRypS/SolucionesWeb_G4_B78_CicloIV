@@ -222,4 +222,40 @@ public class TrailerService implements ITrailerService{
         return response;
 	};
 
+	@Override
+	public Response<E_Trailer> getTrailersByLanguage(String language, boolean audio) {
+		Response<E_Trailer> response = new Response<>();
+
+		try {
+            
+			if (audio == true) {
+				List<E_Trailer> trailers = trailer_entity.getTrailersByAudioLanguage(language);
+				response.setState(true);
+				response.setListData(trailers);
+				response.setMessage("Trailers encontrados por Lenguaje [Audio]");
+				return response;
+
+			} else if (audio == false) {
+				List<E_Trailer> trailers = trailer_entity.getTrailersBySubtitleLanguage(language);
+				response.setState(true);
+				response.setListData(trailers);
+				response.setMessage("Trailers encontrados por Lenguaje [Subtitulo]");
+				return response;
+				
+			} else {
+				response.setState(false);
+				response.setMessage("Hubo problemas para encontrar los trailers por lenguaje");
+				response.setErrorMessage("Segundo Argumento de la función no enviado o igual a Null");
+				return response;
+			}
+
+        } catch (Exception e) {
+            response.setState(false);
+			response.setMessage("Hubo problemas para encontrar los trailers por lenguaje");
+			response.setErrorMessage(e.getMessage());
+			return response;
+        }
+
+	};
+
 }

@@ -177,7 +177,9 @@ public class UserPageController {
 
     @GetMapping("/filter/trailer")
     public String filterTrailer(Model model,
-        @RequestParam(value = "gre", required = false) String gre) {
+        @RequestParam(value = "gre", required = false) String gre,
+        @RequestParam(value = "av", required = false) String av,
+        @RequestParam(value = "sttl", required = false) String sttl) {
 
         model.addAttribute("activeSession", true);
 
@@ -188,18 +190,81 @@ public class UserPageController {
                 model.addAttribute("title", title + " | Filtro: " + gre);
                 model.addAttribute("trailersList", filterTrailer.getListData());
                 model.addAttribute("response", filterTrailer.getMessage());
-                return "searchPage";
+                // return "searchPage";
 
             } else {
-                model.addAttribute("title", title + " | Error al realizar la búsqueda");
+                model.addAttribute("title", title + " | Error al realizar la búsqueda por género");
                 model.addAttribute("errorHeader", filterTrailer.getMessage());
                 model.addAttribute("errorBody", filterTrailer.getErrorMessage());
                 return "errors";
             }
-
         }
 
-        return "searchPage";
+        if (av != null) {
+            Response<E_Trailer> filterTrailer = trailerInterface.getTrailersByLanguage(av, true);
+
+            if (filterTrailer.getState()) {
+                model.addAttribute("title", title + " | Filtro: " + gre);
+                model.addAttribute("trailersList", filterTrailer.getListData());
+                model.addAttribute("response", filterTrailer.getMessage());
+                // return "searchPage";
+
+            } else {
+                model.addAttribute("title", title + " | Error al realizar la búsqueda por género");
+                model.addAttribute("errorHeader", filterTrailer.getMessage());
+                model.addAttribute("errorBody", filterTrailer.getErrorMessage());
+                return "errors";
+            }
+        }
+
+        if (sttl != null) {
+            Response<E_Trailer> filterTrailer = trailerInterface.getTrailersByLanguage(sttl, false);
+
+            if (filterTrailer.getState()) {
+                model.addAttribute("title", title + " | Filtro: " + gre);
+                model.addAttribute("trailersList", filterTrailer.getListData());
+                model.addAttribute("response", filterTrailer.getMessage());
+                // return "searchPage";
+
+            } else {
+                model.addAttribute("title", title + " | Error al realizar la búsqueda por género");
+                model.addAttribute("errorHeader", filterTrailer.getMessage());
+                model.addAttribute("errorBody", filterTrailer.getErrorMessage());
+                return "errors";
+            }
+        }
+
+        Response<E_Language> languageResponse = languageInterface.getAllLanguages();
+        if (languageResponse.getState()) {
+            model.addAttribute("languagesList", languageResponse.getListData());
+        } else {
+            model.addAttribute("title", title + " | Error al obtener Lenguajes");
+            model.addAttribute("errorHeader", languageResponse.getMessage());
+			model.addAttribute("errorBody", languageResponse.getErrorMessage());
+            return "errors";
+        }
+
+        Response<E_Genre> genreResponse = genreInterface.getAllGenres();
+        if (genreResponse.getState()) {
+            model.addAttribute("genresList", genreResponse.getListData());
+        } else {
+            model.addAttribute("title", title + " | Error al obtener Generos");
+            model.addAttribute("errorHeader", genreResponse.getMessage());
+			model.addAttribute("errorBody", genreResponse.getErrorMessage());
+            return "errors";
+        }
+
+        Response<E_Country> countryResponse = countriesInterface.getAllCountries();
+        if (countryResponse.getState()) {
+            model.addAttribute("countriesList", countryResponse.getListData());
+            return "trailers";
+        } else {
+            model.addAttribute("title", title + " | Error al obtener Paises");
+            model.addAttribute("errorHeader", countryResponse.getMessage());
+			model.addAttribute("errorBody", countryResponse.getErrorMessage());
+            return "errors";
+        }
+
     }
 
 

@@ -44,7 +44,7 @@
                         <div th:replace="/fragments/filter :: filter_section( parent='accordionFlushFilter', 
                         id='flush-audio', idCollapse='flush-collpaseAudio', title='Por Audio', 
                         object='languagesList', getLabelMethod='getNameLanguage', getIdMethod='getIdLanguage',
-                        paramName='lang')">
+                        paramName='av')">
                     </div>
 
                     <!-- Subtitle Filter -->
@@ -58,16 +58,22 @@
             </aside>
 
             <!-- Trailers -->
-            <div class="col-lg-9">
+            <div class="col-lg-9 text-light" th:if="${trailersList.size == 0}">
+                <h4>Resultados:</h4>
+                <div>
+                    La lista es nula
+                </div>
+            </div>
+            <div class="col-lg-9" th:unless="${trailersList.size == 0}">
                 <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 row-cols-xxl-5 pt-1">
                     <div th:replace="/fragments/trailer_link :: trailer_link( object='trailersList' )">
                 </div>
             </div>
             
             <!-- TrailerPaginationNav -->
-            <div th:if="${!pages.isEmpty()}">
+            <div th:if="${ pages != null }">
 
-                <div th:replace="/fragments/pagination_nav :: pagination_nav( generalPath='/app/trailers', 
+                <div th:if="${!pages.isEmpty()}" th:replace="/fragments/pagination_nav :: pagination_nav( generalPath='/app/trailers', 
                     pageList='pages', prev=${pagesInfo.get('prev')}, current=${pagesInfo.get('current')},
                     next=${pagesInfo.get('next')}, last=${pagesInfo.get('last')}, )">
 
