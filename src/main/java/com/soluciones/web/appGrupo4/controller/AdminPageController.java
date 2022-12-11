@@ -79,9 +79,10 @@ public class AdminPageController {
 			return "admin/trailer";
 		} else {
 			model.addAttribute("title", title + " | Error al obtener trailers");
+            model.addAttribute("status", "500");
 			model.addAttribute("response", response.getMessage());
-			model.addAttribute("error", response.getErrorMessage());
-			return "admin/errors";
+			model.addAttribute("errorMessage", response.getErrorMessage());
+			return "error/500";
 		}
     }
     
@@ -100,9 +101,10 @@ public class AdminPageController {
 			model.addAttribute("lazyMovie", movieDataResponse.getListData());
 		} else {
 			model.addAttribute("title", title + " | Error en el formulario de trailer");
+            model.addAttribute("status", "500");
 			model.addAttribute("response", movieDataResponse.getMessage());
-			model.addAttribute("error", movieDataResponse.getErrorMessage());
-			return "admin/errors";
+			model.addAttribute("errorMessage", movieDataResponse.getErrorMessage());
+			return "erro/500";
 		}
 
         if (languageDataResponse.getState()) {
@@ -110,9 +112,10 @@ public class AdminPageController {
 			return "admin/trailer_form";
 		} else {
 			model.addAttribute("title", title + " | Error en el formulario de trailer");
+            model.addAttribute("status", "500");
 			model.addAttribute("response", languageDataResponse.getMessage());
-			model.addAttribute("error", languageDataResponse.getErrorMessage());
-			return "admin/errors";
+			model.addAttribute("errorMessage", languageDataResponse.getErrorMessage());
+			return "error/500";
 		}
     }
 
@@ -147,9 +150,10 @@ public class AdminPageController {
             return "admin/trailer";
         } else {
             model.addAttribute("title", title + " | Error en el formulario de trailer");
+            model.addAttribute("status", "500");
             model.addAttribute("response", createTrailerResponse.getMessage());
-            model.addAttribute("error", createTrailerResponse.getErrorMessage());
-            return "admin/errors";
+            model.addAttribute("errorMessage", createTrailerResponse.getErrorMessage());
+            return "error/500";
         }
 
     }
@@ -168,18 +172,20 @@ public class AdminPageController {
 			model.addAttribute("trailer", trailerResponse.getData());
 		} else {
 			model.addAttribute("title", title + " | Error en el formulario de trailer");
+            model.addAttribute("status", "500");
 			model.addAttribute("response", trailerResponse.getMessage());
-			model.addAttribute("error", trailerResponse.getErrorMessage());
-			return "admin/errors";
+			model.addAttribute("errorMessage", trailerResponse.getErrorMessage());
+			return "error/500";
 		}
 
         if (movieDataResponse.getState()) {
 			model.addAttribute("lazyMovie", movieDataResponse.getListData());
 		} else {
 			model.addAttribute("title", title + " | Error en el formulario de trailer");
+            model.addAttribute("status", "500");
 			model.addAttribute("response", movieDataResponse.getMessage());
-			model.addAttribute("error", movieDataResponse.getErrorMessage());
-			return "admin/errors";
+			model.addAttribute("errorMessage", movieDataResponse.getErrorMessage());
+			return "error/500";
 		}
 
         if (languageDataResponse.getState()) {
@@ -187,9 +193,10 @@ public class AdminPageController {
 			return "admin/trailer_form";
 		} else {
 			model.addAttribute("title", title + " | Error en el formulario de trailer");
+            model.addAttribute("status", "500");
 			model.addAttribute("response", languageDataResponse.getMessage());
-			model.addAttribute("error", languageDataResponse.getErrorMessage());
-			return "admin/errors";
+			model.addAttribute("errorMessage", languageDataResponse.getErrorMessage());
+			return "error/500";
 		}
     };
     
@@ -207,9 +214,10 @@ public class AdminPageController {
 			return "admin/trailer";
 		} else {
 			model.addAttribute("title", title + " | Error al eliminar el trailer");
+            model.addAttribute("status", "500");
 			model.addAttribute("response", trailerDeleteResponse.getMessage());
-			model.addAttribute("error", trailerDeleteResponse.getErrorMessage());
-			return "admin/errors";
+			model.addAttribute("errorMessage", trailerDeleteResponse.getErrorMessage());
+			return "error/500";
 		}
 
     }
@@ -228,9 +236,10 @@ public class AdminPageController {
 			return "admin/movie";
 		} else {
 			model.addAttribute("title", title + " | Error al obtener peliculas");
+            model.addAttribute("status", "500");
 			model.addAttribute("response", response.getMessage());
-			model.addAttribute("error", response.getErrorMessage());
-			return "admin/errors";
+			model.addAttribute("errorMessage", response.getErrorMessage());
+			return "error/500";
 		}
 
     }
@@ -250,9 +259,10 @@ public class AdminPageController {
 			model.addAttribute("lazyPerson", personDataResponse.getListData());
 		} else {
 			model.addAttribute("title", title + " | Error en el formulario de trailer");
+            model.addAttribute("status", "500");
 			model.addAttribute("response", personDataResponse.getMessage());
-			model.addAttribute("error", personDataResponse.getErrorMessage());
-			return "admin/errors";
+			model.addAttribute("errorMessage", personDataResponse.getErrorMessage());
+			return "error/500";
 		}
 
         if (genreDataResponse.getState()) {
@@ -260,9 +270,10 @@ public class AdminPageController {
 			return "admin/movie_form";
 		} else {
 			model.addAttribute("title", title + " | Error en el formulario de trailer");
+            model.addAttribute("status", "500");
 			model.addAttribute("response", genreDataResponse.getMessage());
-			model.addAttribute("error", genreDataResponse.getErrorMessage());
-            return "admin/errors";
+			model.addAttribute("errorMessage", genreDataResponse.getErrorMessage());
+            return "error/500";
         }
     }
 
@@ -319,14 +330,15 @@ public class AdminPageController {
 
             if (createTrailerResponse.getMessage().equals("IMG-ERROR")) {
                 model.addAttribute("response", createTrailerResponse.getMessage());
-                model.addAttribute("error", createTrailerResponse.getErrorMessage());
+                model.addAttribute("errorMessage", createTrailerResponse.getErrorMessage());
 				return "admin/movie_form";
 
 			} else {
 				model.addAttribute("title", title + " | Error al crear/editar la pelicula");
+                model.addAttribute("status", "500");
                 model.addAttribute("response", createTrailerResponse.getMessage());
-                model.addAttribute("error", createTrailerResponse.getErrorMessage());
-                return "admin/errors";
+                model.addAttribute("errorMessage", createTrailerResponse.getErrorMessage());
+                return "error/500";
 			}
 		}
 
@@ -346,18 +358,20 @@ public class AdminPageController {
 			model.addAttribute("movie", movieDataResponse.getData());
 		} else {
 			model.addAttribute("title", title + " | Error en el formulario de pelicula");
+            model.addAttribute("status", "500");
 			model.addAttribute("response", movieDataResponse.getMessage());
-			model.addAttribute("error", movieDataResponse.getErrorMessage());
-			return "admin/errors";
+			model.addAttribute("errorMessage", movieDataResponse.getErrorMessage());
+			return "error/500";
 		}
 
         if (personDataResponse.getState()) {
 			model.addAttribute("lazyPerson", personDataResponse.getListData());
 		} else {
 			model.addAttribute("title", title + " | Error en el formulario de pelicula");
+            model.addAttribute("status", "500");
 			model.addAttribute("response", personDataResponse.getMessage());
-			model.addAttribute("error", personDataResponse.getErrorMessage());
-			return "admin/errors";
+			model.addAttribute("errorMessage", personDataResponse.getErrorMessage());
+			return "error/500";
 		}
 
         if (genreDataResponse.getState()) {
@@ -365,9 +379,10 @@ public class AdminPageController {
 			return "admin/movie_form";
 		} else {
 			model.addAttribute("title", title + " | Error en el formulario de pelicula");
+            model.addAttribute("status", "500");
 			model.addAttribute("response", genreDataResponse.getMessage());
-			model.addAttribute("error", genreDataResponse.getErrorMessage());
-			return "admin/errors";
+			model.addAttribute("errorMessage", genreDataResponse.getErrorMessage());
+			return "error/500";
 		}
 
     };
@@ -377,7 +392,7 @@ public class AdminPageController {
 
         model.addAttribute("activeSession", true);
         
-        Response<E_Movie> movieDeleteResponse = movieinterface.deleteTrailerById(id);
+        Response<E_Movie> movieDeleteResponse = movieinterface.deleteMovieById(id);
 
         if (movieDeleteResponse.getState()) {
 			model.addAttribute("title", title + " | (ADMIN) Listado de Peliculas");
@@ -385,14 +400,87 @@ public class AdminPageController {
             model.addAttribute("movieImagePath", movieImagePath);
 			model.addAttribute("response", movieDeleteResponse.getMessage());
 			return "admin/movie";
+
 		} else {
 			model.addAttribute("title", title + " | Error al eliminar la pelicula");
-			model.addAttribute("response", movieDeleteResponse.getMessage());
-			model.addAttribute("error", movieDeleteResponse.getErrorMessage());
-			return "admin/errors";
+            
+            if (movieDeleteResponse.getErrorMessage() == "ERROR SQL-CONSTRAINT-VIOLATION") {
+                model.addAttribute("response", movieDeleteResponse.getMessage());
+                model.addAttribute("errorMessage", movieDeleteResponse.getErrorMessage());
+                model.addAttribute("movie", movieDeleteResponse.getData());
+
+                String idMovie = movieDeleteResponse.getData().getIdMovie();
+                model.addAttribute("trailerList", trailerInterface.getTrailersByIdMovie(idMovie).getListData());
+                return "admin/movie_delete";
+
+            } else {
+                model.addAttribute("status", "500");
+                model.addAttribute("response", movieDeleteResponse.getMessage());
+                model.addAttribute("errorMessage", movieDeleteResponse.getErrorMessage());
+                return "error/500";
+            }
+            
 		}
     }
 
+
+    @PostMapping("/delete/onlymovie/{id}")
+    public String deleteOnlyMovie( Model model, @PathVariable String id,
+        @RequestParam(value = "idTrailers[]", required = false) List<String> idTrailers) {
+        
+        
+        Response<E_Trailer> deleteMovieFromTrailer = trailerInterface.deleteMovieFromTrailer(idTrailers);
+
+        if (deleteMovieFromTrailer.getState()) {
+
+            Response<E_Movie> deleteMovie = movieinterface.deleteMovieById(id);
+            if (deleteMovie.getState()) {
+                model.addAttribute("title", title + " | (ADMIN) Listado de Peliculas");
+                model.addAttribute("movieList", deleteMovie.getListData());
+                model.addAttribute("movieImagePath", movieImagePath);
+                model.addAttribute("response", deleteMovie.getMessage());
+                return "admin/movie";
+            } else {
+                model.addAttribute("title", title + " | Error al eliminar la pelicula");
+                model.addAttribute("status", "500");
+                model.addAttribute("response", deleteMovie.getMessage());
+                model.addAttribute("errorMessage", deleteMovie.getErrorMessage());
+                return "error/500";
+            }
+
+        } else {
+            model.addAttribute("title", title + " | Error al eliminar la pelicula de los trailers");
+            model.addAttribute("status", "500");
+            model.addAttribute("response", deleteMovieFromTrailer.getMessage());
+            model.addAttribute("errorMessage", deleteMovieFromTrailer.getErrorMessage());
+            return "error/500";
+        }
+
+    }
+
+    @PostMapping("/delete/movieandtrailers/{id}")
+    public String deleteAllFromMovie( Model model, @PathVariable String id,
+        @RequestParam(value = "idTrailers[]", required = false) List<String> idTrailers) {
+        
+
+        Response<E_Movie> deleteMovie = movieinterface.deleteMovieAndTrailers(id, idTrailers);
+
+        if (deleteMovie.getState()) {
+            model.addAttribute("title", title + " | (ADMIN) Listado de Peliculas");
+            model.addAttribute("movieList", deleteMovie.getListData());
+            model.addAttribute("movieImagePath", movieImagePath);
+            model.addAttribute("response", deleteMovie.getMessage());
+            return "admin/movie";
+            
+        } else {
+            model.addAttribute("title", title + " | Error al eliminar la pelicula");
+            model.addAttribute("status", "500");
+            model.addAttribute("response", deleteMovie.getMessage());
+            model.addAttribute("errorMessage", deleteMovie.getErrorMessage());
+            return "error/500";
+        }
+
+    }
 
     @GetMapping("/genreList")
     public String getGenreList(Model model) {
@@ -407,9 +495,10 @@ public class AdminPageController {
 			return "admin/genre";
 		} else {
 			model.addAttribute("title", title + " | Error al obtener generos");
+            model.addAttribute("status", "500");
 			model.addAttribute("response", response.getMessage());
-			model.addAttribute("error", response.getErrorMessage());
-			return "admin/errors";
+			model.addAttribute("errorMessage", response.getErrorMessage());
+			return "error/500";
 		}
     }
 
@@ -446,9 +535,10 @@ public class AdminPageController {
             return "admin/genre";
         } else {
             model.addAttribute("title", title + " | Error en el formulario de generos");
+            model.addAttribute("status", "500");
             model.addAttribute("response", createGenreResponse.getMessage());
-            model.addAttribute("error", createGenreResponse.getErrorMessage());
-            return "admin/errors";
+            model.addAttribute("errorMessage", createGenreResponse.getErrorMessage());
+            return "error/500";
         }
 
     }
@@ -466,30 +556,32 @@ public class AdminPageController {
             return "admin/genre_form";
         } else {
             model.addAttribute("title", title + " | Error en el formulario de genero");
+            model.addAttribute("status", "500");
             model.addAttribute("response", genreResponse.getMessage());
-            model.addAttribute("error", genreResponse.getErrorMessage());
-            return "admin/errors";
+            model.addAttribute("errorMessage", genreResponse.getErrorMessage());
+            return "error/500";
         }
 
     };
 
-        @GetMapping("/delete/genre/{id}")
-        public String deleteGenre(@PathVariable String id, Model model) {
+    @GetMapping("/delete/genre/{id}")
+    public String deleteGenre(@PathVariable String id, Model model) {
 
-            model.addAttribute("activeSession", true);
-            
-            Response<E_Genre> genreDeleteResponse = genderInterface.deleteGenderById(id);
+        model.addAttribute("activeSession", true);
+        
+        Response<E_Genre> genreDeleteResponse = genderInterface.deleteGenderById(id);
 
-            if (genreDeleteResponse.getState()) {
-                model.addAttribute("title", title + " | (ADMIN) Listado de Peliculas");
-                model.addAttribute("genreList", genreDeleteResponse.getListData());
-                model.addAttribute("response", genreDeleteResponse.getMessage());
-                return "admin/genre";
-            } else {
-                model.addAttribute("title", title + " | Error al eliminar la pelicula");
-                model.addAttribute("response", genreDeleteResponse.getMessage());
-                model.addAttribute("error", genreDeleteResponse.getErrorMessage());
-                return "admin/errors";
-            }
+        if (genreDeleteResponse.getState()) {
+            model.addAttribute("title", title + " | (ADMIN) Listado de Peliculas");
+            model.addAttribute("genreList", genreDeleteResponse.getListData());
+            model.addAttribute("response", genreDeleteResponse.getMessage());
+            return "admin/genre";
+        } else {
+            model.addAttribute("title", title + " | Error al eliminar la pelicula");
+            model.addAttribute("status", "500");
+            model.addAttribute("response", genreDeleteResponse.getMessage());
+            model.addAttribute("errorMessage", genreDeleteResponse.getErrorMessage());
+            return "error/500";
         }
+    }
 }

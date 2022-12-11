@@ -63,8 +63,9 @@ public class UserPageController {
         model.addAttribute("title", title + " | Trailers");
 
         Response<E_Trailer> trailerResponsePaginated = trailerInterface.getPaginatedTrailers(
-                                                pagination.getPageNumberIndex(params.get("page")), 
-                                                elementsPerPage);
+                                        pagination.getPageNumberIndex(params.get("page")), 
+                                        elementsPerPage);
+
         if (trailerResponsePaginated.getState()) {
 			model.addAttribute("trailersList", trailerResponsePaginated
                                                                 .getPaginatedData().getContent());
@@ -74,9 +75,10 @@ public class UserPageController {
 
         } else {
             model.addAttribute("title", title + " | Error al obtener Trailers");
-            model.addAttribute("errorHeader", trailerResponsePaginated.getMessage());
-			model.addAttribute("errorBody", trailerResponsePaginated.getErrorMessage());
-			return "errors";
+            model.addAttribute("status", "500");
+            model.addAttribute("response", trailerResponsePaginated.getMessage());
+			model.addAttribute("errorMessage", trailerResponsePaginated.getErrorMessage());
+			return "error/500";
 		}
 
         Response<E_Language> languageResponse = languageInterface.getAllLanguages();
@@ -84,9 +86,10 @@ public class UserPageController {
             model.addAttribute("languagesList", languageResponse.getListData());
         } else {
             model.addAttribute("title", title + " | Error al obtener Lenguajes");
-            model.addAttribute("errorHeader", languageResponse.getMessage());
-			model.addAttribute("errorBody", languageResponse.getErrorMessage());
-            return "errors";
+            model.addAttribute("status", "500");
+            model.addAttribute("response", languageResponse.getMessage());
+			model.addAttribute("errorMessage", languageResponse.getErrorMessage());
+            return "error/500";
         }
 
         Response<E_Genre> genreResponse = genreInterface.getAllGenres();
@@ -94,9 +97,10 @@ public class UserPageController {
             model.addAttribute("genresList", genreResponse.getListData());
         } else {
             model.addAttribute("title", title + " | Error al obtener Generos");
-            model.addAttribute("errorHeader", genreResponse.getMessage());
-			model.addAttribute("errorBody", genreResponse.getErrorMessage());
-            return "errors";
+            model.addAttribute("status", "500");
+            model.addAttribute("response", genreResponse.getMessage());
+			model.addAttribute("errorMessage", genreResponse.getErrorMessage());
+            return "error/500";
         }
 
         Response<E_Country> countryResponse = countriesInterface.getAllCountries();
@@ -105,9 +109,10 @@ public class UserPageController {
             return "trailers";
         } else {
             model.addAttribute("title", title + " | Error al obtener Paises");
-            model.addAttribute("errorHeader", countryResponse.getMessage());
-			model.addAttribute("errorBody", countryResponse.getErrorMessage());
-            return "errors";
+            model.addAttribute("status", "500");
+            model.addAttribute("response", countryResponse.getMessage());
+			model.addAttribute("errorMessage", countryResponse.getErrorMessage());
+            return "error/500";
         }
     };
 
@@ -124,10 +129,12 @@ public class UserPageController {
             model.addAttribute("response", trailerResponse.getMessage());
         } else {
             model.addAttribute("title", title + " | Error al obtener el Trailer | ID:" + id);
-            model.addAttribute("errorHeader", trailerResponse.getMessage());
-			model.addAttribute("errorBody", trailerResponse.getErrorMessage());
+            model.addAttribute("status", "404");
+            model.addAttribute("error", "Not Found");
+            model.addAttribute("response", trailerResponse.getMessage());
+			// model.addAttribute("errorMessage", trailerResponse.getErrorMessage());
 
-            return "errors";
+            return "error/404";
         }
 
         Response<E_Trailer> relatedTrailersResponse = trailerInterface.getRelatedTrailers(id);
@@ -140,9 +147,10 @@ public class UserPageController {
 
 		} else {
             model.addAttribute("title", title + " | Error al obtener los trailers relacionados");
-            model.addAttribute("errorHeader", relatedTrailersResponse.getMessage());
-			model.addAttribute("errorBody", relatedTrailersResponse.getErrorMessage());
-			return "errors";
+            model.addAttribute("status", "500");
+            model.addAttribute("response", relatedTrailersResponse.getMessage());
+			model.addAttribute("errorMessage", relatedTrailersResponse.getErrorMessage());
+			return "error/500";
 		}
     };
 
@@ -164,9 +172,10 @@ public class UserPageController {
 
             } else {
                 model.addAttribute("title", title + " | Error al realizar la búsqueda");
-                model.addAttribute("errorHeader", searchTrailer.getMessage());
-                model.addAttribute("errorBody", searchTrailer.getErrorMessage());
-                return "errors";
+                model.addAttribute("status", "500");
+                model.addAttribute("response", searchTrailer.getMessage());
+                model.addAttribute("errorMessage", searchTrailer.getErrorMessage());
+                return "error/500";
             }
 
         }
@@ -190,13 +199,13 @@ public class UserPageController {
                 model.addAttribute("title", title + " | Filtro: " + gre);
                 model.addAttribute("trailersList", filterTrailer.getListData());
                 model.addAttribute("response", filterTrailer.getMessage());
-                // return "searchPage";
 
             } else {
                 model.addAttribute("title", title + " | Error al realizar la búsqueda por género");
-                model.addAttribute("errorHeader", filterTrailer.getMessage());
-                model.addAttribute("errorBody", filterTrailer.getErrorMessage());
-                return "errors";
+                model.addAttribute("status", "500");
+                model.addAttribute("response", filterTrailer.getMessage());
+                model.addAttribute("errorMessage", filterTrailer.getErrorMessage());
+                return "error/500";
             }
         }
 
@@ -207,13 +216,13 @@ public class UserPageController {
                 model.addAttribute("title", title + " | Filtro: " + gre);
                 model.addAttribute("trailersList", filterTrailer.getListData());
                 model.addAttribute("response", filterTrailer.getMessage());
-                // return "searchPage";
 
             } else {
                 model.addAttribute("title", title + " | Error al realizar la búsqueda por género");
-                model.addAttribute("errorHeader", filterTrailer.getMessage());
-                model.addAttribute("errorBody", filterTrailer.getErrorMessage());
-                return "errors";
+                model.addAttribute("status", "500");
+                model.addAttribute("response", filterTrailer.getMessage());
+                model.addAttribute("errorMessage", filterTrailer.getErrorMessage());
+                return "error/500";
             }
         }
 
@@ -224,13 +233,13 @@ public class UserPageController {
                 model.addAttribute("title", title + " | Filtro: " + gre);
                 model.addAttribute("trailersList", filterTrailer.getListData());
                 model.addAttribute("response", filterTrailer.getMessage());
-                // return "searchPage";
 
             } else {
                 model.addAttribute("title", title + " | Error al realizar la búsqueda por género");
-                model.addAttribute("errorHeader", filterTrailer.getMessage());
-                model.addAttribute("errorBody", filterTrailer.getErrorMessage());
-                return "errors";
+                model.addAttribute("status", "500");
+                model.addAttribute("response", filterTrailer.getMessage());
+                model.addAttribute("errorMessage", filterTrailer.getErrorMessage());
+                return "error/500";
             }
         }
 
@@ -239,9 +248,10 @@ public class UserPageController {
             model.addAttribute("languagesList", languageResponse.getListData());
         } else {
             model.addAttribute("title", title + " | Error al obtener Lenguajes");
-            model.addAttribute("errorHeader", languageResponse.getMessage());
-			model.addAttribute("errorBody", languageResponse.getErrorMessage());
-            return "errors";
+            model.addAttribute("status", "500");
+            model.addAttribute("response", languageResponse.getMessage());
+			model.addAttribute("errorMessage", languageResponse.getErrorMessage());
+            return "error/500";
         }
 
         Response<E_Genre> genreResponse = genreInterface.getAllGenres();
@@ -249,9 +259,10 @@ public class UserPageController {
             model.addAttribute("genresList", genreResponse.getListData());
         } else {
             model.addAttribute("title", title + " | Error al obtener Generos");
-            model.addAttribute("errorHeader", genreResponse.getMessage());
-			model.addAttribute("errorBody", genreResponse.getErrorMessage());
-            return "errors";
+            model.addAttribute("status", "500");
+            model.addAttribute("response", genreResponse.getMessage());
+			model.addAttribute("errorMessage", genreResponse.getErrorMessage());
+            return "error/500";
         }
 
         Response<E_Country> countryResponse = countriesInterface.getAllCountries();
@@ -260,9 +271,10 @@ public class UserPageController {
             return "trailers";
         } else {
             model.addAttribute("title", title + " | Error al obtener Paises");
-            model.addAttribute("errorHeader", countryResponse.getMessage());
-			model.addAttribute("errorBody", countryResponse.getErrorMessage());
-            return "errors";
+            model.addAttribute("status", "500");
+            model.addAttribute("response", countryResponse.getMessage());
+			model.addAttribute("errorMessage", countryResponse.getErrorMessage());
+            return "error/500";
         }
 
     }

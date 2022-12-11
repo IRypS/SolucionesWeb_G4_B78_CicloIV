@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <!-- Meta tags && title && icon -->
+    <div th:replace="/fragments/template_basic_header :: base_header"></div>
+
+    <!-- Bootstrap CSS (Temporally location)-->
+    <div th:replace="/fragments/bootstrap_template :: bootstrap_css"></div>
+
+    <!-- Datatables -->
+    <link rel="stylesheet" href="/lib/DataTables/DataTables-1.12.1/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="/lib/DataTables/Responsive-2.3.0/css/responsive.bootstrap5.min.css">
+
+    <!-- Customize css -->    
+    <link type="text/css" rel="stylesheet" href="/styles/css/customize__sidebar.css">
+    <link type="text/css" rel="stylesheet" href="/styles/css/customize__table.css">
+
+</head>
+<body class="vw-100 mw-100">
+
+    <header th:replace="/admin/fragments/header :: headerAdmin" class="d-md-none"></header>
+
+    <main class="row w-100 m-0">
+
+        <!-- offcanvas Menu Side bar -->
+        <div class="d-md-none offcanvas offcanvas-start w-75 bg-dark p-0" tabindex="-1" id="sideBar" aria-labelledby="sideBarLabel">
+            <div class="offcanvas-body p-0">
+                <div th:insert="/admin/fragments/sidebar :: sidebar( active = 'movie')"
+                    class="bg-primary">
+                </div>
+            </div>
+        </div> <!-- End offcanvas Menu Side bar -->
+
+        <!-- Menu Side bar -->
+        <div th:insert="/admin/fragments/sidebar :: sidebar( active = 'movie')"
+            class="col-md-4 col-lg-3 col-xl-2 d-none d-md-flex p-0 m-0 bg-primary">
+        </div>
+
+
+        <!-- Content -->
+        <div class="col-md-8 col-lg-9 col-xl-10 overflow-auto p-5 vh-100 text-light">
+
+            <div class="alert alert-danger">
+                <div class="h5 text-center mb-4">
+                    ¡Alerta! - La pelicula [<span th:text="${movie.getName}"></span>] 
+                    tiene trailers que requieren del objeto:
+                </div>
+
+                <div th:if="${trailerList != null}" class="list-group">
+                    <a th:each="trailer : ${ trailerList }"
+                        th:href="@{${ '/app/trailer/view/' + trailer.getId }}" 
+                        th:text="${trailer.getTitle}" target="_blank"
+                        class="list-group-item list-group-item-action bg-danger"></a>
+                </div>
+            </div>
+
+            <div class="container my-5">
+                <div class="h4">¿Qué desea hacer?</div>
+
+                <div class="row">
+                    <div class="col-12 my-2">
+                        <button type="button" class="btn btn-danger w-100" data-bs-toggle="modal" 
+                            data-bs-target="#deleteAll">Eliminar también los trailers relacionados</button>
+                    </div>
+                    <div class="col-12 my-2">
+                        <button type="button" class="btn btn-secondary w-100" data-bs-toggle="modal" 
+                            data-bs-target="#deleteMovieFromTrailer">Eliminar la pelicula de los trailers</button>
+                    </div>
+                    <div class="col-12 my-2">
+                        <a class="btn btn-success w-100" role="button"
+                            th:href="@{/app/administrator/movieList}">Regresar</a>
+                    </div>
+                </div>
+
+
+                <!-- Modal Delete All -->
+                <div class="modal fade" id="deleteAll" tabindex="-1" 
+                        aria-labelledby="deleteAllLabel" aria-hidden="true">
+
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content w-auto mx-auto">
+                            <div class="modal-body overflow-hidden">
+                                <!-- List header -->
+                                <div class="d-flex justify-content-between">
+                                    <div class="h5">¿Esta seguro de realizar esta acción?</div>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <small>Esta acción eliminará <b><i>todos</i></b> los trailers relacionados, incluyendo la pelicula</small>
+
+                                <form th:action="@{${ '/app/administrator/delete/movieandtrailers/' + movie.getIdMovie }}" method="post">
+                                    <div th:each="trailer : ${ trailerList }" class="d-none">
+                                        <input type="text" th:id="${trailer.getId}"
+                                            th:value="${trailer.getId}" name="idTrailers[]">
+                                    </div>
+
+                                    <button type="submit" data-bs-dismiss="modal"
+                                        class="btn btn-danger mx-auto mt-2 w-100 mt-4"> 
+                                        Borrar todo
+                                    </button>
+                                </form>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Delete Only Movie -->
+                <div class="modal fade" id="deleteMovieFromTrailer" tabindex="-1" 
+                        aria-labelledby="deleteMovieFromTrailerLabel" aria-hidden="true">
+
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content w-auto mx-auto">
+                            <div class="modal-body overflow-hidden">
+                                <!-- List header -->
+                                <div class="d-flex justify-content-between">
+                                    <div class="h5">¿Esta seguro de realizar esta acción?</div>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <small>Esta acción eliminará <b><i>únicamente</i></b> las peliculas de los trailers</small>
+
+                                <form th:action="@{${ '/app/administrator/delete/onlymovie/' + movie.getIdMovie }}" method="post">
+                                    <div th:each="trailer : ${ trailerList }" class="d-none">
+                                        <input type="text" th:id="${trailer.getId}"
+                                            th:value="${trailer.getId}" name="idTrailers[]">
+                                    </div>
+
+                                    <button type="submit" data-bs-dismiss="modal"
+                                        class="btn btn-danger mx-auto mt-2 w-100 mt-4"> 
+                                        Borrar pelicula de trailers
+                                    </button>
+                                </form>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+
+    <!-- Bootstrap JS -->
+    <div th:replace="/fragments/bootstrap_template :: bootstrap_js-popper"></div>
+
+    <!--Custom script-->
+    <script th:src="@{ /utils/addinputs.js }"></script>
+
+</body>
+</html>

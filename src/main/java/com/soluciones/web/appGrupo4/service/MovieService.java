@@ -6,9 +6,11 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.soluciones.web.appGrupo4.helper.IVerifySqlError;
 import com.soluciones.web.appGrupo4.model.Response;
 import com.soluciones.web.appGrupo4.model.ResponseFile;
 import com.soluciones.web.appGrupo4.model.entities.E_Genre;
@@ -17,6 +19,7 @@ import com.soluciones.web.appGrupo4.model.entities.E_Person;
 import com.soluciones.web.appGrupo4.model.validators.V_Movie;
 import com.soluciones.web.appGrupo4.repository.I_movie_db;
 import com.soluciones.web.appGrupo4.repository.I_person_db;
+import com.soluciones.web.appGrupo4.repository.I_trailer_db;
 import com.soluciones.web.appGrupo4.repository.manage.IMovie;
 import com.soluciones.web.appGrupo4.service.interfaces.IGenreService;
 import com.soluciones.web.appGrupo4.service.interfaces.IMovieService;
@@ -39,7 +42,13 @@ public class MovieService implements IMovieService {
     private IGenreService genre_service;
 
     @Autowired
+    private I_trailer_db trailer_entity;
+
+    @Autowired
     private IImageLocalHandler imageHandler;
+
+    @Autowired
+    private IVerifySqlError verifySqlError;
 
     @Value("${image.folder.path.general}" + "${image.folder.movie.name}")
     private String pathMovie;
@@ -155,14 +164,23 @@ public class MovieService implements IMovieService {
 
 
     @Override
-    public Response<E_Movie> deleteTrailerById(String id) {
+    public Response<E_Movie> deleteMovieById(String id) {
 
         Response<E_Movie> response = new Response<>();
 
         try {
             Optional<E_Movie> targetMovie = movie_entity.findById(id);
 
-            movie_entity.deleteById(id);
+            try {
+                movie_entity.deleteById(id);
+            } catch (DataAccessException e) {
+                response.setState(false);
+                response.setMessage("Fallo al eliminar el trailer");
+                response.setData(targetMovie.get());
+                response.setErrorMessage( verifySqlError.isConstraintViolation(e) ? 
+                    "ERROR SQL-CONSTRAINT-VIOLATION" : e.getMessage());
+                return response;
+            }
 
             if (targetMovie.get().getCoverUrl().equals("")) { targetMovie.get().setCoverUrl(null); };
             if (targetMovie.get().getCoverUrl() != null) {
@@ -175,8 +193,9 @@ public class MovieService implements IMovieService {
 			response.setMessage("Pelicula eliminada exitósamente: [" + targetMovie.get().getName() + "]");
 
         } catch (Exception e) {
+
             response.setState(false);
-			response.setMessage("Hubo problemas para elimar el la pelicula con el ID: " + id);
+			response.setMessage("Hubo problemas para eliminar el la pelicula con el ID: " + id);
 			response.setErrorMessage(e.getMessage().toString());
         }
 
@@ -184,6 +203,31 @@ public class MovieService implements IMovieService {
     };
 
 
+    @Override
+    public Response<E_Movie> deleteMovieAndTrailers(String id, List<String> idTrailers) {
+        Response<E_Movie> response = new Response<>();
+
+        try {
+
+            if (idTrailers != null) {
+                idTrailers.forEach( idTrailer -> {
+                    trailer_entity.deleteById(idTrailer);
+                } );
+            }
+
+            response = this.deleteMovieById(id);
+
+            return response;
+
+        } catch (Exception e) {
+
+            response.setState(false);
+			response.setMessage("Hubo problemas para eliminar los trailers de la pelicula con el ID: " + id);
+			response.setErrorMessage(e.getMessage().toString());
+            return response;
+        }
+
+    };
 
 
     public List<E_Person> createDirectorObjectsIntoArray(List<String> idDirectorList) {

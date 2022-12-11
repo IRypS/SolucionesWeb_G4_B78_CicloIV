@@ -18,6 +18,8 @@ public interface IMovieService {
 
     public Response<E_Movie> createMovie(E_Movie movie, MultipartFile fileM, List<String> idDirectorList, List<String> idGenreList);
 
-    public Response<E_Movie> deleteTrailerById(String id);
+    public Response<E_Movie> deleteMovieById(String id);
+
+    public Response<E_Movie> deleteMovieAndTrailers(String id, List<String> idTrailers);
     
 }

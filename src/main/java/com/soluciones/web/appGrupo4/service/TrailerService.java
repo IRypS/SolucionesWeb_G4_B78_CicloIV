@@ -99,8 +99,8 @@ public class TrailerService implements ITrailerService{
 
         } catch (Exception e) {
             response.setState(false);
-			response.setMessage("Hubo problemas para encontrar el trailer con el ID: " + id);
-			response.setErrorMessage(e.getStackTrace().toString());
+			response.setMessage("No existe el trailer con el ID: " + id);
+			response.setErrorMessage(e.getMessage());
         }
 
         return response;
@@ -256,6 +256,56 @@ public class TrailerService implements ITrailerService{
 			return response;
         }
 
+	};
+
+
+	@Override
+	public Response<E_Trailer> getTrailersByIdMovie(String id) {
+		Response<E_Trailer> response = new Response<>();
+
+		try {
+            List<E_Trailer> trailers = trailer_entity.getTrailersByIdMovie(id);
+
+            response.setState(true);
+			response.setListData(trailers);
+			response.setMessage("Trailers encontrados por ID de Pelicula");
+
+        } catch (Exception e) {
+            response.setState(false);
+			response.setMessage("Hubo problemas para encontrar los trailers");
+			response.setErrorMessage(e.getMessage());
+        }
+
+        return response;
+	};
+
+
+	@Override
+	public Response<E_Trailer> deleteMovieFromTrailer(List<String> idTrailers) {
+		
+		Response<E_Trailer> response = new Response<>();
+
+		try {
+
+			E_Movie getDefaultMovie = movie_service.getMovieById("0").getData();
+
+			if (idTrailers != null) {
+				idTrailers.forEach(id -> {
+					E_Trailer target = trailer_entity.findById(id).get();
+					target.setMovie(getDefaultMovie);
+				});
+			}
+
+            response.setState(true);
+			response.setMessage("Pelicula eliminada de los trailers");
+
+        } catch (Exception e) {
+            response.setState(false);
+			response.setMessage("Hubo problemas para eliminar las peliculas");
+			response.setErrorMessage(e.getMessage());
+        }
+
+        return response;
 	};
 
 }
