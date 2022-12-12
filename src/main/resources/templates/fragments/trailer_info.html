@@ -18,7 +18,11 @@
                 style="width: 20px">
         </span>
         <!-- Title -->
-        <span th:text="${trailer.getTitle}" class="h6 ms-1"></span>
+        <span th:text="${trailer.getTitle}" class="h6 ms-1"></span><br>
+        <small class="d-flex">
+            <img src="/resources/icons/eye__icon.svg" alt="Icono de sutitulo">
+            &nbsp; <span th:text="${ trailer.getViews + ' visitas'}"></span> 
+        </small>
     </div>
 
     <!-- Action Buttons -->

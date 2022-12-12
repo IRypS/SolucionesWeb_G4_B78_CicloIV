@@ -29,4 +29,6 @@ public interface ITrailerService {
 
     public Response<E_Trailer> deleteMovieFromTrailer(List<String> idTrailers);
 
+    public void addView(E_Trailer trailer);
+
 }

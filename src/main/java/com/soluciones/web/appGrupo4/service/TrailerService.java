@@ -308,4 +308,16 @@ public class TrailerService implements ITrailerService{
         return response;
 	};
 
+	@Override
+	public void addView(E_Trailer trailer) {
+
+		try {
+
+			if ( trailer != null ) { trailer.setViews( trailer.getViews() + 1 ); }
+			trailer_entity.save(trailer);
+
+		} catch ( Exception e ) {
+			e.printStackTrace();
+		}
+	};
 }

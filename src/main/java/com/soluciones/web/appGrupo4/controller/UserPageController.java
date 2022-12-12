@@ -124,6 +124,8 @@ public class UserPageController {
 
         Response<E_Trailer> trailerResponse = trailerInterface.getTrailerById(id);
         if (trailerResponse.getState()) {
+            
+            trailerInterface.addView(trailerResponse.getData());
             model.addAttribute("title", title + " | " + trailerResponse.getData().getTitle());
 			model.addAttribute("trailer", trailerResponse.getData());
             model.addAttribute("response", trailerResponse.getMessage());
