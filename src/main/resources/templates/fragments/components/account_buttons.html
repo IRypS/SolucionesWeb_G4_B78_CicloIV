@@ -1,0 +1,38 @@
+<div th:fragment="login-button">
+    <a th:href="@{/account/login}"
+            class="nav-link mt-3 mt-lg-0 ms-auto py-2 px-3 btn btn-cta c_btn-user-profile" role="button">
+        <span class="ms-2 ms-lg-0 tex-wrap text-light">Iniciar Sesion</span>
+    </a>
+</div>
+
+
+
+<div th:fragment="user_profile-button">
+
+    <!-- Button Dropdown -->
+    <button class="nav-link dropdown-toggle w-100 me-auto py-1 px-2 
+            btn btn-primary c_btn-user-profile" 
+            data-bs-toggle="dropdown" 
+            role="button" 
+            aria-expanded="false">
+        <img src="https://i.ytimg.com/vi/fykmLCRzlwc/mqdefault.jpg" alt="Avatar de perfil de usuario" width="100%">
+        <span class="ms-2 ms-lg-1 tex-truncate">IRypS</span>
+    </button>
+
+    <!-- Dropdown Menu  -->
+    <ul class="dropdown-menu dropdown-menu-dark">
+        <!-- Administrator -->
+        <div>
+            <li><a class="dropdown-item" href="/app/administrator/dashboard">Panel de administración</a></li>
+            <li><hr class="dropdown-divider"></li>
+        </div>
+
+        <!-- Logout -->
+        <li>
+            <a class="dropdown-item d-flex justify-content-between" href="/">
+                Cerrar sesión
+                <img src="/resources/icons/log-out__icon.svg" alt="Icono de cerrar sesión">
+            </a>
+        </li>
+    </ul>
+</div>

@@ -1,12 +1,8 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-
-    <!-- Meta tags && title && icon -->
-    <div th:replace="/fragments/template_basic_header :: base_header"></div>
-
-    <!-- Bootstrap CSS (Temporally location)-->
-    <div th:replace="/fragments/bootstrap_template :: bootstrap_css"></div>
+    <!-- Common head -->
+    <div th:replace="/fragments/template_basic :: head-basic"></div>
 
     <!-- Customize css -->    
     <link type="text/css" rel="stylesheet" href="/styles/css/customize__sidebar.css">
@@ -62,6 +58,10 @@
                         <img th:src="@{ /resources/icons/movie__icon.svg }" alt="Icono de inicio" >
                         Insertar películas
                     </a>
+                    <a th:href="@{ /app/administrator/genreList }" class="list-group-item list-group-item-action">
+                        <img th:src="@{ /resources/icons/category__icon.svg }" alt="Icono de inicio" >
+                        Insertar géneros
+                    </a>
                 </div>
             </div>
 
@@ -71,6 +71,6 @@
 
 
     <!-- Bootstrap JS -->
-    <div th:replace="/fragments/bootstrap_template :: bootstrap_js-popper"></div>
+    <div th:replace="/fragments/template_basic :: bootstrap_script-basic"></div>
 </body>
 </html>

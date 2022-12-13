@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <!-- Common head -->
+    <div th:replace="/fragments/template_basic :: head-basic"></div>
 
-    <!-- Meta tags && title && icon -->
-    <div th:replace="/fragments/template_basic_header :: base_header"></div>
-
-    <!-- Bootstrap CSS (Temporally location)-->
-    <div th:replace="/fragments/bootstrap_template :: bootstrap_css"></div>
+    <!-- Customize css -->
+    <link type="text/css" rel="stylesheet" href="/styles/css/customize__navbar.css">
 
 </head>
 <body>
@@ -18,7 +17,7 @@
     <div th:replace="/fragments/error-body :: error-body( errorCode='403', title='Titulo ERROR', message='Mensajito', errorMessage='a' )"></div>
 
     <!-- Bootstrap JS -->
-    <div th:replace="/fragments/bootstrap_template :: bootstrap_js-basic"></div>
+    <div th:replace="/fragments/template_basic :: bootstrap_script-basic"></div>
 
 </body>
 </html>

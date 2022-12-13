@@ -1,12 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    
-    <!-- Meta tags && title && icon -->
-    <div th:replace="/fragments/template_basic_header :: base_header"></div>
-
-    <!-- Bootstrap CSS (Temporally location)-->
-    <div th:replace="/fragments/bootstrap_template :: bootstrap_css"></div>
+    <!-- Common head -->
+    <div th:replace="/fragments/template_basic :: head-basic"></div>
 
     <!-- Customize css -->
     <link type="text/css" rel="stylesheet" href="/styles/css/customize__form-user.css">
@@ -69,6 +65,6 @@
     </main>
 
     <!-- Bootstrap JS -->
-    <div th:replace="/fragments/bootstrap_template :: bootstrap_js-basic"></div>
+    <div th:replace="/fragments/template_basic :: bootstrap_script-basic"></div>
 </body>
 </html>

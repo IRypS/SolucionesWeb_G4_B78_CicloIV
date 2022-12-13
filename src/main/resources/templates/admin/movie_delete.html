@@ -1,12 +1,8 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-
-    <!-- Meta tags && title && icon -->
-    <div th:replace="/fragments/template_basic_header :: base_header"></div>
-
-    <!-- Bootstrap CSS (Temporally location)-->
-    <div th:replace="/fragments/bootstrap_template :: bootstrap_css"></div>
+    <!-- Common head -->
+    <div th:replace="/fragments/template_basic :: head-basic"></div>
 
     <!-- Customize css -->    
     <link type="text/css" rel="stylesheet" href="/styles/css/customize__sidebar.css">
@@ -138,7 +134,7 @@
 
 
     <!-- Bootstrap JS -->
-    <div th:replace="/fragments/bootstrap_template :: bootstrap_js-popper"></div>
+    <div th:replace="/fragments/template_basic :: bootstrap_script-popper"></div>
 
     <!--Custom script-->
     <script th:src="@{ /utils/addinputs.js }"></script>

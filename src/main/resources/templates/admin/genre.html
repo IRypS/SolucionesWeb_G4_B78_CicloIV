@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- Meta tags && title && icon -->
-    <div th:replace="/fragments/template_basic_header :: base_header"></div>
-
-    <!-- Bootstrap CSS (Temporally location)-->
-    <div th:replace="/fragments/bootstrap_template :: bootstrap_css"></div>
+    <!-- Common head -->
+    <div th:replace="/fragments/template_basic :: head-basic"></div>
 
     <!-- Datatables -->
     <div th:replace="/admin/fragments/template_datatable :: datatable_head"></div>
@@ -83,7 +80,7 @@
 
 
     <!-- Bootstrap JS -->
-    <div th:replace="/fragments/bootstrap_template :: bootstrap_js-popper"></div>
+    <div th:replace="/fragments/template_basic :: bootstrap_script-popper"></div>
 
     <!-- Datatables -->
     <div th:replace="/admin/fragments/template_datatable :: datable_scripts"></div>

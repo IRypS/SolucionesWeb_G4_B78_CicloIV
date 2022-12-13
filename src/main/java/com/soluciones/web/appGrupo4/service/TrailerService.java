@@ -62,7 +62,7 @@ public class TrailerService implements ITrailerService{
 			Page<E_Trailer> pageData = trailer_entity.findAll(pageRequest);
 			Integer totalPages = pageData.getTotalPages();
 
-			if (pageIndexNumber > totalPages ) {
+			if (pageIndexNumber >= totalPages ) {
 				response.setState(false);
 				response.setMessage("Bad Page Request");
 				response.setErrorMessage("Este número de paginación no existe");

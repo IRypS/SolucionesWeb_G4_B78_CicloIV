@@ -1,12 +1,8 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-
-    <!-- Meta tags && title && icon -->
-    <div th:replace="/fragments/template_basic_header :: base_header"></div>
-
-    <!-- Bootstrap CSS (Temporally location)-->
-    <div th:replace="/fragments/bootstrap_template :: bootstrap_css"></div>
+    <!-- Common head -->
+    <div th:replace="/fragments/template_basic :: head-basic"></div>
 
     <!-- Customize css -->
     <link type="text/css" rel="stylesheet" href="/styles/css/customize__navbar.css">
@@ -45,7 +41,7 @@
                 <div th:replace="/fragments/trailer_info :: trailer_info"></div>
 
                 <!-- Info Movie -->
-                <div th:replace="/fragments/movie_details :: movieDetails( object='trailer' )"></div>
+                <div th:replace="/fragments/trailer_movie_details :: movieDetails( object='trailer' )"></div>
             </div>
 
             <!-- Related videos -->
@@ -65,7 +61,7 @@
     <div th:replace="/fragments/scripts/lazy_view :: lazy_trailer"></div>
 
     <!-- Bootstrap JS -->
-    <div th:replace="/fragments/bootstrap_template :: bootstrap_js-popper"></div>
+    <div th:replace="/fragments/template_basic :: bootstrap_script-popper"></div>
 
     <!-- Customm Js -->
     <script src="/utils/autoadjust_16-9__video-proportions.js"></script>

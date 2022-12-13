@@ -75,10 +75,11 @@ public class UserPageController {
 
         } else {
             model.addAttribute("title", title + " | Error al obtener Trailers");
-            model.addAttribute("status", "500");
+            model.addAttribute("error", "Bad request");
+            model.addAttribute("status", "400");
             model.addAttribute("response", trailerResponsePaginated.getMessage());
 			model.addAttribute("errorMessage", trailerResponsePaginated.getErrorMessage());
-			return "error/500";
+			return "error/400";
 		}
 
         Response<E_Language> languageResponse = languageInterface.getAllLanguages();
