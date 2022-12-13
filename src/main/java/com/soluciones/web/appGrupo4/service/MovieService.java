@@ -1,28 +1,29 @@
 package com.soluciones.web.appGrupo4.service;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.soluciones.web.appGrupo4.helper.IVerifySqlError;
 import com.soluciones.web.appGrupo4.model.Response;
+import com.soluciones.web.appGrupo4.model.ResponseFile;
 import com.soluciones.web.appGrupo4.model.entities.E_Genre;
 import com.soluciones.web.appGrupo4.model.entities.E_Movie;
 import com.soluciones.web.appGrupo4.model.entities.E_Person;
 import com.soluciones.web.appGrupo4.model.validators.V_Movie;
 import com.soluciones.web.appGrupo4.repository.I_movie_db;
 import com.soluciones.web.appGrupo4.repository.I_person_db;
+import com.soluciones.web.appGrupo4.repository.I_trailer_db;
 import com.soluciones.web.appGrupo4.repository.manage.IMovie;
 import com.soluciones.web.appGrupo4.service.interfaces.IGenreService;
 import com.soluciones.web.appGrupo4.service.interfaces.IMovieService;
+import com.soluciones.web.appGrupo4.utils.interfaces.IImageLocalHandler;
 
 @Service
 public class MovieService implements IMovieService {
@@ -39,6 +40,18 @@ public class MovieService implements IMovieService {
 
     @Autowired
     private IGenreService genre_service;
+
+    @Autowired
+    private I_trailer_db trailer_entity;
+
+    @Autowired
+    private IImageLocalHandler imageHandler;
+
+    @Autowired
+    private IVerifySqlError verifySqlError;
+
+    @Value("${image.folder.path.general}" + "${image.folder.movie.name}")
+    private String pathMovie;
     
 
 
@@ -106,59 +119,32 @@ public class MovieService implements IMovieService {
     public Response<E_Movie> createMovie(E_Movie movie, MultipartFile fileM, List<String> idDirectorList, List<String> idGenreList) {
 
         Response<E_Movie> response = new Response<>();
+        ResponseFile responseFile = new ResponseFile();
 
         try {
-            
-            System.out.println("RESULTADOS DEL SERVICE");
-            System.out.println(movie.getIdMovie());
-            System.out.println(movie.getName());
-            System.out.println(movie.getDuration());
-            System.out.println(movie.getSynopsis());
-            System.out.println(movie.getCoverUrl());
-            System.out.println(movie.getDirectorsList().size());
-            System.out.println(movie.getGenreList().size());
 
-            if( (fileM.isEmpty()) ) {
-                System.out.println("NO SE ENVIÓ NADA");
-            }
             if( !(fileM.isEmpty()) ) {
-                System.out.println("TENEMOS DATA !!!!");
 
-                try {
-                    if (movie.getCoverUrl().equals("")) { movie.setCoverUrl(null); };
+                if (movie.getCoverUrl().equals("")) { movie.setCoverUrl(null);; }
+                if (movie.getCoverUrl() != null) {
+                    imageHandler.deleteImageLocal(movie.getCoverUrl(), pathMovie);
+                } 
 
-                    if (movie.getCoverUrl() != null) {
-                        Path pathImage = Paths.get("src//main//resources//static//resources//upload//movie//cover");
-                        Path pathDeleteFile = Paths.get(pathImage + "//" + movie.getCoverUrl());
-                        File fileToDelete = pathDeleteFile.toFile();
-                        if (fileToDelete.exists()) {
-							fileToDelete.delete();
-						}
-                    } 
+                responseFile = imageHandler.saveImageInLocal(fileM, pathMovie);
 
-                    String newNameFile = UUID.randomUUID().toString();
-					String extesionFile = org.springframework.util.StringUtils.getFilenameExtension(fileM.getOriginalFilename());
-
-                    byte[] bytesCoverImg = fileM.getBytes();
-                    Path pathImage = Paths.get("src//main//resources//static//resources//upload//movie//cover");
-                    Path completePath = Paths.get(pathImage + "//" + newNameFile + "." + extesionFile);
-                    Files.write(completePath, bytesCoverImg);
-                    movie.setCoverUrl(newNameFile + "." + extesionFile);
-
-                } catch (Exception e) {
-                    response.setState(false);
-					response.setMessage("IMG-ERROR");
-					response.setErrorMessage(e.getStackTrace().toString());
-					return response;
+                if(responseFile.getState()) {
+                    movie.setCoverUrl(responseFile.getFileName());
+                } else {
+                    response.setState(responseFile.getState());
+                    response.setMessage("IMG-ERROR | Ocurrió un error al crear el archivo");
+                    response.setErrorMessage(responseFile.getErrorMessage());
+                    return response;
                 }
             }
 
-
-
             List<E_Person> directorsToAdd = this.createDirectorObjectsIntoArray(idDirectorList);
-            movie.setDirectorsList(directorsToAdd);
-
             List<E_Genre> genresToAdd = this.createGenresObjectsIntoArray(idGenreList);
+            movie.setDirectorsList(directorsToAdd);
             movie.setGenreList(genresToAdd);
 
             E_Movie createMovie = movie_entity.save(movie);
@@ -178,24 +164,27 @@ public class MovieService implements IMovieService {
 
 
     @Override
-    public Response<E_Movie> deleteTrailerById(String id) {
+    public Response<E_Movie> deleteMovieById(String id) {
 
         Response<E_Movie> response = new Response<>();
 
         try {
             Optional<E_Movie> targetMovie = movie_entity.findById(id);
 
-            movie_entity.deleteById(id);
+            try {
+                movie_entity.deleteById(id);
+            } catch (DataAccessException e) {
+                response.setState(false);
+                response.setMessage("Fallo al eliminar el trailer");
+                response.setData(targetMovie.get());
+                response.setErrorMessage( verifySqlError.isConstraintViolation(e) ? 
+                    "ERROR SQL-CONSTRAINT-VIOLATION" : e.getMessage());
+                return response;
+            }
 
             if (targetMovie.get().getCoverUrl().equals("")) { targetMovie.get().setCoverUrl(null); };
-
             if (targetMovie.get().getCoverUrl() != null) {
-                Path pathImage = Paths.get("src//main//resources//static//resources//upload//movie//cover");
-                Path pathDeleteFile = Paths.get(pathImage + "//" + targetMovie.get().getCoverUrl());
-                File fileToDelete = pathDeleteFile.toFile();
-                if (fileToDelete.exists()) {
-                    fileToDelete.delete();
-                } 
+                imageHandler.deleteImageLocal(targetMovie.get().getCoverUrl(), pathMovie);
             } 
 
             response.setState(true);
@@ -204,12 +193,99 @@ public class MovieService implements IMovieService {
 			response.setMessage("Pelicula eliminada exitósamente: [" + targetMovie.get().getName() + "]");
 
         } catch (Exception e) {
+
             response.setState(false);
-			response.setMessage("Hubo problemas para elimar el la pelicula con el ID: " + id);
+			response.setMessage("Hubo problemas para eliminar el la pelicula con el ID: " + id);
 			response.setErrorMessage(e.getMessage().toString());
         }
 
         return response;
+    };
+
+
+    @Override
+    public Response<E_Movie> deleteMovieAndTrailers(String id, List<String> idTrailers) {
+        Response<E_Movie> response = new Response<>();
+
+        try {
+
+            if (idTrailers != null) {
+                idTrailers.forEach( idTrailer -> {
+                    trailer_entity.deleteById(idTrailer);
+                } );
+            }
+
+            response = this.deleteMovieById(id);
+
+            return response;
+
+        } catch (Exception e) {
+
+            response.setState(false);
+			response.setMessage("Hubo problemas para eliminar los trailers de la pelicula con el ID: " + id);
+			response.setErrorMessage(e.getMessage().toString());
+            return response;
+        }
+
+    };
+
+
+    @Override
+    public Response<E_Movie> deleteGenreFromMovies(String id, List<String> idMovies) {
+
+        Response<E_Movie> response = new Response<>();
+
+		try {
+
+			if ( idMovies != null ) {
+
+                idMovies.forEach( movie -> {
+                    E_Movie targetMovie = movie_entity.findById(movie).get();
+                    List<E_Genre> genresList = new ArrayList<>();
+
+                    targetMovie.getGenreList().forEach( genreObject -> {
+                        if (!genreObject.getIdGenre().equals(id)) {
+                            genresList.add(genreObject);
+                        }
+                    } );
+
+                    targetMovie.setGenreList( genresList );
+                    movie_entity.save(targetMovie);
+                });
+
+            }
+
+            response.setState(true);
+			response.setMessage("Género eliminado de las peliculas existósamente");
+
+        } catch (Exception e) {
+            response.setState(false);
+			response.setMessage("Hubo problemas para eliminar el género de las peliculas");
+			response.setErrorMessage(e.getMessage());
+
+            e.printStackTrace();
+        }
+
+        return response;
+    };
+
+
+    @Override
+    public List<String> getIdMoviesByGenreId(String id) {
+        try {
+            return movie_entity.findIdMoviesByGenreId(id);
+        } catch (Exception e) {
+            return null;
+        }
+    };
+
+    @Override
+    public int getMoviesCountByGenreId(String id) {
+        try {
+            return movie_entity.findMoviesCountByGenreId(id);
+        } catch (Exception e){ 
+            return 0; 
+        }
     };
 
 
@@ -227,14 +303,19 @@ public class MovieService implements IMovieService {
         return objectPersonList;
     };
 
+
     public List<E_Genre> createGenresObjectsIntoArray(List<String> idGenreList) {
 
         List<E_Genre> objectGenderList = new ArrayList<>();
 
         if(idGenreList != null) {
+
             idGenreList.forEach( (idGenre) -> {
-                E_Genre genre = genre_service.getGenreById(idGenre);
-                objectGenderList.add(genre);
+                Response<E_Genre> genreResponse = genre_service.getGenreById(idGenre);
+
+                if (genreResponse.getState()) {
+                    objectGenderList.add(genreResponse.getData());
+                }
             } );
         } 
 

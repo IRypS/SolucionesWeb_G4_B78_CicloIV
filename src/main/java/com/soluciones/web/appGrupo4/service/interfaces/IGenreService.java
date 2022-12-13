@@ -7,8 +7,10 @@ public interface IGenreService {
     
     public Response<E_Genre> getAllGenres();
 
-    
-    // -------------> Temporally Method <-------------
-    public E_Genre getGenreById(String id);
+    public Response<E_Genre> getGenreById(String id);
+
+    public Response<E_Genre> createGenre(E_Genre genre);
+
+    public Response<E_Genre> deleteGenderById(String id);
 
 }

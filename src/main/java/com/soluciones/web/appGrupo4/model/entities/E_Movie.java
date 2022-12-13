@@ -73,8 +73,6 @@ public class E_Movie {
 
 
 
-    // getters & setters
-    
     public String getIdMovie() {
         return idMovie;
     }
@@ -146,5 +144,5 @@ public class E_Movie {
     public void setDirectorsList(List<E_Person> directorsList) {
         this.directorsList = directorsList;
     }
-    
+
 }

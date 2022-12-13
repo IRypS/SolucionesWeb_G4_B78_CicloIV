@@ -1,0 +1,27 @@
+<!-- Basic header -->
+<div th:fragment="head-basic">
+    <!-- Meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Header styles -->
+    <link rel="icon" th:href="@{/resources/icons/main_icon.ico}">
+    <title th:text="${title}">...</title>
+
+    <!-- Bootstrap CSS (Temporally location)-->
+    <link type="text/css" rel="stylesheet" href="/styles/css/styles.css">
+</div>
+
+
+<!-- Bootstrap -->
+<div th:fragment="bootstrap_script-basic">
+    <script src="/utils/bootstrap.js"></script>
+</div>
+
+<!-- Bootstrap + Popper -->
+<div th:fragment="bootstrap_script-popper">
+    <script src="/utils/popper.min.js"></script>
+    <script src="/utils/bootstrap.js"></script>
+    <script src="/utils/enablePopovers.js"></script>
+</div>

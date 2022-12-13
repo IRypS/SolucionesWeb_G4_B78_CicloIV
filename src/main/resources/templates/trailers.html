@@ -1,12 +1,8 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-
-    <!-- Meta tags && title && icon -->
-    <div th:replace="/fragments/template_basic_header :: base_header"></div>
-
-    <!-- Bootstrap CSS (Temporally location)-->
-    <div th:replace="/fragments/bootstrap_template :: bootstrap_css"></div>
+    <!-- Common head -->
+    <div th:replace="/fragments/template_basic :: head-basic"></div>
 
     <!-- Customize css -->
     <link type="text/css" rel="stylesheet" href="/styles/css/customize__navbar.css">
@@ -28,36 +24,55 @@
 
                     <!-- Header Filter -->
                     <div class="bg-secondary rounded">
-                        <p class="h4 p-3 text-center" style="height: 100%;">Filter</p>
+                        <p class="h4 p-3 text-center" style="height: 100%;">Filtro</p>
                     </div>
 
                     <!-- Genre Filter -->
                     <div>
-                        <div th:replace="/fragments/filter :: filter_section( parent='accordionFlushFilter', id='flush-genres', 
-                        idCollapse='flush-collapseGenres', title='Por Género', object='genresList', 
-                        getLabelMethod='getNameGenre', getIdMethod='getIdGenre')">
+                        <div th:replace="/fragments/filter :: filter_section( parent='accordionFlushFilter', 
+                        id='flush-genres', idCollapse='flush-collapseGenres', title='Por Género',
+                        object='genresList', getLabelMethod='getNameGenre', getIdMethod='getIdGenre',
+                        paramName='gre')">
                     </div>
 
                     <!-- Audio Filter -->
                     <div>
-                        <div th:replace="/fragments/filter :: filter_section( parent='accordionFlushFilter', id='flush-audio', 
-                        idCollapse='flush-collpaseAudio', title='Por Audio', object='languagesList', 
-                        getLabelMethod='getNameLanguage', getIdMethod='getIdLanguage')">
+                        <div th:replace="/fragments/filter :: filter_section( parent='accordionFlushFilter', 
+                        id='flush-audio', idCollapse='flush-collpaseAudio', title='Por Audio', 
+                        object='languagesList', getLabelMethod='getNameLanguage', getIdMethod='getIdLanguage',
+                        paramName='av')">
                     </div>
 
                     <!-- Subtitle Filter -->
                     <div>
-                        <div th:replace="/fragments/filter :: filter_section( parent='accordionFlushFilter', id='flush-subtitle', 
-                        idCollapse='flush-collapseSubtitle', title='Por Subtitulos', object='languagesList', 
-                        getLabelMethod='getNameLanguage', getIdMethod='getIdLanguage')">
+                        <div th:replace="/fragments/filter :: filter_section( parent='accordionFlushFilter', 
+                        id='flush-subtitle', idCollapse='flush-collapseSubtitle', title='Por Subtitulos', 
+                        object='languagesList', getLabelMethod='getNameLanguage', getIdMethod='getIdLanguage',
+                        paramName='sttl')">
                     </div>
                 </div>
             </aside>
 
             <!-- Trailers -->
-            <div class="col-lg-9">
+            <div class="col-lg-9 text-light" th:if="${trailersList.size == 0}">
+                <h4>Resultados:</h4>
+                <div>
+                    La lista es nula
+                </div>
+            </div>
+            <div class="col-lg-9" th:unless="${trailersList.size == 0}">
                 <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 row-cols-xxl-5 pt-1">
                     <div th:replace="/fragments/trailer_link :: trailer_link( object='trailersList' )">
+                </div>
+            </div>
+            
+            <!-- TrailerPaginationNav -->
+            <div th:if="${ pages != null }">
+
+                <div th:if="${!pages.isEmpty()}" th:replace="/fragments/pagination_nav :: pagination_nav( generalPath='/app/trailers', 
+                    pageList='pages', prev=${pagesInfo.get('prev')}, current=${pagesInfo.get('current')},
+                    next=${pagesInfo.get('next')}, last=${pagesInfo.get('last')}, )">
+
                 </div>
             </div>
             
@@ -68,7 +83,7 @@
     <div th:replace="/fragments/footer :: basic_footer"></div>
 
     <!-- Bootstrap JS -->
-    <div th:replace="/fragments/bootstrap_template :: bootstrap_js-popper"></div>
+    <div th:replace="/fragments/template_basic :: bootstrap_script-popper"></div>
 
     <!-- Customm Js -->
     <script src="/utils/autoadjust_16-9__video-proportions.js"></script>

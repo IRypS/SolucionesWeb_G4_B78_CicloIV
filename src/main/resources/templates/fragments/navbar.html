@@ -1,3 +1,4 @@
+
 <header th:fragment="navbar_header (active)">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
         <div class="container-fluid">
@@ -17,80 +18,36 @@
 
             <!-- Nav Menu Container  -->
             <div class="collapse navbar-collapse" id="navbarPage">
+
                 <!-- Links -->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-center">
 
                     <!-- User Profile Button -->
                     <li th:if="${activeSession == true}"
-                        class="nav-item dropdown mt-3 mt-lg-0 ms-lg-3 order-lg-1">
-
-                        <!-- Button Dropdown -->
-                        <button class="nav-link dropdown-toggle w-100 me-auto py-1 px-2 
-                                btn btn-primary c_btn-user-profile" 
-                                data-bs-toggle="dropdown" 
-                                role="button" 
-                                aria-expanded="false">
-                            <img src="https://i.ytimg.com/vi/fykmLCRzlwc/mqdefault.jpg" alt="Avatar de perfil de usuario" width="100%">
-                            <span class="ms-2 ms-lg-1 tex-truncate">IRypS</span>
-                        </button>
-                        <!-- End Button Dropdown -->
-
-                        <!-- Dropdown Menu  -->
-                        <ul class="dropdown-menu dropdown-menu-dark">
-
-                            <li><a class="dropdown-item" href="#">Perfil de usuario</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            
-                            <!-- Administrator -->
-                            <div>
-                                <li><a class="dropdown-item" href="/app/administrator/dashboard">Panel de administración</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                            </div>
-                            <!-- End Administrator -->
-
-                            <li>
-                                <a class="dropdown-item d-flex justify-content-between" href="/">
-                                    Cerrar sesión
-                                    <img src="/resources/icons/log-out__icon.svg" alt="Icono de cerrar sesión">
-                                </a>
-                            </li>
-                        </ul>
-                        <!-- End Dropdown Menu -->
+                            class="nav-item dropdown mt-3 mt-lg-0 ms-lg-3 order-lg-1">
+                        <div th:replace="/fragments/components/account_buttons :: user_profile-button"></div>
                     </li>
-                    <!-- End User Profile Button -->
 
                     <!-- Register button -->
-                    <li th:if="${activeSession == false}"
-                        class="nav-item me-lg-2">
-                        <a href="/account/login"
-                            class="nav-link mt-3 mt-lg-0 ms-auto py-2 px-3 
-                            btn btn-cta c_btn-user-profile" role="button">
-                            <span class="ms-2 ms-lg-0 tex-wrap text-light">Iniciar Sesion</span>
-                        </a>
+                    <li th:if="${activeSession == false}" class="nav-item me-lg-2">
+                        <div th:replace="/fragments/components/account_buttons :: login-button"></div>
                     </li>
-                    <!-- End Register button -->
 
                     <!-- Nav Links -->
                     <li class="nav-item">
                         <a th:classappend="${ active eq 'home' } ? active : ''"
-                            class="nav-link" aria-current="page" href="/">Inicio</a>
+                            class="nav-link" aria-current="page" th:ref="@{/}">Inicio</a>
                     </li>
                     <li class="nav-item">
                         <a th:classappend="${ active eq 'trailers' } ? active : ''"
-                            class="nav-link" href="/app/trailers">Trailers</a>
+                            class="nav-link" th:href="@{/app/trailers}">Trailers</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link bg-primary" href="/index.html">Ir al chatbox (Temporal)</a>
-                    </li>
-                    <!-- End Nav Links -->
-
                 </ul>
-                <!-- End Links -->
 
                 <!-- Search bar -->
-                <form class="d-flex" role="search">
+                <form th:if="${active != 'home'}" class="d-flex" role="search" th:action="@{/app/search/trailer/}">
                     <input class="form-control me-2" type="search" 
-                            placeholder="Buscar" aria-label="Buscar">
+                            placeholder="Buscar" aria-label="Buscar" name="tl">
                     <button class="btn btn-primary" type="submit">Buscar</button>
                 </form>
             </div>
