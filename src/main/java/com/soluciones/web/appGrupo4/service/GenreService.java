@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.soluciones.web.appGrupo4.helper.IVerifySqlError;
 import com.soluciones.web.appGrupo4.model.Response;
 import com.soluciones.web.appGrupo4.model.entities.E_Genre;
 import com.soluciones.web.appGrupo4.repository.I_genre_db;
@@ -16,6 +18,9 @@ public class GenreService implements IGenreService {
     
     @Autowired
     private I_genre_db genre_entity;
+
+	@Autowired
+    private IVerifySqlError verifySqlError;
 
     @Override
     public Response<E_Genre> getAllGenres() {
@@ -82,7 +87,17 @@ public class GenreService implements IGenreService {
 
         try {
             Optional<E_Genre> targetGenre = genre_entity.findById(id);
-            genre_entity.deleteById(id);
+
+			try {
+                genre_entity.deleteById(id);
+            } catch (DataAccessException e) {
+                response.setState(false);
+                response.setMessage("Fallo al eliminar el género");
+                response.setData(targetGenre.get());
+                response.setErrorMessage( verifySqlError.isConstraintViolation(e) ? 
+                    "ERROR SQL-CONSTRAINT-VIOLATION" : e.getMessage());
+                return response;
+            }
 
             response.setState(true);
 			response.setData(targetGenre.get());
@@ -92,7 +107,7 @@ public class GenreService implements IGenreService {
         } catch (Exception e) {
             response.setState(false);
 			response.setMessage("Hubo problemas para elimar el genero con el ID: " + id);
-			response.setErrorMessage(e.getStackTrace().toString());
+			response.setErrorMessage(e.getMessage());
         }
 
         return response;

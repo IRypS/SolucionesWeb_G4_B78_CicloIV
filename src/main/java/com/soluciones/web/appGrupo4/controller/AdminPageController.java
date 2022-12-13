@@ -423,7 +423,6 @@ public class AdminPageController {
 		}
     }
 
-
     @PostMapping("/delete/onlymovie/{id}")
     public String deleteOnlyMovie( Model model, @PathVariable String id,
         @RequestParam(value = "idTrailers[]", required = false) List<String> idTrailers) {
@@ -576,12 +575,61 @@ public class AdminPageController {
             model.addAttribute("genreList", genreDeleteResponse.getListData());
             model.addAttribute("response", genreDeleteResponse.getMessage());
             return "admin/genre";
+
         } else {
             model.addAttribute("title", title + " | Error al eliminar la pelicula");
+
+            if (genreDeleteResponse.getErrorMessage() == "ERROR SQL-CONSTRAINT-VIOLATION") {
+                model.addAttribute("response", genreDeleteResponse.getMessage());
+                model.addAttribute("errorMessage", genreDeleteResponse.getErrorMessage());
+                model.addAttribute("genre", genreDeleteResponse.getData());
+
+                String idGenre = genreDeleteResponse.getData().getIdGenre();
+                model.addAttribute("moviesIdList", movieinterface.getIdMoviesByGenreId(idGenre));
+                model.addAttribute("moviesCount", movieinterface.getMoviesCountByGenreId(idGenre));
+                return "admin/genre_delete";
+
+            } else {
+                model.addAttribute("status", "500");
+                model.addAttribute("response", genreDeleteResponse.getMessage());
+                model.addAttribute("errorMessage", genreDeleteResponse.getErrorMessage());
+                return "error/500";
+            }
+
+        }
+    }
+
+    @PostMapping("/delete/genre/force/{id}")
+    public String forceDeleteGenre( Model model, @PathVariable String id,
+        @RequestParam(value = "idMovies[]", required = false) List<String> idMovies) {
+
+        Response<E_Movie> deleteGenreFromMovies = movieinterface.deleteGenreFromMovies(id, idMovies);
+
+        if (deleteGenreFromMovies.getState()) {
+
+            Response<E_Genre> deleteGenre = genderInterface.deleteGenderById(id);
+
+            if (deleteGenre.getState()) {
+                model.addAttribute("title", title + " | (ADMIN) Listado de Generos");
+                model.addAttribute("genreList", deleteGenre.getListData());
+                model.addAttribute("response", deleteGenre.getMessage());
+                return "admin/genre";
+
+            } else {
+                model.addAttribute("title", title + " | Error al eliminar el género");
+                model.addAttribute("status", "500");
+                model.addAttribute("response", deleteGenre.getMessage());
+                model.addAttribute("errorMessage", deleteGenre.getErrorMessage());
+                return "error/500";
+            }
+
+        } else {
+            model.addAttribute("title", title + " | Error al eliminar el género de las peliculas");
             model.addAttribute("status", "500");
-            model.addAttribute("response", genreDeleteResponse.getMessage());
-            model.addAttribute("errorMessage", genreDeleteResponse.getErrorMessage());
+            model.addAttribute("response", deleteGenreFromMovies.getMessage());
+            model.addAttribute("errorMessage", deleteGenreFromMovies.getErrorMessage());
             return "error/500";
         }
     }
+
 }

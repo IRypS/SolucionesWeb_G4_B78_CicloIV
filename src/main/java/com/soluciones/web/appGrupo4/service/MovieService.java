@@ -230,6 +230,65 @@ public class MovieService implements IMovieService {
     };
 
 
+    @Override
+    public Response<E_Movie> deleteGenreFromMovies(String id, List<String> idMovies) {
+
+        Response<E_Movie> response = new Response<>();
+
+		try {
+
+			if ( idMovies != null ) {
+
+                idMovies.forEach( movie -> {
+                    E_Movie targetMovie = movie_entity.findById(movie).get();
+                    List<E_Genre> genresList = new ArrayList<>();
+
+                    targetMovie.getGenreList().forEach( genreObject -> {
+                        if (!genreObject.getIdGenre().equals(id)) {
+                            genresList.add(genreObject);
+                        }
+                    } );
+
+                    targetMovie.setGenreList( genresList );
+                    movie_entity.save(targetMovie);
+                });
+
+            }
+
+            response.setState(true);
+			response.setMessage("Género eliminado de las peliculas existósamente");
+
+        } catch (Exception e) {
+            response.setState(false);
+			response.setMessage("Hubo problemas para eliminar el género de las peliculas");
+			response.setErrorMessage(e.getMessage());
+
+            e.printStackTrace();
+        }
+
+        return response;
+    };
+
+
+    @Override
+    public List<String> getIdMoviesByGenreId(String id) {
+        try {
+            return movie_entity.findIdMoviesByGenreId(id);
+        } catch (Exception e) {
+            return null;
+        }
+    };
+
+    @Override
+    public int getMoviesCountByGenreId(String id) {
+        try {
+            return movie_entity.findMoviesCountByGenreId(id);
+        } catch (Exception e){ 
+            return 0; 
+        }
+    };
+
+
     public List<E_Person> createDirectorObjectsIntoArray(List<String> idDirectorList) {
 
         List<E_Person> objectPersonList = new ArrayList<>();
