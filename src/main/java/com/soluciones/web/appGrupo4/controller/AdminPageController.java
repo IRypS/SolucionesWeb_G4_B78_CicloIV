@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.soluciones.web.appGrupo4.model.Response;
 import com.soluciones.web.appGrupo4.model.entities.E_Genre;
+import com.soluciones.web.appGrupo4.model.entities.E_Language;
 import com.soluciones.web.appGrupo4.model.entities.E_Movie;
 import com.soluciones.web.appGrupo4.model.entities.E_Trailer;
 import com.soluciones.web.appGrupo4.model.validators.V_Language;
@@ -90,6 +91,11 @@ public class AdminPageController {
     public String trailerForm(Model model) {
 
         E_Trailer trailer = new E_Trailer();
+        E_Language lang = new E_Language();
+        lang.setNameLanguage("");
+        trailer.setLanguage(lang);
+        trailer.setSubtitle(lang);
+
         Response<V_Movie> movieDataResponse = movieinterface.getLazyInfoMovie();
         Response<V_Language> languageDataResponse = languageInterface.getLazyInfoLanguage();
 
@@ -104,7 +110,7 @@ public class AdminPageController {
             model.addAttribute("status", "500");
 			model.addAttribute("response", movieDataResponse.getMessage());
 			model.addAttribute("errorMessage", movieDataResponse.getErrorMessage());
-			return "erro/500";
+			return "error/500";
 		}
 
         if (languageDataResponse.getState()) {

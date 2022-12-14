@@ -135,7 +135,10 @@ public class TrailerService implements ITrailerService{
 		try {
 
             Response<E_Movie> movie = movie_service.getMovieById(movieID);
-            if (movie.getState()) { trailer.setMovie(movie.getData()); };
+            if (movie.getState()) { trailer.setMovie(movie.getData()); 
+			} else {
+				trailer.setMovie(null);
+			};
 
             Response<E_Language> language = language_service.getLanguageById(languageID);
             if (language.getState()) { trailer.setLanguage(language.getData()); };

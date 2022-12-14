@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.soluciones.web.appGrupo4.helper.ICreateDefaultObjects;
 import com.soluciones.web.appGrupo4.model.Response;
 import com.soluciones.web.appGrupo4.model.entities.E_Person;
 import com.soluciones.web.appGrupo4.model.validators.V_Person;
@@ -23,6 +24,9 @@ public class PersonService implements IPersonService {
     @Autowired
     private IPerson person_modify;
 
+    @Autowired
+	private ICreateDefaultObjects createDefaultObjects;
+
     @Override
     public List<E_Person> getAllPeople() {
         return person_entity.findAll();
@@ -34,9 +38,26 @@ public class PersonService implements IPersonService {
         Response<V_Person> response = new Response<>();
 
 		try {
+
+            List<V_Person> personList = person_modify.findAll();
+
+			if (personList.size() > 0) {
+				response.setListData( personList );
+
+			} else {
+				Response<E_Person> createLanguagesResponse = createDefaultObjects.createDefaultPersons();
+				if (createLanguagesResponse.getState()) {
+					response.setListData( person_modify.findAll() );
+				} else {
+					response.setState(false);
+					response.setMessage("Hubo problemas para obtener el listado de personas");
+					response.setErrorMessage("No se pudo crear las personas por defecto");
+					return response;
+				}
+			}
 			response.setMessage("Datos de personas obtenidos correctamente");
 			response.setState(true);
-			response.setListData( (List<V_Person>)person_modify.findAll() );
+			// response.setListData( (List<V_Person>)person_modify.findAll() );
 
 		} catch (Exception e) {
 			response.setState(false);
