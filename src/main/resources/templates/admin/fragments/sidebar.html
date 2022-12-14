@@ -59,6 +59,14 @@
                 &nbsp; Lenguajes
             </a>
         </li>
+        <li class="nav-item">
+            <a th:href="@{ /persona }"
+                th:classappend="${ active eq 'pers' } ? active : ''"
+                class="nav-link d-flex" aria-current="page"> 
+                <img th:src="@{ /resources/icons/persona__icon.svg }" alt="Icono de persona"> 
+                &nbsp; Personas
+            </a>
+        </li>
     </ul> <!-- End Side bar links -->
 
     <hr>
