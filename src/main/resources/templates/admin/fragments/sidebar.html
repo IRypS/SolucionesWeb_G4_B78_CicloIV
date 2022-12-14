@@ -51,6 +51,14 @@
                 &nbsp; Genres
             </a>
         </li>
+        <li class="nav-item">
+            <a th:href="@{ /hi }"
+                th:classappend="${ active eq 'hi' } ? active : ''"
+                class="nav-link d-flex" aria-current="page"> 
+                <img th:src="@{ /resources/icons/list-plus.svg }" alt="Icono de lenguaje"> 
+                &nbsp; Lenguajes
+            </a>
+        </li>
     </ul> <!-- End Side bar links -->
 
     <hr>

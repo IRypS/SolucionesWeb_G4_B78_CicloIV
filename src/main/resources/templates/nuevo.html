@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>[[${contacto.id ne null ? 'Editar contacto' : 'Registro de contacto'}]]</title>
+	<!-- Common head -->
+	<div th:replace="/fragments/template_basic :: head-basic"></div>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+
+</head>
+<body class="text-info">
+
+
+<main class="container my-4 my-lg-5 overflow-hidden text-info" >
+<div>
+	<div class="row justify-content-center">
+	
+		<div class="col-md6 col-lg-4">
+			<br>
+			<br><br><br><br>
+			<div class="card p-4 position-relative bg-secondary text-white"
+			style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+			<h3><font face="Impact">[[${contacto.id ne null ? 'Editar' : 'Registro de idiomas'}]]</font></h3>
+			<br>
+			<form action="" method="post" th:object="${contacto}">
+				<div class="mb-3">
+							<label for="idioma"><font face="Times New Roman">Idioma : </font></label>
+							<option selected></option>
+							
+							<select class="custom-select custom-select-lg mb-1 form-control" id="idioma" type="text"
+								placeholder="Ingrese el idioma " th:field="*{idioma}"
+								th:errorClass="is-invalid" multiple>
+								<option value="Arameo‎"> <img th:src="@{ /resources/icons/main_icon.ico }" style="height: 2.5rem;">Arameo‎</option>
+								<option value="Argentino">Argentino</option>
+								<option value="Arábico">Arábico</option>
+								<option value="Alemán">Alemán</option>
+								<option value="Armenio">Armenio</option>
+								<option value="Bengalí">Bengalí</option>
+								<option value="Brazileño">Brazileño</option>
+								<option value="Baluchi‎">Baluchi‎</option>
+								<option value="Bangui‎">Bangui‎</option>
+								<option value="Bajo sajón neerlandés‎">Bajo sajón neerlandés‎</option>
+								<option value="Cubano">Cubano</option>
+								<option value="Canadiense">Canadiense</option>
+								<option value="Chino">Chino</option>
+								<option value="Camboyano‎">Camboyano‎</option>
+								<option value="Cakchiquel‎">Cakchiquel‎</option>
+								<option value="Español">Español</option>
+								<option value="Escocés‎">Escocés‎</option>
+								<option value="Eslovaco‎">Eslovaco‎</option>
+								<option value="Efik‎">Efik‎</option>
+								<option value="Edo">Edo</option>
+								<option value="Japones">Japones</option>
+								<option value="Jacalteco‎">Jacalteco‎</option>
+								<option value="Javanés‎">Javanés‎</option>
+								<option value="Jíbaro‎">Jíbaro‎</option>
+								<option value="Jakas‎">Jakas‎</option>
+								<option value="Hindi">Hindi</option>
+								<option value="Hebreo">Hebreo</option>
+								<option value="Hungaro">Hungaro</option>
+								<option value="Holandés">Holandés</option>
+								<option value="Hermanez">Hermanez</option>
+								<option value="Ingles">Ingles</option>
+								<option value="Italiano">Italiano</option>
+								<option value="Indonesio">Indonesio</option>
+								<option value="Ibatán‎">Ibatán‎</option>
+								<option value="Ilocano‎">Ilocano‎</option>
+								<option value="Koreano">Koreano</option>
+								<option value="Kamasau">Kamasau</option>
+								<option value="Kannada">Kannada</option>
+								<option value="Karen">Karen</option>
+								<option value="Karakalpako">Karakalpako</option>
+								<option value="Latin">Latin</option>
+								<option value="Lacandón‎">Lacandón‎</option>
+								<option value="Latgaliano‎">Latgaliano‎</option>
+								<option value="Latín vulgar‎">Latín vulgar‎</option>
+								<option value="Ladino‎">Ladino‎</option>
+								<option value="Mexicano">Mexicano</option>
+								<option value="Macedonio‎">Macedonio‎</option>
+								<option value="Malgache‎">Malgache‎</option>
+								<option value="Manchú‎">Manchú‎</option>
+								<option value="Mam‎">Mam‎</option>
+								<option value="Puerto Riqueño">Puerto Riqueño</option>
+								<option value="Panyabí">Panyabí</option>
+								<option value="‎Palenquero">‎Palenquero</option>
+								<option value="Pirahã">Pirahã</option>
+								<option value="Piamontés‎">Piamontés‎</option>
+								<option value="Tailandes">Tailandes</option>
+								<option value="Turco">Turco</option>
+								<option value="Tibetano">Tibetano</option>
+								<option value="Tamil">Tamil</option>
+								<option value="Turkmenistano">Turkmenistano</option>
+								<option value="Ruso">Ruso</option>
+								<option value="Romanche‎">Romanche‎</option>
+								<option value="Rotumano‎">Rotumano‎</option>
+								<option value="Rapa nui‎">Rapa nui‎</option>
+								<option value="Roviana‎">Roviana‎</option>
+								
+													
+							
+							</select>
+							
+							<div th:if="${#fields.hasErrors('idioma')}" th:errors="*{idioma}" class="invalid-feedback"></div>
+				</div>
+
+				<div class="text-end">
+				    <button  class="btn btn-success"><i class="fas fa-save"></i>&nbsp;Guardar</button>
+				    
+				    <a href="/hi" class="btn btn-light ms-2"><i class="fas fa-backward"></i>&nbsp;Cancelar </a>
+				</div>
+			</form>
+			</div>
+		</div>
+	</div>
+</div>
+</main>
+
+	<!-- Bootstrap JS -->
+    <div th:replace="/fragments/template_basic :: bootstrap_script-popper"></div>
+
+
+</body>
+</html>

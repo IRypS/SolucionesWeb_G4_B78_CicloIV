@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!-- Common head -->
+	<div th:replace="/fragments/template_basic :: head-basic"></div>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+	<link rel="stylesheet" href="../css/stylecard.css">
+</head>
+<body>
+
+
+	<!-- card -->
+	<div class="container">
+		<div th:if="${msgExito != null}"
+			class="alert alert-success alert-dismissible">
+			[[${msgExito}]]
+			<button type="button" class="btn btn-close" data-bs-dismiss="alert"></button>
+		</div>
+
+
+
+
+		<hr class="my-4" />
+
+		<div class="text-center my-3">
+			<h1 class="text-white">
+				<font face="Impact">Listado de idiomas</font>
+			</h1>
+			
+
+
+		</div>
+
+		<div class="container"
+			style="display: flex; justify-content: center; flex-wrap: wrap;">
+
+			<!-- canto -->
+
+			<div
+				class="d-flex bg-dark flex-column flex-shrink-0 p-3 text-bg-dark dropdown-menu-dark"
+				style="width: 250px;">
+
+				<div class="flex-shrink-0 p-3 bg-secondary boder-info mb-3"
+					style="width: 280px;">
+					<a
+						class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+						<svg class="bi pe-none me-2" width="30" height="24">
+							<use xlink:href="#bootstrap" /></svg> <span class="fs-5 fw-semibold"><font
+							face="Impact" class="text-light">Opciones</font></span>
+					</a>
+					<ul class="list-unstyled ps-0">
+						<li class="mb-1">
+							<button
+								class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+								data-bs-toggle="collapse" data-bs-target="#home-collapse"
+								aria-expanded="true">
+								<font face="Comic Sans Ms" class="text-light"> Añadir Idioma</font>
+							</button>
+							<div class="collapse show" id="home-collapse">
+								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+									<br>
+									<li><a href="/nuevo" class="btn btn-primary"><i
+											class="fas fa-user-plus"></i>&nbsp;Añadir Idioma</a></li>
+									<br>
+								</ul>
+							</div>
+						</li>
+						<li class="mb-1">
+							<button
+								class="btn btn-success btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+								data-bs-toggle="collapse" data-bs-target="#dashboard-collapse"
+								aria-expanded="false">Regresar</button>
+							<div class="collapse" id="dashboard-collapse">
+								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+									<br>
+									<li><a href="/app/administrator/dashboard"
+										class="btn btn-primary"><i class='fas fa-house-user'></i>&nbsp;Regresar</a></li>
+								</ul>
+							</div>
+						</li>
+						
+
+					</ul>
+					<hr >
+					<ul class="list-unstyled ps-0">
+						<li class="mb-1" >
+
+							<form role="search" class="bd-search d-flex align-items-center d-inline-flex">
+								<input type="search" class="form-control" id="search-input"
+									placeholder="Search..." aria-label="Search for..."
+									autocomplete="off" data-docs-version="4.6" >
+							</form>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+			<!-- separador -->
+
+			<div
+			
+				class="d-flex flex-shrink-0 p-3 text-bg-dark dropdown-menu-dark "
+				style="width: 970px; flex-wrap: wrap;">
+				
+
+				<ul th:each="contacto : ${contactos}" style="list-style: none;">
+					<li>
+						<div class="card border-info mb-3 card text-center bg-secondary"
+							style="width: 200px; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+
+							<div class="row no-gutters">
+								<div class="spinner-grow text-info ">
+									<span class="sr-only">Loading...</span>
+								</div>
+
+								<div class="col-md-15">
+
+									<div class="card-body">
+										<h5 class="card-title text-dark">
+											<font face="Comic Sans Ms" class=" text-white">Leguajes (ID)</font>
+										</h5>
+										<ul class="list-group list-group-flush">
+											<li class="list-group-item" th:text="${contacto.id}"></font></li>
+											<li class="list-group-item" th:text="${contacto.idioma}"><font
+												face="Times New Roman"></font></li>
+										</ul>
+										<div>
+											<a th:href="@{/{id}/editar/(id=${contacto.id})}"
+												class="btn btn-warning"><i class="fas fa-edit"></i></a> <a
+												href="#" onclick="eliminarContacto(this)"
+												class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+
+											<form th:action="@{/{id}/eliminar/(id=${contacto.id})}"
+												method="post"></form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!--  -->
+
+
+
+
+
+
+
+
+
+
+
+	<!-- Bootstrap JS -->
+    <div th:replace="/fragments/template_basic :: bootstrap_script-popper"></div>
+
+	<script>
+      function eliminarContacto(elemento){
+    	  var ok = confirm('¿Estas seguro de eliminar el lenguaje?');
+    	  
+    	  if(ok){
+    		  elemento.nextElementSibling.submit();
+    	  }
+      }
+   </script>
+</body>
+</html>
