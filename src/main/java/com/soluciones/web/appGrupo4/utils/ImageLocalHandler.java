@@ -41,8 +41,10 @@ public class ImageLocalHandler implements IImageLocalHandler {
             return responseFile;
 
         } catch (Exception e) {
+
+
             responseFile.setState(false);
-            responseFile.setErrorMessage(e.getStackTrace().toString());
+            responseFile.setErrorMessage(e.getMessage());
             return responseFile;
         }
                 
