@@ -41,7 +41,7 @@
 
     <!-- Popover -->
     <div th:id="${ 'popover' + trailer.getId}" class="d-none">
-        <div class="row justify-content-center px-1">
+        <div th:if="${trailer.getMovie != null}" class="row justify-content-center px-1">
             <div th:each="genre : ${ trailer.getMovie.getGenreList }"
                 th:text="${ genre.getNameGenre }"
                 class="col-auto bg-secondary text-light rounded-pill m-1"></div>

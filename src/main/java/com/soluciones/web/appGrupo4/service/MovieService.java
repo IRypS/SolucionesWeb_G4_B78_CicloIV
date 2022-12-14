@@ -49,6 +49,7 @@ public class MovieService implements IMovieService {
 
     @Autowired
     private IVerifySqlError verifySqlError;
+    
 
     @Value("${image.folder.path.general}" + "${image.folder.movie.name}")
     private String pathMovie;
@@ -61,9 +62,10 @@ public class MovieService implements IMovieService {
         Response<E_Movie> response = new Response<>();
 
 		try {
+
 			response.setMessage("Lista de Peliculas");
 			response.setState(true);
-			response.setListData( (List<E_Movie>)movie_entity.findAll() );
+            response.setListData(movie_entity.findAll());
 
 		} catch (Exception e) {
 			response.setState(false);
@@ -80,6 +82,7 @@ public class MovieService implements IMovieService {
         Response<V_Movie> response = new Response<>();
 
 		try {
+
 			response.setMessage("Datos peliculas obtenidos correctamente");
 			response.setState(true);
 			response.setListData( (List<V_Movie>)movie_modify.findAll() );

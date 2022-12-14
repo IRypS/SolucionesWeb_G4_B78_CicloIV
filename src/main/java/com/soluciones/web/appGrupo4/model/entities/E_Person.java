@@ -1,16 +1,9 @@
 package com.soluciones.web.appGrupo4.model.entities;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -34,15 +27,6 @@ public class E_Person {
     @Column(name = "birthday_person")
     private String birthday;
 
-    @ManyToMany
-    @JoinTable(name = "person_activity",
-            joinColumns = { @JoinColumn(name = "person_id") },
-            inverseJoinColumns = { @JoinColumn(name = "activity_id") })
-    private List<E_Activity> activitiesList;
-
-    @ManyToOne
-    @JoinColumn(name = "country_id")
-    private E_Country country;
 
 
 
@@ -53,8 +37,6 @@ public class E_Person {
         this.name = "";
         this.lastname = "";
         this.birthday = "";
-        this.activitiesList = new ArrayList<E_Activity>();
-        this.country = new E_Country();
     }
 
 
@@ -91,22 +73,6 @@ public class E_Person {
 
     public void setAge(String birthday) {
         this.birthday = birthday;
-    }
-
-    public List<E_Activity> getActivitiesList() {
-        return activitiesList;
-    }
-
-    public void setActivitiesList(List<E_Activity> activitiesList) {
-        this.activitiesList = activitiesList;
-    }
-
-    public E_Country getCountry() {
-        return country;
-    }
-
-    public void setCountry(E_Country country) {
-        this.country = country;
     }
 
 }
