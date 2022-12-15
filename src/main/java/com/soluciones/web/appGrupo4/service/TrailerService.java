@@ -134,6 +134,10 @@ public class TrailerService implements ITrailerService{
 
 		try {
 
+			E_Trailer targetTrailer = trailer_entity.findById(trailer.getId()).get();
+			trailer.setViews(targetTrailer.getViews());
+			
+
             Response<E_Movie> movie = movie_service.getMovieById(movieID);
             if (movie.getState()) { trailer.setMovie(movie.getData()); 
 			} else {

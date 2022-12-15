@@ -133,12 +133,11 @@ public class AdminPageController {
             @RequestParam(value = "languageID", required = false) String languageID,
             @RequestParam(value = "subtitleID", required = false) String subtitleID) {
 
-        
-        Response<V_Movie> movieDataResponse = movieinterface.getLazyInfoMovie();
-        Response<V_Language> languageDataResponse = languageInterface.getLazyInfoLanguage();
-
         // Verify errors
         if(br.hasErrors()) { 
+            Response<V_Movie> movieDataResponse = movieinterface.getLazyInfoMovie();
+            Response<V_Language> languageDataResponse = languageInterface.getLazyInfoLanguage();
+
             model.addAttribute("lazyMovie", movieDataResponse.getListData());
             model.addAttribute("lazyLanguage", languageDataResponse.getListData());
             return "admin/trailer_form"; 
