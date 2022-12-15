@@ -134,15 +134,18 @@ public class TrailerService implements ITrailerService{
 
 		try {
 
-			E_Trailer targetTrailer = trailer_entity.findById(trailer.getId()).get();
-			trailer.setViews(targetTrailer.getViews());
-			
+			try {
+				E_Trailer targetTrailer = trailer_entity.findById(trailer.getId()).get();
+				trailer.setViews(targetTrailer.getViews());
+			} catch (Exception e) {}
 
-            Response<E_Movie> movie = movie_service.getMovieById(movieID);
-            if (movie.getState()) { trailer.setMovie(movie.getData()); 
+
+			Response<E_Movie> movie = movie_service.getMovieById(movieID);
+            if (movie.getState()) {
+				trailer.setMovie(movie.getData());
 			} else {
 				trailer.setMovie(null);
-			};
+			}
 
             Response<E_Language> language = language_service.getLanguageById(languageID);
             if (language.getState()) { trailer.setLanguage(language.getData()); };
@@ -157,6 +160,11 @@ public class TrailerService implements ITrailerService{
 			response.setMessage("Se creó/editó correctamente el trailer " + createTrailer.getTitle());
 
 		} catch (Exception e) {
+
+			//! TODO : EL MPROBLWEMA ES AL OBTENER EL ID DE LA BASE DE DATOS 137
+			//! INTENTA UN TRY CATCH AL OBTENER EL TRAILER
+			e.printStackTrace();
+
 			response.setState(false);
 			response.setMessage("Ocurrió un error guardar/actualizar el trailer");
 			response.setErrorMessage(e.getStackTrace().toString());
