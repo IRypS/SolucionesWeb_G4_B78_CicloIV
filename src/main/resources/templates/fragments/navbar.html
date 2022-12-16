@@ -25,12 +25,12 @@
                     <!-- User Profile Button -->
                     <li th:if="${activeSession == true && userObject != null}"
                             class="nav-item dropdown mt-3 mt-lg-0 ms-lg-3 order-lg-1">
-                        <div th:replace="/fragments/components/account_buttons :: user_profile-button"></div>
+                        <div th:replace="fragments/components/account_buttons :: user_profile-button"></div>
                     </li>
 
                     <!-- Register button -->
                     <li th:if="${activeSession == false || userObject == null}" class="nav-item me-lg-2">
-                        <div th:replace="/fragments/components/account_buttons :: login-button"></div>
+                        <div th:replace="fragments/components/account_buttons :: login-button"></div>
                     </li>
 
                     <!-- Nav Links -->
