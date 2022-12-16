@@ -31,11 +31,11 @@
     <div class="col-12 ">
         
         <div th:if="${activeSession == true && userObject != null}">
-            <div th:replace="/fragments/components/action_buttons :: action_button-session_true"></div>
+            <div th:replace="fragments/components/action_buttons :: action_button-session_true"></div>
         </div>
 
         <div th:if="${activeSession == flase || userObject == null}">
-            <div th:replace="/fragments/components/action_buttons :: action_button-session_false"></div>
+            <div th:replace="fragments/components/action_buttons :: action_button-session_false"></div>
         </div>
     </div>
 </div>

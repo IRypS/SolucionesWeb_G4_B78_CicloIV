@@ -2,7 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Common head -->
-    <div th:replace="/fragments/template_basic :: head-basic"></div>
+    <div th:replace="fragments/template_basic :: head-basic"></div>
 
     <!-- Customize css -->
     <link type="text/css" rel="stylesheet" href="/styles/css/customize__navbar.css">
@@ -11,17 +11,17 @@
 <body>
 
     <!-- Nav header -->
-    <header th:replace="/fragments/navbar :: navbar_header( active = 'hom' )"></header>
+    <header th:replace="fragments/navbar :: navbar_header( active = 'hom' )"></header>
 
     <!-- Error body -->
-    <div th:replace="/fragments/error-body :: error-body( 
+    <div th:replace="fragments/error-body :: error-body( 
         errorCode=${status}, 
         title=${error}, 
         message=${response} ? ${response} : 'Error del servidor', 
         errorMessage=${errorMessage} ? ${errorMessage} : ${message} )"></div>
 
     <!-- Bootstrap JS -->
-    <div th:replace="/fragments/template_basic :: bootstrap_script-basic"></div>
+    <div th:replace="fragments/template_basic :: bootstrap_script-basic"></div>
 
 </body>
 </html>
