@@ -13,4 +13,6 @@ public interface I_genre_db extends JpaRepository<E_Genre, String> {
     
     List<E_Genre> findByOrderByNameGenreAsc();
 
+    E_Genre findBynameGenre(String nameGenre);
+
 }

@@ -81,6 +81,24 @@ public class GenreService implements IGenreService {
         return response;
     };
 
+
+    @Override
+    public boolean genreExists(String name) {
+        try {
+            E_Genre targetGenre = genre_entity.findBynameGenre(name);
+
+            if (targetGenre != null) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    };
+
 	@Override
 	public Response<E_Genre> deleteGenderById(String id) {
 		Response<E_Genre> response = new Response<>();

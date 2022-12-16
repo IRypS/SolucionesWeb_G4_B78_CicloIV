@@ -8,6 +8,8 @@ public interface IGenreService {
     public Response<E_Genre> getAllGenres();
 
     public Response<E_Genre> getGenreById(String id);
+    
+    public boolean genreExists(String name);
 
     public Response<E_Genre> createGenre(E_Genre genre);
 

@@ -12,6 +12,8 @@ import com.soluciones.web.appGrupo4.model.entities.E_Movie;
 @Repository
 public interface I_movie_db extends JpaRepository<E_Movie, String>{
 
+    E_Movie findByName(String name);
+
     @Query( nativeQuery = true,
         value = "SELECT movie.id_movie FROM genre, movie, movie_genre WHERE genre.id_genre = movie_genre.genre_id AND movie.id_movie = movie_genre.movie_id AND genre.id_genre = (?1)" )
     List<String> findIdMoviesByGenreId(String id);

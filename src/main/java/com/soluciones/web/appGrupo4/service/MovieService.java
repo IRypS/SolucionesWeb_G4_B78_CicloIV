@@ -310,6 +310,23 @@ public class MovieService implements IMovieService {
         }
     };
 
+    @Override
+    public boolean movieExists(String name) {
+        try {
+            E_Movie targetMovie = movie_entity.findByName(name);
+
+            if (targetMovie != null) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    };
+
 
     public List<E_Person> createDirectorObjectsIntoArray(List<String> idDirectorList) {
 
