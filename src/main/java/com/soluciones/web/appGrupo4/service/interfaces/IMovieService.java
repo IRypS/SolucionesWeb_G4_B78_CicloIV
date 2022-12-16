@@ -27,5 +27,7 @@ public interface IMovieService {
     public List<String> getIdMoviesByGenreId(String id);
 
     public int getMoviesCountByGenreId(String id);
+
+    public boolean movieExists(String name);
     
 }

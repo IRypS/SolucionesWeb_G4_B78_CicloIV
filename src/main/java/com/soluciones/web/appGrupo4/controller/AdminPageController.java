@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -393,6 +394,10 @@ public class AdminPageController {
             movie.setCoverUrl(movie.getCoverUrl() + "");
         }
 
+        if ( movieinterface.movieExists(movie.getName()) ) {
+            br.addError( new FieldError("movie", "name", "La pelicula ya existe en la base de datos"));
+        }
+
         // Verify errors
         if(br.hasErrors()) { 
             model.addAttribute("lazyPerson", personDataResponse.getListData());
@@ -667,7 +672,6 @@ public class AdminPageController {
         @Validated @ModelAttribute("genre") E_Genre genre,
         BindingResult br, Model model) {
 
-
         Response<E_User> userDataResponse = userService.getUserInfo();
 
         if (userDataResponse.getState()) {
@@ -676,6 +680,10 @@ public class AdminPageController {
             model.addAttribute("isAdmin", rolService.isAdmin(userDataResponse.getData().getRoles()));
         } else {
             model.addAttribute("activeSession", false);
+        }
+
+        if ( genderInterface.genreExists(genre.getNameGenre()) ) {
+            br.addError( new FieldError("genre", "nameGenre", "El género ya existe en la base de datos"));
         }
 
         // Verify errors

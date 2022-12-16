@@ -25,7 +25,7 @@
         </section>
 
         <!-- Register cta -->
-        <section class="container my-5 text-light">
+        <section th:if="${activeSession == false || userObject == null}" class="container my-5 text-light">
             <div class="row">
                 <div class="col-12 col-lg-9 text-center text-lg-start">
                     <h2>¿Ya tienes una cuenta?</h2>
