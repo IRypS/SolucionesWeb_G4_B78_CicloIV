@@ -2,6 +2,7 @@ package com.soluciones.web.appGrupo4.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import com.soluciones.web.appGrupo4.repository.I_trailer_db;
 import com.soluciones.web.appGrupo4.repository.manage.IMovie;
 import com.soluciones.web.appGrupo4.service.interfaces.IGenreService;
 import com.soluciones.web.appGrupo4.service.interfaces.IMovieService;
+import com.soluciones.web.appGrupo4.utils.interfaces.IImageCloudHandler;
 import com.soluciones.web.appGrupo4.utils.interfaces.IImageLocalHandler;
 
 @Service
@@ -49,6 +51,9 @@ public class MovieService implements IMovieService {
 
     @Autowired
     private IVerifySqlError verifySqlError;
+
+    @Autowired
+    private IImageCloudHandler cloudinaryService;
     
 
     @Value("${image.folder.path.general}" + "${image.folder.movie.name}")
@@ -128,21 +133,31 @@ public class MovieService implements IMovieService {
 
             if( !(fileM.isEmpty()) ) {
 
-                if (movie.getCoverUrl().equals("")) { movie.setCoverUrl(null);; }
-                if (movie.getCoverUrl() != null) {
-                    imageHandler.deleteImageLocal(movie.getCoverUrl(), pathMovie);
-                } 
+                try {
 
-                responseFile = imageHandler.saveImageInLocal(fileM, pathMovie);
+                    if (movie.getCoverUrl().equals("")) { movie.setCoverUrl(null);; }
+                    if (movie.getCoverUrl() != null) {
+                        // imageHandler.deleteImageLocal(movie.getCoverUrl(), pathMovie);
+                            String idDelete = movie.getCoverUrl().split("\\.")[0];
+                            cloudinaryService.delete(idDelete);
+                            movie.setCoverUrl(null);
+                    } 
 
-                if(responseFile.getState()) {
-                    movie.setCoverUrl(responseFile.getFileName());
-                } else {
+                    // responseFile = imageHandler.saveImageInLocal(fileM, pathMovie);
+                    // movie.setCoverUrl(responseFile.getFileName());
+
+                    Map<String, String> result = cloudinaryService.upload(fileM);
+                    movie.setCoverUrl(result.get("public_id") + "." + result.get("format"));
+
+                } catch (Exception e) {
+
+                        e.printStackTrace();
                     response.setState(responseFile.getState());
                     response.setMessage("IMG-ERROR | Ocurrió un error al crear el archivo");
                     response.setErrorMessage(responseFile.getErrorMessage());
                     return response;
                 }
+
             }
 
             List<E_Person> directorsToAdd = this.createDirectorObjectsIntoArray(idDirectorList);
@@ -187,7 +202,11 @@ public class MovieService implements IMovieService {
 
             if (targetMovie.get().getCoverUrl().equals("")) { targetMovie.get().setCoverUrl(null); };
             if (targetMovie.get().getCoverUrl() != null) {
-                imageHandler.deleteImageLocal(targetMovie.get().getCoverUrl(), pathMovie);
+                // imageHandler.deleteImageLocal(targetMovie.get().getCoverUrl(), pathMovie);
+                try {
+                    String idDelete = targetMovie.get().getCoverUrl().split("\\.")[0];
+                    cloudinaryService.delete(idDelete);
+                } catch (Exception e) {}
             } 
 
             response.setState(true);

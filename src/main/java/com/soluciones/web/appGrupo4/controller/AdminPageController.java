@@ -54,7 +54,7 @@ public class AdminPageController {
     @Autowired
     private ILanguageService languageInterface;
 
-    @Value("${image.resource.path.general}" + "${image.folder.movie.name}" + "/")
+    @Value("${image.resource.path.general.cloud}")
     private String movieImagePath;
 
 

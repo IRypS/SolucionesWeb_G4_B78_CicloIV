@@ -32,7 +32,7 @@ public class UserPageController {
     @Value("${web.title}")
     private String title;
 
-    @Value("${image.resource.path.general}" + "${image.folder.movie.name}" + "/")
+    @Value("${image.resource.path.general.cloud}")
     private String movieImagePath;
 
     @Value("${pagination.user.size}")
