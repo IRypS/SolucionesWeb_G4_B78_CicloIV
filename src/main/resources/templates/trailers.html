@@ -2,7 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Common head -->
-    <div th:replace="/fragments/template_basic :: head-basic"></div>
+    <div th:replace="fragments/template_basic :: head-basic"></div>
 
     <!-- Customize css -->
     <link type="text/css" rel="stylesheet" href="/styles/css/customize__navbar.css">
@@ -12,7 +12,7 @@
 <body>
 
     <!-- Nav header -->
-    <header th:replace="/fragments/navbar :: navbar_header( active = 'trailers' )"></header>
+    <header th:replace="fragments/navbar :: navbar_header( active = 'trailers' )"></header>
 
     <main class="container mt-4 mt-lg-5 overflow-hidden">
         <div class="row gy-3 gx-5">
@@ -29,7 +29,7 @@
 
                     <!-- Genre Filter -->
                     <div>
-                        <div th:replace="/fragments/filter :: filter_section( parent='accordionFlushFilter', 
+                        <div th:replace="fragments/filter :: filter_section( parent='accordionFlushFilter', 
                         id='flush-genres', idCollapse='flush-collapseGenres', title='Por Género',
                         object='genresList', getLabelMethod='getNameGenre', getIdMethod='getIdGenre',
                         paramName='gre')">
@@ -37,7 +37,7 @@
 
                     <!-- Audio Filter -->
                     <div>
-                        <div th:replace="/fragments/filter :: filter_section( parent='accordionFlushFilter', 
+                        <div th:replace="fragments/filter :: filter_section( parent='accordionFlushFilter', 
                         id='flush-audio', idCollapse='flush-collpaseAudio', title='Por Audio', 
                         object='languagesList', getLabelMethod='getNameLanguage', getIdMethod='getIdLanguage',
                         paramName='av')">
@@ -45,7 +45,7 @@
 
                     <!-- Subtitle Filter -->
                     <div>
-                        <div th:replace="/fragments/filter :: filter_section( parent='accordionFlushFilter', 
+                        <div th:replace="fragments/filter :: filter_section( parent='accordionFlushFilter', 
                         id='flush-subtitle', idCollapse='flush-collapseSubtitle', title='Por Subtitulos', 
                         object='languagesList', getLabelMethod='getNameLanguage', getIdMethod='getIdLanguage',
                         paramName='sttl')">
@@ -62,14 +62,14 @@
             </div>
             <div class="col-lg-9" th:unless="${trailersList.size == 0}">
                 <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 row-cols-xxl-5 pt-1">
-                    <div th:replace="/fragments/trailer_link :: trailer_link( object='trailersList' )">
+                    <div th:replace="fragments/trailer_link :: trailer_link( object='trailersList' )">
                 </div>
             </div>
             
             <!-- TrailerPaginationNav -->
             <div th:if="${ pages != null }">
 
-                <div th:if="${!pages.isEmpty()}" th:replace="/fragments/pagination_nav :: pagination_nav( generalPath='/app/trailers', 
+                <div th:if="${!pages.isEmpty()}" th:replace="fragments/pagination_nav :: pagination_nav( generalPath='/app/trailers', 
                     pageList='pages', prev=${pagesInfo.get('prev')}, current=${pagesInfo.get('current')},
                     next=${pagesInfo.get('next')}, last=${pagesInfo.get('last')}, )">
 
@@ -80,10 +80,10 @@
     </main>
 
     <!-- Footer -->
-    <div th:replace="/fragments/footer :: basic_footer"></div>
+    <div th:replace="fragments/footer :: basic_footer"></div>
 
     <!-- Bootstrap JS -->
-    <div th:replace="/fragments/template_basic :: bootstrap_script-popper"></div>
+    <div th:replace="fragments/template_basic :: bootstrap_script-popper"></div>
 
     <!-- Customm Js -->
     <script src="/utils/autoadjust_16-9__video-proportions.js"></script>

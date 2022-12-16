@@ -2,7 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Common head -->
-    <div th:replace="/fragments/template_basic :: head-basic"></div>
+    <div th:replace="fragments/template_basic :: head-basic"></div>
 
     <!-- Customize css -->
     <link type="text/css" rel="stylesheet" href="/styles/css/customize__navbar.css">
@@ -12,7 +12,7 @@
 <body>
 
     <!-- Nav header -->
-    <header th:replace="/fragments/navbar :: navbar_header( active = 'trailers' )"></header>
+    <header th:replace="fragments/navbar :: navbar_header( active = 'trailers' )"></header>
 
     <main class="container my-4 my-lg-5 overflow-hidden">
         <div class="row text-light">
@@ -38,11 +38,11 @@
                 </div>
                 
                 <!-- Info Trailer & Actions -->
-                <div th:replace="/fragments/trailer_info :: trailer_info"></div>
+                <div th:replace="fragments/trailer_info :: trailer_info"></div>
 
                 <!-- Info Movie -->
                 <div th:if="${trailer.getMovie != null}">
-                    <div th:replace="/fragments/trailer_movie_details :: movieDetails( object='trailer' )"></div>
+                    <div th:replace="fragments/trailer_movie_details :: movieDetails( object='trailer' )"></div>
                 </div>
             </div>
 
@@ -50,20 +50,20 @@
             <div class="col-lg-3 mt-3 mt-lg-0">
                 <p class="h4 mb-4">Videos Relacionados</p>
                 <!-- Trailers Divs-->
-                <div th:replace="/fragments/trailer_link :: trailer_link( object='relatedTrailers' )"></div>
+                <div th:replace="fragments/trailer_link :: trailer_link( object='relatedTrailers' )"></div>
             </div>
             
         </div>
     </main>
 
     <!-- Footer -->
-    <div th:replace="/fragments/footer :: basic_footer"></div>
+    <div th:replace="fragments/footer :: basic_footer"></div>
 
     <!-- Insert Trailer Document -->
-    <div th:replace="/fragments/scripts/lazy_view :: lazy_trailer"></div>
+    <div th:replace="fragments/scripts/lazy_view :: lazy_trailer"></div>
 
     <!-- Bootstrap JS -->
-    <div th:replace="/fragments/template_basic :: bootstrap_script-popper"></div>
+    <div th:replace="fragments/template_basic :: bootstrap_script-popper"></div>
 
     <!-- Customm Js -->
     <script src="/utils/autoadjust_16-9__video-proportions.js"></script>

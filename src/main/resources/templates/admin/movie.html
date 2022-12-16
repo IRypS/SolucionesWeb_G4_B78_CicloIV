@@ -2,10 +2,10 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Common head -->
-    <div th:replace="/fragments/template_basic :: head-basic"></div>
+    <div th:replace="fragments/template_basic :: head-basic"></div>
 
     <!-- Datatables -->
-    <div th:replace="/admin/fragments/template_datatable :: datatable_head"></div>
+    <div th:replace="admin/fragments/template_datatable :: datatable_head"></div>
 
     <!-- Customize css -->    
     <link type="text/css" rel="stylesheet" href="/styles/css/customize__sidebar.css">
@@ -14,21 +14,21 @@
 </head>
 <body class="vw-100 mw-100">
 
-    <header th:replace="/admin/fragments/header :: headerAdmin" class="d-md-none"></header>
+    <header th:replace="admin/fragments/header :: headerAdmin" class="d-md-none"></header>
 
     <main class="row w-100 m-0">
 
         <!-- offcanvas Menu Side bar -->
         <div class="d-md-none offcanvas offcanvas-start w-75 bg-dark p-0" tabindex="-1" id="sideBar" aria-labelledby="sideBarLabel">
             <div class="offcanvas-body p-0">
-                <div th:insert="/admin/fragments/sidebar :: sidebar( active = 'movie')"
+                <div th:insert="admin/fragments/sidebar :: sidebar( active = 'movie')"
                     class="bg-primary">
                 </div>
             </div>
         </div> <!-- End offcanvas Menu Side bar -->
 
         <!-- Menu Side bar -->
-        <div th:insert="/admin/fragments/sidebar :: sidebar( active = 'movie')"
+        <div th:insert="admin/fragments/sidebar :: sidebar( active = 'movie')"
             class="col-md-4 col-lg-3 col-xl-2 d-none d-md-flex p-0 m-0 bg-primary">
         </div>
 
@@ -37,11 +37,11 @@
         <div class="col-md-8 col-lg-9 col-xl-10 overflow-auto p-5 vh-100 text-light">
 
             <!-- Title & buttons  -->
-            <div th:replace="/admin/fragments/table_header :: header_table( name='Pelicula', 
+            <div th:replace="admin/fragments/table_header :: header_table( name='Pelicula', 
                 image='movie__icon.svg', actionLink='/app/administrator/insert/movie')"></div>
             
             <!-- Response  -->
-            <div th:replace="/admin/fragments/response :: response"></div>
+            <div th:replace="admin/fragments/response :: response"></div>
 
             <!-- Table  -->
             <table id="dataTable" class="display wrap overflow-auto" cellspacing="0" style="width:100%">
@@ -88,10 +88,10 @@
 
 
     <!-- Bootstrap JS -->
-    <div th:replace="/fragments/template_basic :: bootstrap_script-popper"></div>
+    <div th:replace="fragments/template_basic :: bootstrap_script-popper"></div>
 
     <!-- Datatables -->
-    <div th:replace="/admin/fragments/template_datatable :: datable_scripts"></div>
+    <div th:replace="admin/fragments/template_datatable :: datable_scripts"></div>
 
 </body>
 </html>
