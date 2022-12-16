@@ -16,8 +16,15 @@
                 text-light c_form-container">
 
         <section class="col-10 col-sm-8 col-md-7 col-lg-4 offset-lg-7">
+
+            <!-- Failure Message -->
+            <div th:if="${param.error}">
+                <div class="alert alert-danger">
+                    Usuario o contraseña inválidos
+                </div>
+            </div>
             
-            <form th:action="@{/account/accessAccount}" th:object="${user}" method="post"
+            <form th:action="@{/account/login}" method="post"
                 class="d-grid gap-3 mb-5">
 
                 <!-- Logo -->
@@ -33,27 +40,18 @@
                     <div class="form-floating">
                         <img src="/resources/icons/email__icon.svg" 
                             alt="Icono para el input de correo" class="c_icon">
-                        <input th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''"
-                            type="email" class="form-control" name="email" th:field="*{email}"
-                            id="floatingEmail" placeholder="Email">
-                        <label for="floatingEmail">Email</label>
+                        <input type="text" class="form-control" id="username" name="username">
+                        <label for="username">Nombre de usuario</label>
                     </div>
-                    <small th:if = "${#fields.hasErrors('email')}" th:errors = "*{email}"
-                        class="d-block bg-danger text-light py-1 px-3" role="alert"></small>
                 </div>
 
                 <div>
                     <div class="form-floating">
                         <img src="/resources/icons/lock__icon.svg" 
                             alt="Icono para el input de contraseña" class="c_icon">
-                        <input th:classappend="${#fields.hasErrors('password')} ? 'is-invalid' : ''"
-                            type="password" class="form-control" name="password" th:field="*{password}"
-                            th:value="password"
-                            id="floatingPassword" placeholder="Password">
-                        <label for="floatingPassword">Password</label>
+                        <input type="password" class="form-control" id="password" name="password">
+                        <label for="password">Contraseña</label>
                     </div>
-                    <small th:if = "${#fields.hasErrors('password')}" th:errors = "*{password}"
-                        class="d-block bg-danger text-light py-1 px-3" role="alert"></small>
                 </div>
 
                 <!-- Submit button -->
