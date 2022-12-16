@@ -41,7 +41,7 @@
                         <img src="/resources/icons/email__icon.svg" 
                             alt="Icono para el input de correo" class="c_icon">
                         <input type="text" class="form-control" id="username" name="username">
-                        <label for="username">Nombre de usuario</label>
+                        <label for="username">Correo electrónico</label>
                     </div>
                 </div>
 
@@ -59,6 +59,12 @@
 
                 <small class="text-center">No tienes una cuenta? <a href="/account/signin" class="link">Registrate ahora</a></small>
             </form>
+
+            <div class="btn btn-success w-100">
+                <a th:href="@{/}">
+                    Solo quiero hechar un vistazo
+                </a>
+            </div>
         </section>
     </main>
 

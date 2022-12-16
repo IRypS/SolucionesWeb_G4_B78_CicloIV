@@ -14,7 +14,11 @@
     <header th:replace="/fragments/navbar :: navbar_header( active = 'hom' )"></header>
 
     <!-- Error body -->
-    <div th:replace="/fragments/error-body :: error-body( errorCode='403', title='Titulo ERROR', message='Mensajito', errorMessage='a' )"></div>
+    <div th:replace="/fragments/error-body :: error-body( 
+        errorCode=${status}, 
+        title=${error}, 
+        message=${response} ? ${response} : 'No tienes permiso para acceder a esta página', 
+        errorMessage=${errorMessage} ? ${errorMessage} : '' )"></div>
 
     <!-- Bootstrap JS -->
     <div th:replace="/fragments/template_basic :: bootstrap_script-basic"></div>

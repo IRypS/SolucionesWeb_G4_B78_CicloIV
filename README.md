@@ -1,7 +1,7 @@
 # Aplicación en Spring - Grupo 4 (Evidencia Actual II)
 
 Proyecto realizado para cubrir las evidencias correspondientes a las 4 unidades del IV ciclo del curso de Implementación de Soluciones
-para Plataformas Web en el instituto CERTUS.    
+para Plataformas Web en el instituto CERTUS.   
 
 > Estado:    
 > `Módulos de peliculas y trailers implementado (Con una conexion a la base de datos)`

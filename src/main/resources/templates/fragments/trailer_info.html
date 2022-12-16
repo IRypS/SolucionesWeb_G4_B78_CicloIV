@@ -4,19 +4,21 @@
     <!-- Trailer title-->
     <div class="col-12 my-3">
         <!-- Audio icon -->
-        <span th:if="${ trailer.getLanguage.getIdLanguage != '0' }">
+        <span th:if="${ trailer.getLanguage.getNameLanguage != '' }">
             <img src="/resources/icons/volume__icon.svg" alt="Icono de audio"> 
             <img th:src="${ trailer.getLanguage.getIconLanguage }" 
                 th:alt="${ 'Icono de audio ' + trailer.getLanguage.getNameLanguage.toLowerCase() }" 
                 style="width: 20px">
         </span>
         <!-- Subtitle icon -->
-        <span th:if="${ trailer.getSubtitle.getIdLanguage != '0' }">
+        <span th:if="${ trailer.getSubtitle.getNameLanguage != '' }">
             <img src="/resources/icons/subtitle__icon.svg" alt="Icono de sutitulo"> 
             <img th:src="${ trailer.getSubtitle.getIconLanguage }"
                 th:alt="${ 'Icono de subtitulos en ' + trailer.getSubtitle.getNameLanguage.toLowerCase() }" 
                 style="width: 20px">
         </span>
+
+        <span th:if="${ trailer.getLanguage.getNameLanguage != '' || trailer.getSubtitle.getNameLanguage != '' }"> | </span>
         <!-- Title -->
         <span th:text="${trailer.getTitle}" class="h6 ms-1"></span><br>
         <small class="d-flex">

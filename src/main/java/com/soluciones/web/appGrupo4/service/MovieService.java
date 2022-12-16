@@ -25,7 +25,7 @@ import com.soluciones.web.appGrupo4.repository.manage.IMovie;
 import com.soluciones.web.appGrupo4.service.interfaces.IGenreService;
 import com.soluciones.web.appGrupo4.service.interfaces.IMovieService;
 import com.soluciones.web.appGrupo4.utils.interfaces.IImageCloudHandler;
-import com.soluciones.web.appGrupo4.utils.interfaces.IImageLocalHandler;
+// import com.soluciones.web.appGrupo4.utils.interfaces.IImageLocalHandler;
 
 @Service
 public class MovieService implements IMovieService {
@@ -46,8 +46,8 @@ public class MovieService implements IMovieService {
     @Autowired
     private I_trailer_db trailer_entity;
 
-    @Autowired
-    private IImageLocalHandler imageHandler;
+    // @Autowired
+    // private IImageLocalHandler imageHandler;
 
     @Autowired
     private IVerifySqlError verifySqlError;
