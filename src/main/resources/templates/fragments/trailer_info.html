@@ -4,19 +4,21 @@
     <!-- Trailer title-->
     <div class="col-12 my-3">
         <!-- Audio icon -->
-        <span th:if="${ trailer.getLanguage.getIdLanguage != '0' }">
+        <span th:if="${ trailer.getLanguage.getNameLanguage != '' }">
             <img src="/resources/icons/volume__icon.svg" alt="Icono de audio"> 
             <img th:src="${ trailer.getLanguage.getIconLanguage }" 
                 th:alt="${ 'Icono de audio ' + trailer.getLanguage.getNameLanguage.toLowerCase() }" 
                 style="width: 20px">
         </span>
         <!-- Subtitle icon -->
-        <span th:if="${ trailer.getSubtitle.getIdLanguage != '0' }">
+        <span th:if="${ trailer.getSubtitle.getNameLanguage != '' }">
             <img src="/resources/icons/subtitle__icon.svg" alt="Icono de sutitulo"> 
             <img th:src="${ trailer.getSubtitle.getIconLanguage }"
                 th:alt="${ 'Icono de subtitulos en ' + trailer.getSubtitle.getNameLanguage.toLowerCase() }" 
                 style="width: 20px">
         </span>
+
+        <span th:if="${ trailer.getLanguage.getNameLanguage != '' || trailer.getSubtitle.getNameLanguage != '' }"> | </span>
         <!-- Title -->
         <span th:text="${trailer.getTitle}" class="h6 ms-1"></span><br>
         <small class="d-flex">
@@ -27,158 +29,13 @@
 
     <!-- Action Buttons -->
     <div class="col-12 ">
-        <div class="row h-100 g-2">
+        
+        <div th:if="${activeSession == true && userObject != null}">
+            <div th:replace="/fragments/components/action_buttons :: action_button-session_true"></div>
+        </div>
 
-            <!-- Report video -->
-            <div class="col-12 col-sm-6">
-                <button type="button" class="btn btn-danger h-100 w-100" data-bs-toggle="modal" data-bs-target="#reportModal">
-                    <img src="/resources/icons/info.svg" alt="Icon button report"> 
-                    Reportar problema
-                </button>
-
-                <!-- List Modal -->
-                <div class="modal fade" 
-                    id="reportModal" 
-                    tabindex="-1" 
-                    aria-labelledby="reportModalLabel" 
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                        <div class="modal-content w-auto mx-auto">
-                            <div class="modal-body overflow-hidden">
-                                <!-- List header -->
-                                <div class="d-flex justify-content-between mb-1">
-                                    <div class="h5">¿Cual es el problema?</div>
-                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-
-                                <form action="">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="reproduction" value="reproduction" id="reproductionId">
-                                        <label class="form-check-label" for="flexRadioDefault1">
-                                            El video no se reproduce
-                                        </label>
-                                    </div>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="videoSize" value="videoSize" id="videoSizeId">
-                                        <label class="form-check-label" for="flexRadioDefault1">
-                                            El video luce descolocado o se pasa de la pantalla
-                                        </label>
-                                    </div>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="audio" value="audio" id="audioId">
-                                        <label class="form-check-label" for="flexRadioDefault1">
-                                            El video no se escucha
-                                        </label>
-                                    </div>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="other" value="other" id="otherId">
-                                        <label class="form-check-label" for="flexRadioDefault1">
-                                            Otro
-                                        </label>
-                                    </div>
-
-                                    <button type="submit" class="btn btn-danger mx-auto mt-2 w-100" data-bs-dismiss="modal"
-                                        onclick="event.preventDefault()">
-                                        <img src="/resources/icons/info.svg"> 
-                                        Reportar video
-                                    </button>
-                                </form>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Save Playlist -->
-            <div class="col-12 col-sm-6">
-                <button type="button" class="btn btn-dark h-100 w-100" data-bs-toggle="modal" data-bs-target="#listModal">
-                    <img src="/resources/icons/add.svg"  alt="Icon button save into list"> 
-                    Guardar
-                </button>
-                
-                <!-- List Modal -->
-                <div class="modal fade" 
-                    id="listModal" 
-                    tabindex="-1" 
-                    aria-labelledby="exampleModalLabel" 
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                        <div class="modal-content w-auto mx-auto">
-                            <div class="modal-body overflow-hidden">
-                                <!-- List header -->
-                                <div class="d-flex justify-content-between">
-                                    <div class="h5">Guardar en:</div>
-                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-
-                                <!-- List each -->
-                                <div class="container">
-                                    <div class="form-check">
-                                        <input value="favourites" id="favourites"
-                                            class="form-check-input" type="checkbox">
-                                        <label for="favourites"
-                                            class="form-check-label text-truncate">Favoritos
-                                        </label>
-                                    </div>
-
-                                    <div class="form-check" th:each="list : ${userList}">
-                                        <input th:value="${list.getName.toLowerCase()}"
-                                            th:id="check- + ${list.getId}"
-                                            class="form-check-input" type="checkbox">
-                                        <label th:text="${list.getName}"
-                                            th:for="check- + ${list.getId}"
-                                            class="form-check-label text-truncate">
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- List Footer -->
-                            <div class="modal-footer ">
-                                <button type="button" class="btn btn-secondary mx-auto" 
-                                    data-bs-toggle="modal" data-bs-target="#createListModal">
-                                    <img src="/resources/icons/list-plus.svg"  alt="Icon add list"> Crear nueva playlist
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Create List Modal -->
-                <div class="modal fade" 
-                    id="createListModal" 
-                    tabindex="-1" 
-                    aria-labelledby="createListModalLabel" 
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                        <div class="modal-content w-auto mx-auto">
-                            <div class="modal-body overflow-hidden">
-                                <!-- List header -->
-                                <div class="d-flex justify-content-end">
-                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-
-                                <!-- Form Body -->
-                                <form th:action="@{/app/list/createNewList/{id}(id=${trailer.getId}) }" th:object="${userList}" method="post">
-
-                                    <label for="inputNameList">Inserte Nombre: </label>
-                                    <input type="text" class="bg-primary form-control" name="name" id="inputNameList">
-                                    
-                                    <button type="submit" class="btn btn-secondary w-100 mt-3" data-bs-dismiss="modal"
-                                        onclick="">
-                                        <img src="/resources/icons/list-check.svg"  alt="Icon button create list">
-                                        Crear lista
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+        <div th:if="${activeSession == flase || userObject == null}">
+            <div th:replace="/fragments/components/action_buttons :: action_button-session_false"></div>
         </div>
     </div>
 </div>

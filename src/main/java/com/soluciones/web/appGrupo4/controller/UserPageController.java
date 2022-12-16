@@ -19,11 +19,14 @@ import com.soluciones.web.appGrupo4.model.entities.E_Country;
 import com.soluciones.web.appGrupo4.model.entities.E_Genre;
 import com.soluciones.web.appGrupo4.model.entities.E_Language;
 import com.soluciones.web.appGrupo4.model.entities.E_Trailer;
+import com.soluciones.web.appGrupo4.model.entities.E_User;
 import com.soluciones.web.appGrupo4.service.IListService;
 import com.soluciones.web.appGrupo4.service.interfaces.ICountryService;
 import com.soluciones.web.appGrupo4.service.interfaces.IGenreService;
 import com.soluciones.web.appGrupo4.service.interfaces.ILanguageService;
+import com.soluciones.web.appGrupo4.service.interfaces.IRolService;
 import com.soluciones.web.appGrupo4.service.interfaces.ITrailerService;
+import com.soluciones.web.appGrupo4.service.interfaces.IUserService;
 
 @Controller
 @RequestMapping("/app")
@@ -32,7 +35,7 @@ public class UserPageController {
     @Value("${web.title}")
     private String title;
 
-    @Value("${image.resource.path.general}" + "${image.folder.movie.name}" + "/")
+    @Value("${image.resource.path.general.cloud}")
     private String movieImagePath;
 
     @Value("${pagination.user.size}")
@@ -55,11 +58,26 @@ public class UserPageController {
 
     @Autowired
     private IPaginationHelper pagination;
+
+    @Autowired
+    private IUserService userService;
+
+    @Autowired
+    private IRolService rolService;
    
     @GetMapping("/trailers")
     public String paginatedTrailers(@RequestParam Map<String, Object> params, Model model) {
 
-        model.addAttribute("activeSession", true);
+
+        Response<E_User> userDataResponse = userService.getUserInfo();
+        if (userDataResponse.getState()) {
+            model.addAttribute("activeSession", true);
+            model.addAttribute("userObject", userDataResponse.getData());
+            model.addAttribute("isAdmin", rolService.isAdmin(userDataResponse.getData().getRoles()));
+        } else {
+            model.addAttribute("activeSession", false);
+        }
+        
         model.addAttribute("title", title + " | Trailers");
 
         Response<E_Trailer> trailerResponsePaginated = trailerInterface.getPaginatedTrailers(
@@ -120,7 +138,15 @@ public class UserPageController {
     @GetMapping("/trailer/view/{id}")
     public String trailerView(@PathVariable String id, Model model) {
 
-        model.addAttribute("activeSession", true);
+        Response<E_User> userDataResponse = userService.getUserInfo();
+        if (userDataResponse.getState()) {
+            model.addAttribute("activeSession", true);
+            model.addAttribute("userObject", userDataResponse.getData());
+            model.addAttribute("isAdmin", rolService.isAdmin(userDataResponse.getData().getRoles()));
+        } else {
+            model.addAttribute("activeSession", false);
+        }
+
         model.addAttribute("movieImagePath", movieImagePath);
 
         Response<E_Trailer> trailerResponse = trailerInterface.getTrailerById(id);
@@ -162,7 +188,15 @@ public class UserPageController {
     public String searchTrailerByTitle(Model model,
         @RequestParam(value = "tl", required = false) String tl) {
 
-        model.addAttribute("activeSession", true);
+        Response<E_User> userDataResponse = userService.getUserInfo();
+        if (userDataResponse.getState()) {
+            model.addAttribute("activeSession", true);
+            model.addAttribute("userObject", userDataResponse.getData());
+            model.addAttribute("isAdmin", rolService.isAdmin(userDataResponse.getData().getRoles()));
+        } else {
+            model.addAttribute("activeSession", false);
+        }
+
 
         if (tl != null) {
             Response<E_Trailer> searchTrailer = trailerInterface.getTrailersByTitle(tl);
@@ -193,7 +227,14 @@ public class UserPageController {
         @RequestParam(value = "av", required = false) String av,
         @RequestParam(value = "sttl", required = false) String sttl) {
 
-        model.addAttribute("activeSession", true);
+        Response<E_User> userDataResponse = userService.getUserInfo();
+        if (userDataResponse.getState()) {
+            model.addAttribute("activeSession", true);
+            model.addAttribute("userObject", userDataResponse.getData());
+            model.addAttribute("isAdmin", rolService.isAdmin(userDataResponse.getData().getRoles()));
+        } else {
+            model.addAttribute("activeSession", false);
+        }
 
         if (gre != null) {
             Response<E_Trailer> filterTrailer = trailerInterface.getTrailersByGenre(gre);

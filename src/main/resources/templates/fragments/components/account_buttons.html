@@ -1,3 +1,4 @@
+<!-- Login buttonn -->
 <div th:fragment="login-button">
     <a th:href="@{/account/login}"
             class="nav-link mt-3 mt-lg-0 ms-auto py-2 px-3 btn btn-cta c_btn-user-profile" role="button">
@@ -6,7 +7,11 @@
 </div>
 
 
+<!-- Register for additional actions -->
 
+
+
+<!-- Profile button -->
 <div th:fragment="user_profile-button">
 
     <!-- Button Dropdown -->
@@ -16,23 +21,54 @@
             role="button" 
             aria-expanded="false">
         <img src="https://i.ytimg.com/vi/fykmLCRzlwc/mqdefault.jpg" alt="Avatar de perfil de usuario" width="100%">
-        <span class="ms-2 ms-lg-1 tex-truncate">IRypS</span>
+        <span class="ms-2 ms-lg-1 tex-truncate" th:text="${userObject.getUsername}"></span>
     </button>
 
     <!-- Dropdown Menu  -->
     <ul class="dropdown-menu dropdown-menu-dark">
         <!-- Administrator -->
-        <div>
+        <div th:if="${isAdmin}">
             <li><a class="dropdown-item" href="/app/administrator/dashboard">Panel de administración</a></li>
             <li><hr class="dropdown-divider"></li>
         </div>
 
         <!-- Logout -->
         <li>
-            <a class="dropdown-item d-flex justify-content-between" href="/">
+            <a th:href="@{/account/logout}" class="dropdown-item d-flex justify-content-between">
                 Cerrar sesión
                 <img src="/resources/icons/log-out__icon.svg" alt="Icono de cerrar sesión">
             </a>
         </li>
     </ul>
+    
+</div>
+
+
+
+<!-- Admin dropdown menu -->
+<div th:fragment="admin_profile-button">
+    <!-- Button Dropdown -->
+    <div class="dropdown-toggle btn" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="https://i.ytimg.com/vi/fykmLCRzlwc/mqdefault.jpg" 
+            alt="Avatar de perfil de usuario">
+        <span class="ms-2 ms-lg-1 tex-truncate" th:text="${userObject.getUsername}"></span>
+    </div> <!-- End Button Dropdown -->
+
+    <!-- Dropdown Menu  -->
+    <ul class="dropdown-menu dropdown-menu-dark">
+        
+        <!-- Admin to User View -->
+        <div>
+            <li><a class="dropdown-item" th:href="@{/}">Ir a vistas de usuario</a></li>
+            <li><hr class="dropdown-divider"></li>
+        </div> <!-- End Admin to User View -->
+
+       <!-- Logout -->
+       <li>
+            <a th:href="@{/account/logout}" class="dropdown-item d-flex justify-content-between">
+                Cerrar sesión
+                <img src="/resources/icons/log-out__icon.svg" alt="Icono de cerrar sesión">
+            </a>
+        </li>
+    </ul> <!-- End Dropdown Menu -->
 </div>

@@ -21,6 +21,7 @@ import com.soluciones.web.appGrupo4.model.entities.E_Genre;
 import com.soluciones.web.appGrupo4.model.entities.E_Language;
 import com.soluciones.web.appGrupo4.model.entities.E_Movie;
 import com.soluciones.web.appGrupo4.model.entities.E_Trailer;
+import com.soluciones.web.appGrupo4.model.entities.E_User;
 import com.soluciones.web.appGrupo4.model.validators.V_Language;
 import com.soluciones.web.appGrupo4.model.validators.V_Movie;
 import com.soluciones.web.appGrupo4.model.validators.V_Person;
@@ -28,7 +29,9 @@ import com.soluciones.web.appGrupo4.service.interfaces.IGenreService;
 import com.soluciones.web.appGrupo4.service.interfaces.ILanguageService;
 import com.soluciones.web.appGrupo4.service.interfaces.IMovieService;
 import com.soluciones.web.appGrupo4.service.interfaces.IPersonService;
+import com.soluciones.web.appGrupo4.service.interfaces.IRolService;
 import com.soluciones.web.appGrupo4.service.interfaces.ITrailerService;
+import com.soluciones.web.appGrupo4.service.interfaces.IUserService;
 
 
 
@@ -54,7 +57,13 @@ public class AdminPageController {
     @Autowired
     private ILanguageService languageInterface;
 
-    @Value("${image.resource.path.general}" + "${image.folder.movie.name}" + "/")
+    @Autowired
+    private IUserService userService;
+
+    @Autowired
+    private IRolService rolService;
+
+    @Value("${image.resource.path.general.cloud}")
     private String movieImagePath;
 
 
@@ -62,7 +71,16 @@ public class AdminPageController {
     public String dashboardHome(Model model){
 
         model.addAttribute("title", title + " | Dashboard");
-        model.addAttribute("activeSession", true);
+        
+        Response<E_User> userDataResponse = userService.getUserInfo();
+
+        if (userDataResponse.getState()) {
+            model.addAttribute("activeSession", true);
+            model.addAttribute("userObject", userDataResponse.getData());
+            model.addAttribute("isAdmin", rolService.isAdmin(userDataResponse.getData().getRoles()));
+        } else {
+            model.addAttribute("activeSession", false);
+        }
         
         return "admin/dashboard";
     }
@@ -70,7 +88,15 @@ public class AdminPageController {
     @GetMapping("/trailerList")
     public String getTrailerList(Model model) {
 
-        model.addAttribute("activeSession", true);
+        Response<E_User> userDataResponse = userService.getUserInfo();
+
+        if (userDataResponse.getState()) {
+            model.addAttribute("activeSession", true);
+            model.addAttribute("userObject", userDataResponse.getData());
+            model.addAttribute("isAdmin", rolService.isAdmin(userDataResponse.getData().getRoles()));
+        } else {
+            model.addAttribute("activeSession", false);
+        }
 
         Response<E_Trailer> response = trailerInterface.getAllTrailers();
 
@@ -90,6 +116,16 @@ public class AdminPageController {
     @GetMapping("/insert/trailer")
     public String trailerForm(Model model) {
 
+        Response<E_User> userDataResponse = userService.getUserInfo();
+
+        if (userDataResponse.getState()) {
+            model.addAttribute("activeSession", true);
+            model.addAttribute("userObject", userDataResponse.getData());
+            model.addAttribute("isAdmin", rolService.isAdmin(userDataResponse.getData().getRoles()));
+        } else {
+            model.addAttribute("activeSession", false);
+        }
+
         E_Trailer trailer = new E_Trailer();
         E_Language lang = new E_Language();
         lang.setNameLanguage("");
@@ -99,7 +135,6 @@ public class AdminPageController {
         Response<V_Movie> movieDataResponse = movieinterface.getLazyInfoMovie();
         Response<V_Language> languageDataResponse = languageInterface.getLazyInfoLanguage();
 
-        model.addAttribute("activeSession", true);
         model.addAttribute("title", title + " | Crear Trailer");
         model.addAttribute("trailer", trailer);
 
@@ -133,18 +168,26 @@ public class AdminPageController {
             @RequestParam(value = "languageID", required = false) String languageID,
             @RequestParam(value = "subtitleID", required = false) String subtitleID) {
 
-        
-        Response<V_Movie> movieDataResponse = movieinterface.getLazyInfoMovie();
-        Response<V_Language> languageDataResponse = languageInterface.getLazyInfoLanguage();
+
+        Response<E_User> userDataResponse = userService.getUserInfo();
+
+        if (userDataResponse.getState()) {
+            model.addAttribute("activeSession", true);
+            model.addAttribute("userObject", userDataResponse.getData());
+            model.addAttribute("isAdmin", rolService.isAdmin(userDataResponse.getData().getRoles()));
+        } else {
+            model.addAttribute("activeSession", false);
+        }
 
         // Verify errors
         if(br.hasErrors()) { 
+            Response<V_Movie> movieDataResponse = movieinterface.getLazyInfoMovie();
+            Response<V_Language> languageDataResponse = languageInterface.getLazyInfoLanguage();
+
             model.addAttribute("lazyMovie", movieDataResponse.getListData());
             model.addAttribute("lazyLanguage", languageDataResponse.getListData());
             return "admin/trailer_form"; 
         };
-
-        model.addAttribute("activeSession", true);
 
         Response<E_Trailer> createTrailerResponse = trailerInterface
             .createTrailer(trailer, movieID, languageID, subtitleID);
@@ -167,8 +210,17 @@ public class AdminPageController {
     @GetMapping("/update/form/trailer/{id}")
     public String trailerUpdateForm(@PathVariable String id, Model model) {
 
+        Response<E_User> userDataResponse = userService.getUserInfo();
+
+        if (userDataResponse.getState()) {
+            model.addAttribute("activeSession", true);
+            model.addAttribute("userObject", userDataResponse.getData());
+            model.addAttribute("isAdmin", rolService.isAdmin(userDataResponse.getData().getRoles()));
+        } else {
+            model.addAttribute("activeSession", false);
+        }
+
         model.addAttribute("title", title);
-        model.addAttribute("activeSession", true);
 
         Response<E_Trailer> trailerResponse = trailerInterface.getTrailerById(id);
         Response<V_Movie> movieDataResponse = movieinterface.getLazyInfoMovie();
@@ -209,7 +261,16 @@ public class AdminPageController {
     @GetMapping("/delete/trailer/{id}")
     public String deleteTrailer(@PathVariable String id, Model model) {
 
-        model.addAttribute("activeSession", true);
+        Response<E_User> userDataResponse = userService.getUserInfo();
+
+        if (userDataResponse.getState()) {
+            model.addAttribute("activeSession", true);
+            model.addAttribute("userObject", userDataResponse.getData());
+            model.addAttribute("isAdmin", rolService.isAdmin(userDataResponse.getData().getRoles()));
+        } else {
+            model.addAttribute("activeSession", false);
+        }
+
         
         Response<E_Trailer> trailerDeleteResponse = trailerInterface.deleteTrailerById(id);
 
@@ -231,7 +292,15 @@ public class AdminPageController {
     @GetMapping("/movieList")
     public String getMovieList(Model model) {
 
-        model.addAttribute("activeSession", true);
+        Response<E_User> userDataResponse = userService.getUserInfo();
+
+        if (userDataResponse.getState()) {
+            model.addAttribute("activeSession", true);
+            model.addAttribute("userObject", userDataResponse.getData());
+            model.addAttribute("isAdmin", rolService.isAdmin(userDataResponse.getData().getRoles()));
+        } else {
+            model.addAttribute("activeSession", false);
+        }
 
         Response<E_Movie> response = movieinterface.getAllMovies();
 
@@ -253,11 +322,20 @@ public class AdminPageController {
     @GetMapping("/insert/movie")
     public String movieAux(Model model) {
 
+        Response<E_User> userDataResponse = userService.getUserInfo();
+
+        if (userDataResponse.getState()) {
+            model.addAttribute("activeSession", true);
+            model.addAttribute("userObject", userDataResponse.getData());
+            model.addAttribute("isAdmin", rolService.isAdmin(userDataResponse.getData().getRoles()));
+        } else {
+            model.addAttribute("activeSession", false);
+        }
+
         E_Movie movie = new E_Movie();
         Response<V_Person> personDataResponse = personInterface.getLazyInfoPerson();
         Response<E_Genre> genreDataResponse = genderInterface.getAllGenres();
 
-        model.addAttribute("activeSession", true);
         model.addAttribute("title", title + " | Crear Pelicula");
         model.addAttribute("movie", movie);
 
@@ -292,6 +370,17 @@ public class AdminPageController {
             @RequestParam(value = "coverImage", required = false) MultipartFile coverImage) {
 
 
+
+        Response<E_User> userDataResponse = userService.getUserInfo();
+
+        if (userDataResponse.getState()) {
+            model.addAttribute("activeSession", true);
+            model.addAttribute("userObject", userDataResponse.getData());
+            model.addAttribute("isAdmin", rolService.isAdmin(userDataResponse.getData().getRoles()));
+        } else {
+            model.addAttribute("activeSession", false);
+        }
+
         Response<V_Person> personDataResponse = personInterface.getLazyInfoPerson();
         Response<E_Genre> genreDataResponse = genderInterface.getAllGenres();
 
@@ -310,8 +399,6 @@ public class AdminPageController {
             model.addAttribute("lazyGenre", genreDataResponse.getListData());
             return "admin/movie_form"; 
         };
-
-        model.addAttribute("activeSession", true);
         
 
         if(coverImage.isEmpty() && movie.getCoverUrl().length() == 0) {
@@ -353,8 +440,17 @@ public class AdminPageController {
     @GetMapping("/update/form/movie/{id}")
     public String movieUpdateForm(@PathVariable String id, Model model) {
 
+        Response<E_User> userDataResponse = userService.getUserInfo();
+
+        if (userDataResponse.getState()) {
+            model.addAttribute("activeSession", true);
+            model.addAttribute("userObject", userDataResponse.getData());
+            model.addAttribute("isAdmin", rolService.isAdmin(userDataResponse.getData().getRoles()));
+        } else {
+            model.addAttribute("activeSession", false);
+        }
+
         model.addAttribute("title", title);
-        model.addAttribute("activeSession", true);
 
         Response<E_Movie> movieDataResponse = movieinterface.getMovieById(id);
         Response<V_Person> personDataResponse = personInterface.getLazyInfoPerson();
@@ -396,7 +492,15 @@ public class AdminPageController {
     @GetMapping("/delete/movie/{id}")
     public String deleteMovie(@PathVariable String id, Model model) {
 
-        model.addAttribute("activeSession", true);
+        Response<E_User> userDataResponse = userService.getUserInfo();
+
+        if (userDataResponse.getState()) {
+            model.addAttribute("activeSession", true);
+            model.addAttribute("userObject", userDataResponse.getData());
+            model.addAttribute("isAdmin", rolService.isAdmin(userDataResponse.getData().getRoles()));
+        } else {
+            model.addAttribute("activeSession", false);
+        }
         
         Response<E_Movie> movieDeleteResponse = movieinterface.deleteMovieById(id);
 
@@ -433,6 +537,17 @@ public class AdminPageController {
     public String deleteOnlyMovie( Model model, @PathVariable String id,
         @RequestParam(value = "idTrailers[]", required = false) List<String> idTrailers) {
         
+
+        Response<E_User> userDataResponse = userService.getUserInfo();
+
+        if (userDataResponse.getState()) {
+            model.addAttribute("activeSession", true);
+            model.addAttribute("userObject", userDataResponse.getData());
+            model.addAttribute("isAdmin", rolService.isAdmin(userDataResponse.getData().getRoles()));
+        } else {
+            model.addAttribute("activeSession", false);
+        }
+
         
         Response<E_Trailer> deleteMovieFromTrailer = trailerInterface.deleteMovieFromTrailer(idTrailers);
 
@@ -468,6 +583,16 @@ public class AdminPageController {
         @RequestParam(value = "idTrailers[]", required = false) List<String> idTrailers) {
         
 
+        Response<E_User> userDataResponse = userService.getUserInfo();
+
+        if (userDataResponse.getState()) {
+            model.addAttribute("activeSession", true);
+            model.addAttribute("userObject", userDataResponse.getData());
+            model.addAttribute("isAdmin", rolService.isAdmin(userDataResponse.getData().getRoles()));
+        } else {
+            model.addAttribute("activeSession", false);
+        }
+
         Response<E_Movie> deleteMovie = movieinterface.deleteMovieAndTrailers(id, idTrailers);
 
         if (deleteMovie.getState()) {
@@ -490,7 +615,16 @@ public class AdminPageController {
     @GetMapping("/genreList")
     public String getGenreList(Model model) {
 
-        model.addAttribute("activeSession", true);
+        Response<E_User> userDataResponse = userService.getUserInfo();
+
+        if (userDataResponse.getState()) {
+            model.addAttribute("activeSession", true);
+            model.addAttribute("userObject", userDataResponse.getData());
+            model.addAttribute("isAdmin", rolService.isAdmin(userDataResponse.getData().getRoles()));
+        } else {
+            model.addAttribute("activeSession", false);
+        }
+
 
         Response<E_Genre> response = genderInterface.getAllGenres();
 
@@ -510,9 +644,18 @@ public class AdminPageController {
     @GetMapping("/insert/genre")
     public String genreForm(Model model) {
 
+        Response<E_User> userDataResponse = userService.getUserInfo();
+
+        if (userDataResponse.getState()) {
+            model.addAttribute("activeSession", true);
+            model.addAttribute("userObject", userDataResponse.getData());
+            model.addAttribute("isAdmin", rolService.isAdmin(userDataResponse.getData().getRoles()));
+        } else {
+            model.addAttribute("activeSession", false);
+        }
+
         E_Genre genre = new E_Genre();
 
-        model.addAttribute("activeSession", true);
         model.addAttribute("title", title + " | Crear Genero");
         model.addAttribute("genre", genre);
 
@@ -524,12 +667,22 @@ public class AdminPageController {
         @Validated @ModelAttribute("genre") E_Genre genre,
         BindingResult br, Model model) {
 
+
+        Response<E_User> userDataResponse = userService.getUserInfo();
+
+        if (userDataResponse.getState()) {
+            model.addAttribute("activeSession", true);
+            model.addAttribute("userObject", userDataResponse.getData());
+            model.addAttribute("isAdmin", rolService.isAdmin(userDataResponse.getData().getRoles()));
+        } else {
+            model.addAttribute("activeSession", false);
+        }
+
         // Verify errors
         if(br.hasErrors()) { 
             return "admin/genre_form"; 
         };
 
-        model.addAttribute("activeSession", true);
 
         Response<E_Genre> createGenreResponse = genderInterface.createGenre(genre);
 
@@ -551,8 +704,17 @@ public class AdminPageController {
     @GetMapping("/update/form/genre/{id}")
     public String genreUpdateForm(@PathVariable String id, Model model) {
 
+        Response<E_User> userDataResponse = userService.getUserInfo();
+
+        if (userDataResponse.getState()) {
+            model.addAttribute("activeSession", true);
+            model.addAttribute("userObject", userDataResponse.getData());
+            model.addAttribute("isAdmin", rolService.isAdmin(userDataResponse.getData().getRoles()));
+        } else {
+            model.addAttribute("activeSession", false);
+        }
+
         model.addAttribute("title", title);
-        model.addAttribute("activeSession", true);
 
         Response<E_Genre> genreResponse = genderInterface.getGenreById(id);
 
@@ -572,7 +734,15 @@ public class AdminPageController {
     @GetMapping("/delete/genre/{id}")
     public String deleteGenre(@PathVariable String id, Model model) {
 
-        model.addAttribute("activeSession", true);
+        Response<E_User> userDataResponse = userService.getUserInfo();
+
+        if (userDataResponse.getState()) {
+            model.addAttribute("activeSession", true);
+            model.addAttribute("userObject", userDataResponse.getData());
+            model.addAttribute("isAdmin", rolService.isAdmin(userDataResponse.getData().getRoles()));
+        } else {
+            model.addAttribute("activeSession", false);
+        }
         
         Response<E_Genre> genreDeleteResponse = genderInterface.deleteGenderById(id);
 
@@ -608,6 +778,17 @@ public class AdminPageController {
     @PostMapping("/delete/genre/force/{id}")
     public String forceDeleteGenre( Model model, @PathVariable String id,
         @RequestParam(value = "idMovies[]", required = false) List<String> idMovies) {
+
+            
+        Response<E_User> userDataResponse = userService.getUserInfo();
+
+        if (userDataResponse.getState()) {
+            model.addAttribute("activeSession", true);
+            model.addAttribute("userObject", userDataResponse.getData());
+            model.addAttribute("isAdmin", rolService.isAdmin(userDataResponse.getData().getRoles()));
+        } else {
+            model.addAttribute("activeSession", false);
+        }
 
         Response<E_Movie> deleteGenreFromMovies = movieinterface.deleteGenreFromMovies(id, idMovies);
 

@@ -56,37 +56,9 @@
     <hr>
 
     <!-- Dropdown -->
-    <div th:if="${activeSession == true}"
-        class="dropdown">
-
-        <!-- Button Dropdown -->
-        <div class="dropdown-toggle btn" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://i.ytimg.com/vi/fykmLCRzlwc/mqdefault.jpg" 
-                alt="Avatar de perfil de usuario">
-            <span class="ms-2 ms-lg-1 tex-truncate">IRypS</span>
-        </div> <!-- End Button Dropdown -->
-
-        <!-- Dropdown Menu  -->
-        <ul class="dropdown-menu dropdown-menu-dark">
-
-            <li><a class="dropdown-item" href="#">Perfil de usuario</a></li>
-            <li><hr class="dropdown-divider"></li>
-            
-            <!-- Administrator -->
-            <div>
-                <li><a class="dropdown-item" href="/app/administrator/dashboard">Panel de administración</a></li>
-                <li><hr class="dropdown-divider"></li>
-            </div> <!-- End Administrator -->
-
-            <li>
-                <a class="dropdown-item d-flex justify-content-between" href="/">
-                    Cerrar sesión
-                    <img src="/resources/icons/log-out__icon.svg" alt="Icono de cerrar sesión">
-                </a>
-            </li>
-        </ul> <!-- End Dropdown Menu -->
-
-    </div> <!-- End Dropdown -->
+    <div th:if="${ userObject != null }">
+        <div th:replace="/fragments/components/account_buttons :: admin_profile-button"></div>
+    </div>
     
 </div> 
 <!-- End Side Bar -->

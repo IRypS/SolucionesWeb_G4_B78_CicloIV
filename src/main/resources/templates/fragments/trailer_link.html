@@ -13,10 +13,10 @@
             <img th:src="@{${ 'http://i.ytimg.com/vi/' + trailer.getId + '/mqdefault.jpg' }}" 
                 th:alt="${ 'Imagen del trailer: ' + trailer.getTitle }" class="w-100 c_img-video">
             <!-- Icons Language -->
-            <div th:if="${ trailer.getLanguage.getIdLanguage != '0' || trailer.getSubtitle.getIdLanguage != '0' }"
+            <div th:if="${ trailer.getLanguage.getNameLanguage != '' || trailer.getSubtitle.getNameLanguage != '' }"
                 class="position-absolute top-0 end-0 p-2 d-flex rounded-3 c_languageInfo">
                 <!-- Audio Icon -->
-                <div th:if="${ trailer.getLanguage.getIdLanguage != '0' }"
+                <div th:if="${ trailer.getLanguage.getNameLanguage != '' }"
                     class="d-flex">
                     <img src="/resources/icons/volume__icon.svg" 
                         alt="Icono de audio" class="me-1"> 
@@ -25,7 +25,7 @@
                         style="height: 100%;">
                 </div>
                 <!-- Subtitle Icon -->
-                <div th:if="${ trailer.getSubtitle.getIdLanguage != '0' }"
+                <div th:if="${ trailer.getSubtitle.getNameLanguage != '' }"
                     class="d-flex ms-2">
                     <img src="/resources/icons/subtitle__icon.svg" 
                         alt="Icono de subtitulo" class="me-1"> 

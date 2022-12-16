@@ -13,7 +13,7 @@
 
             <!-- Object Each  -->
             <div class="list-group">
-                <a th:if="${ data.__${getIdMethod}__ != '0' }"
+                <a th:if="${ data.__${getLabelMethod}__ != '' }"
                     th:each=" data : ${__${object}__}" class="list-group-item list-group-item-action"
                     th:href="@{${ '/app/filter/trailer/?' + paramName + '=' + data.__${getLabelMethod}__.toLowerCase() }}"
                     th:text="${ data.__${getLabelMethod}__ }"></a>

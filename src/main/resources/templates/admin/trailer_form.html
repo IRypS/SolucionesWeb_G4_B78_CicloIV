@@ -74,19 +74,33 @@
                     <!-- Input  -->
                     <div class="mb-3">
                         <label for="movieID" class="form-label">Pelicula perteneciente</label>
-                        <div th:if="${trailer.movie != null}">
-                            <select id="movieID" class="form-select" name="movieID" >
-                                <option th:each="movieInfo : ${lazyMovie}" th:value="${movieInfo.getIdMovie}" 
-                                    th:selected="${movieInfo.getIdMovie == trailer.movie.idMovie}" th:text="${movieInfo.getName}"></option>
-                            </select> 
-                        </div>
-                        <div th:unless="${trailer.movie != null}">
-                            <select id="movieID" class="form-select" name="movieID" >
-                                <option th:each="movieInfo : ${lazyMovie}" th:value="${movieInfo.getIdMovie}" 
-                                    th:text="${movieInfo.getName}"></option>
-                            </select> 
+                        <div th:if="${lazyMovie.size() > 0}">
+                            <div th:if="${trailer.movie != null}">
+                                <select id="movieID" class="form-select" name="movieID" >
+                                    <option th:selected="${trailer.movie.idMovie == null}">Selecciona una película</option>
+                                    <option th:each="movieInfo : ${lazyMovie}" th:value="${movieInfo.getIdMovie}" 
+                                        th:selected="${movieInfo.getIdMovie == trailer.movie.idMovie}" th:text="${movieInfo.getName}"></option>
+                                </select> 
+                            </div>
+                            <div th:unless="${trailer.movie != null}">
+                                <select id="movieID" class="form-select" name="movieID" >
+                                    <option selected>Selecciona una película</option>
+                                    <option th:each="movieInfo : ${lazyMovie}" th:value="${movieInfo.getIdMovie}" 
+                                        th:text="${movieInfo.getName}"></option>
+                                </select> 
+                            </div>
                         </div>
 
+                        <div th:unless="${lazyMovie.size() > 0}" class="bg-dark px-3 py-2 rounded">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <i>No hay películas en la base de datos</i>
+                                <div class="btn btn-success">
+                                    <a th:href="@{/app/administrator/insert/movie}" style="text-decoration: none;">
+                                        Añadir películas
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Input  -->

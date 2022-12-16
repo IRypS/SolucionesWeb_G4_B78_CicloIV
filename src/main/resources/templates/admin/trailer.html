@@ -90,8 +90,8 @@
                                 alt="" width="20px">
                             <!-- Name language  -->
                             <span>
-                                <small th:text="${ trailer.getLanguage.getIdLanguage != '0' } ? 
-                                    ${trailer.getLanguage.getNameLanguage} : '' "></small>
+                                <small th:text="${ trailer.getLanguage.getNameLanguage != '' } ? 
+                                    ${trailer.getLanguage.getNameLanguage} : 'No definido' "></small>
                             </span>
                         </td>
                         <!-- Subtitle  -->
@@ -102,8 +102,8 @@
                                 alt="" width="20px">
                             <!-- Name subtitle  -->
                             <span>
-                                <small th:text="${ trailer.getSubtitle.getIdLanguage != '0' } ? 
-                                    ${trailer.getSubtitle.getNameLanguage} : '' "></small>
+                                <small th:text="${ trailer.getSubtitle.getNameLanguage != '' } ? 
+                                    ${trailer.getSubtitle.getNameLanguage} : 'No definido' "></small>
                             </span>
                         </td>
                     </tr>
