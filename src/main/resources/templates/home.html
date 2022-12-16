@@ -2,7 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Common head -->
-    <div th:replace="/fragments/template_basic :: head-basic"></div>
+    <div th:replace="fragments/template_basic :: head-basic"></div>
 
     <!-- Customize css -->
     <link type="text/css" rel="stylesheet" href="/styles/css/customize__navbar.css">
@@ -12,7 +12,7 @@
 <body>
 
     <!-- Nav header -->
-    <header th:replace="/fragments/navbar :: navbar_header( active = 'home' )"></header>
+    <header th:replace="fragments/navbar :: navbar_header( active = 'home' )"></header>
 
     <main>
         <!-- Hero section -->
@@ -40,10 +40,10 @@
     </main>
 
     <!-- Footer -->
-    <div th:replace="/fragments/footer :: basic_footer"></div>
+    <div th:replace="fragments/footer :: basic_footer"></div>
 
     <!-- Bootstrap JS -->
-    <div th:replace="/fragments/template_basic :: bootstrap_script-basic"></div>
+    <div th:replace="fragments/template_basic :: bootstrap_script-basic"></div>
 
 </body>
 </html>
