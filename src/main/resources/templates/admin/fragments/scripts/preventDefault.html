@@ -1,0 +1,14 @@
+<script th:fragment="prevent" th:inline="javascript">
+    /*[+
+        let isPreventSituation  = [[${response}]];
+    +]*/
+
+    if (isPreventSituation != null) {
+        document.addEventListener('keydown', (e) => {
+            e = e || window.event;
+            if(e.keyCode == 116){
+                e.preventDefault();
+            }
+        });
+    }
+</script>
