@@ -83,5 +83,22 @@ public class UserService implements IUserService {
             return response;
         }
     };
+
+    @Override
+    public boolean userEmailExist(String email) {
+        try {
+            E_User userInfo = userRepository.findByEmail(email);
+
+            if (userInfo != null) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    };
     
 }

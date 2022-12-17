@@ -28,6 +28,13 @@
                 <!-- Title form -->
                 <h2 class="h1">Sign up</h2>
 
+                <!-- Failure Message -->
+                <div th:if="${param.error}">
+                    <div class="alert alert-danger">
+                        El correo ingresado ya se encuentra registrado en la base de datos
+                    </div>
+                </div>
+
                 <!-- Inputs -->
                 <div>
                     <div class="form-floating">
@@ -67,19 +74,6 @@
                     <small th:if = "${#fields.hasErrors('password')}" th:errors = "*{password}"
                         class="d-block bg-danger text-light py-1 px-3" role="alert"></small>
                 </div>
-
-                <!-- <div>
-                    <div class="form-floating">
-                        <img src="/resources/icons/lock__icon--border.svg" 
-                            alt="Icono para el input de confimar contraseña" class="c_icon">
-                        <input th:classappend="${#fields.hasErrors('confirmPassword')} ? 'is-invalid' : ''"
-                            type="password" class="form-control" name="confirmPassword" th:field="*{confirmPassword}"
-                            id="floatingConfirmPassword" placeholder="Confirm Password">
-                        <label for="floatingConfirmPassword">Confirm Password</label>
-                    </div>
-                    <small th:if = "${#fields.hasErrors('confirmPassword')}" th:errors = "*{confirmPassword}"
-                        class="d-block bg-danger text-light py-1 px-3" role="alert"></small>
-                </div> -->
 
                 <!-- Submit button -->
                 <button type="submit" class="btn btn-cta mt-2 w-100">Registrarse</button>

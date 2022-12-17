@@ -9,4 +9,5 @@ public interface IUserService {
 
     public Response<E_User> getUserInfo();
 
+    public boolean userEmailExist(String email);
 }

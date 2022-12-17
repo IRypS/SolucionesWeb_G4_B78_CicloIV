@@ -33,7 +33,7 @@ public class SpringSecurity {
         http.authorizeRequests(
             (req) -> req
                         .antMatchers("/resources/**", "/lib/**","/styles/**","/utils/**").permitAll()
-                        .antMatchers("/", "/account/login", "/account/signin", "/account/createNewUser",  "/account/logout").permitAll()
+                        .antMatchers("/", "/account/login", "/account/signin/**", "/account/createNewUser",  "/account/logout").permitAll()
                         .antMatchers("/app/trailers/**", "/app/trailer/view/**", "/app/search/trailer/**", "/app/filter/trailer/**").permitAll()
                         .antMatchers("/app/administrator/dashboard").hasRole("ADMIN")
                         .antMatchers("/app/administrator/**").hasRole("ADMIN")

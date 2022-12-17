@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.soluciones.web.appGrupo4.model.Response;
 import com.soluciones.web.appGrupo4.model.entities.E_User;
@@ -32,7 +33,7 @@ public class AccountController {
     };
 
     @GetMapping("/signin")
-    public String sigin(Model model) {
+    public String sigin(Model model, @RequestParam(value = "error", required = false) String error) {
 
         E_User usr = new E_User();
 
@@ -44,6 +45,10 @@ public class AccountController {
 
     @PostMapping("/createNewUser")
     public String createNewUser(@Validated E_User usr, BindingResult br, Model model) {
+
+        if (userService.userEmailExist(usr.getEmail())) {
+            return "redirect:/account/signin/?error";
+        }
 
         // Verify errors
         if(br.hasErrors()) {
