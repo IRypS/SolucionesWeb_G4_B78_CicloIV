@@ -682,7 +682,7 @@ public class AdminPageController {
             model.addAttribute("activeSession", false);
         }
 
-        if ( genderInterface.genreExists(genre.getNameGenre()) ) {
+        if ( (genderInterface.genreExists(genre.getNameGenre())) && genre.getIdGenre().isBlank() ) {
             br.addError( new FieldError("genre", "nameGenre", "El género ya existe en la base de datos"));
         }
 
