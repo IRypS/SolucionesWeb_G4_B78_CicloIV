@@ -394,7 +394,7 @@ public class AdminPageController {
             movie.setCoverUrl(movie.getCoverUrl() + "");
         }
 
-        if ( movieinterface.movieExists(movie.getName()) ) {
+        if ( (movieinterface.movieExists(movie.getName())) && movie.getIdMovie().isBlank() ) {
             br.addError( new FieldError("movie", "name", "La pelicula ya existe en la base de datos"));
         }
 
