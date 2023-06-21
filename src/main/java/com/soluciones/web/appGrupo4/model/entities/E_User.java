@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
@@ -36,12 +35,8 @@ public class E_User {
     @Column(name = "email_user")
     private String email;
 
-    // Change from @Column(name = "password_user", columnDefinition="LONGTEXT")
-    // Al agregar la anotación @Lob, Hibernate utilizará el tipo de texto largo adecuado 
-    // en la base de datos subyacente, como "LONGTEXT" en MySQL.
     @NotEmpty(message = "El campo no debe estar vacío")
-    @Column(name = "password_user")
-    @Lob
+    @Column(name = "password_user", columnDefinition="TEXT")
     private String password;
 
     @Column(name = "avatar_user")

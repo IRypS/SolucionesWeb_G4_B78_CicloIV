@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -36,11 +35,7 @@ public class E_Movie {
     @Column(name = "duration_movie")
     private int duration;
 
-    // Change from @Column(name = "synopsis_movie", columnDefinition="LONGTEXT")
-    // Al agregar la anotación @Lob, Hibernate utilizará el tipo de texto largo adecuado 
-    // en la base de datos subyacente, como "LONGTEXT" en MySQL.
-    @Column(name = "synopsis_movie")
-    @Lob
+    @Column(name = "synopsis_movie", columnDefinition="TEXT")
     private String synopsis;
 
     @Column(name = "realease_movie")

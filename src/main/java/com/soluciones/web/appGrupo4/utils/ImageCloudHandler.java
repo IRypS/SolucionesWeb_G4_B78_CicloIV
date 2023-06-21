@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,9 +22,9 @@ public class ImageCloudHandler implements IImageCloudHandler {
     private Map<String, String> valuesMap = new HashMap<>();
 
     public ImageCloudHandler() {
-        valuesMap.put("cloud_name", "dpssull3z");
-        valuesMap.put("api_key", "815984152844542");    
-        valuesMap.put("api_secret", "Pl_dtDJlF6TEA0tFwot1fPEfn6k");
+        valuesMap.put("cloud_name", "mediairypscloud");
+        valuesMap.put("api_key", "668979155154929");    
+        valuesMap.put("api_secret", "QyC6oa5ZYBEd4LlHAFOIliK7MSk");
         cloudinary = new Cloudinary(valuesMap);
     }
 
