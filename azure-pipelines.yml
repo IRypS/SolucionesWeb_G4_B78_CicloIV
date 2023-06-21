@@ -11,7 +11,11 @@ pool:
 
 steps:
 - checkout: self
-  displayName: Copiar el Repo
 
-- script: cat ./dockerfile
+- task: CopyFiles@2
+  inputs:
+    source: .
+    target: ./new-repo
+
+- script: cat ./new-repo/dockerfile
   displayName: Checar el codigo
