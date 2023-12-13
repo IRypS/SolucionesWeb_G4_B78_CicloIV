@@ -42,7 +42,7 @@
                             alt="Icono para el input de nombre de usuario" class="c_icon">
                         <input th:classappend="${#fields.hasErrors('username')} ? 'is-invalid' : '' "
                             type="text" class="form-control" name="username" th:field="*{username}"
-                            id="floatingUserName" placeholder="User name">
+                            id="floatingUserName" placeholder="User name" value="José Admin">
                         <label for="floatingUserName">User name</label>
                     </div>
                     <small th:if = "${#fields.hasErrors('username')}" th:errors = "*{username}"
@@ -55,7 +55,7 @@
                             alt="Icono para el input de correo" class="c_icon">
                         <input th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''"
                             type="email" class="form-control" name="email" th:field="*{email}"
-                            id="floatingEmail" placeholder="Email">
+                            id="floatingEmail" placeholder="Email" value="admin@admin.com">
                         <label for="floatingEmail">Email</label>
                     </div>
                     <small th:if = "${#fields.hasErrors('email')}" th:errors = "*{email}"
@@ -68,7 +68,7 @@
                             alt="Icono para el input de contraseña" class="c_icon">
                         <input th:classappend="${#fields.hasErrors('password')} ? 'is-invalid' : ''"
                             type="password" class="form-control" name="password" th:field="*{password}"
-                            id="floatingPassword" placeholder="Password" required>
+                            id="floatingPassword" placeholder="Password" required value="admin123">
                         <label for="floatingPassword">Password</label>
                     </div>
                     <small th:if = "${#fields.hasErrors('password')}" th:errors = "*{password}"
